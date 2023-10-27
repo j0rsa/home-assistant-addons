@@ -6,10 +6,10 @@
   ],
   "codenotary": "red.avtovo@gmil.com",
   "description": "SNI proxy",
-  "image": "ghcr.io/j0rsa/sni-proxy",
+  "image": "ghcr.io/j0rsa/sni-proxy-{arch}",
   "name": "SniProxy",
   "slug": "sni-proxy",
   "udev": false,
   "url": "https://github.com/j0rsa/home-assistant-addons",
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
