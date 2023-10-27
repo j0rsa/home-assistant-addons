@@ -9,6 +9,6 @@ RUN chmod a+x /run.sh
 ENTRYPOINT run.sh
 
 LABEL \
-  io.hass.version="0.0.1" \
+  io.hass.version="0.0.2" \
   io.hass.type="addon" \
   io.hass.arch="aarch64|armv7|amd64"
