@@ -6,9 +6,9 @@ COPY sniproxy.conf /
 COPY run.sh /
 RUN chmod a+x /run.sh
 
-ENTRYPOINT /run.sh
+ENTRYPOINT /bin/sh -c "/run.sh"
 
 LABEL \
-  io.hass.version="0.0.5" \
+  io.hass.version="0.0.6" \
   io.hass.type="addon" \
   io.hass.arch="aarch64|armv7|amd64"
