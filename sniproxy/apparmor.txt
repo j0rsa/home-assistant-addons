@@ -7,6 +7,10 @@ profile sniproxy flags=(attach_disconnected,mediate_deleted) {
   file,
   signal (send) set=(kill,term,int,hup,cont),
 
+  # SNI proxy capabilities
+  capability setgid,
+  capability setuid,
+
   # S6-Overlay
     /init ix,
     /bin/** ix,

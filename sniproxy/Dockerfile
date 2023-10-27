@@ -8,7 +8,9 @@ RUN chmod a+x /run.sh
 
 ENTRYPOINT /run.sh
 
+ARG BUILD_VERSION
+ARG BUILD_ARCH
 LABEL \
-  io.hass.version="0.0.7" \
+  io.hass.version=${BUILD_VERSION} \
   io.hass.type="addon" \
-  io.hass.arch="aarch64|armv7|amd64"
+  io.hass.arch="${BUILD_ARCH}"
