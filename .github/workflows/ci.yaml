@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -24,9 +28,10 @@ jobs:
         uses: home-assistant/builder@master
         with:
           args: |
-            --armv7
-            --aarch64
-            --amd64
-            --target /data
-            --docker-hub ghcr.io/${{ github.repository_owner }}
-            --addon
+            --armv7 \
+            --aarch64 \
+            --amd64 \
+            --target sniproxy \
+            --docker-hub ghcr.io/${{ github.repository_owner }} \
+            --addon \
+            --cosign
