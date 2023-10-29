@@ -11,3 +11,5 @@ Forwards the HTTP(S) traffic respecting the L7 DNS rules
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
+
+Uses 80 and 443 ports and could not be remapped to other ports since DNS rewrite can't change ports of a website

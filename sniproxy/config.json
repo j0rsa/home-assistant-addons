@@ -11,5 +11,6 @@
   "slug": "sni-proxy",
   "udev": false,
   "url": "https://github.com/j0rsa/home-assistant-addons",
-  "version": "1.0.0"
+  "host_network": true,
+  "version": "1.0.1"
 }
