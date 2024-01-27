@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdip -p /share/ollama
+
 # If /root/.ollama exists and is not a symbolic link, remove it
 if [ -e /root/.ollama ] && [ ! -L /root/.ollama ]; then
     rm -rf /root/.ollama
