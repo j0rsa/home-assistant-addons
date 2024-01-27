@@ -2,7 +2,10 @@
 name: "SniProxy"
 version: "1.1.0"
 slug: "sni-proxy"
-description: "SNI proxy"
+description: |
+  SNI proxy
+  
+  Uses 80 and 443 ports and could not be remapped to other ports since DNS rewrite can't change ports of a website
 arch:
   - aarch64
   - amd64

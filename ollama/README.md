@@ -1,6 +1,6 @@
-# SNI Proxy Add-on
+# Ollama Add-on
 
-Forwards the HTTP(S) traffic respecting the L7 DNS rules
+Runs the Ollama service and exposes the API
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
