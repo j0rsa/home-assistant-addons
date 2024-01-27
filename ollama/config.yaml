@@ -9,7 +9,6 @@ description: |
 arch:
   - aarch64
   - amd64
-  - armv7
 map: 
   - share:rw
 codenotary: "red.avtovo@gmil.com"
