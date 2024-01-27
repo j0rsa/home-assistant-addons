@@ -1,7 +1,7 @@
 ---
 name: "Ollama UI"
 version: "0.0.1"
-slug: "ollama-ui"
+slug: "ollama_ui"
 description: |
   Ollama Web UI
   
