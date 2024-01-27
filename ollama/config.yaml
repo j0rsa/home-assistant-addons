@@ -11,7 +11,8 @@ arch:
   - amd64
 map: 
   - share:rw
-codenotary: "red.avtovo@gmil.com"
+boot: auto
+codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/ollama-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons

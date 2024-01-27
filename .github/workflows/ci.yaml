@@ -15,11 +15,12 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        target: [sniproxy, ollama]
         include:
           - target: sniproxy
             platforms: "--armv7 --aarch64 --amd64"
           - target: ollama
+            platforms: "--aarch64 --amd64"
+          - target: ollama-ui
             platforms: "--aarch64 --amd64"
     steps:
       - name: Check out the repo
