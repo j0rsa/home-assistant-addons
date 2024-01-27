@@ -16,6 +16,11 @@ jobs:
     strategy:
       matrix:
         target: [sniproxy, ollama]
+        include:
+          - target: sniproxy
+            platforms: "--armv7 --aarch64 --amd64"
+          - target: ollama
+            platforms: "--aarch64 --amd64"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -31,9 +36,7 @@ jobs:
         uses: home-assistant/builder@master
         with:
           args: |
-            --armv7 \
-            --aarch64 \
-            --amd64 \
+            ${{ matrix.platforms }} \
             --target ${{ matrix.target }} \
             --docker-hub ghcr.io/${{ github.repository_owner }} \
             --addon \

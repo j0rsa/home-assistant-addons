@@ -4,6 +4,7 @@ COPY run.sh /
 RUN chmod a+x /run.sh
 
 ENTRYPOINT [ "/run.sh" ]
+CMD [ "serve" ]
 
 ARG BUILD_VERSION
 ARG BUILD_ARCH
