@@ -1,19 +1,18 @@
 ---
 name: "Ollama UI"
-version: "0.0.4"
+version: "0.0.5"
 slug: "ollama-ui"
 description: |
   Ollama Web UI
   
-  A web UI for Ollama. Requires Ollama Add-On to be installed.
+  A web UI for Ollama. Requires Ollama Add-On to be installed
 arch:
   - aarch64
   - amd64
 ingress: true
-ingress_entry: "ollama-ui"
 ingress_port: 8080
 panel_icon: "mdi:brain"
-panel_title: "Ollama UI"
+panel_title: "Ollama"
 boot: auto
 map: 
   - share:rw
@@ -26,4 +25,4 @@ url: https://github.com/j0rsa/home-assistant-addons
 ports:
   8080/tcp: null
 ports_description:
-  8080/tcp: Web serveer port
+  8080/tcp: Web server port
