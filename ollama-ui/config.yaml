@@ -1,6 +1,6 @@
 ---
 name: "Ollama UI"
-version: "0.0.2"
+version: "0.0.3"
 slug: "ollama-ui"
 description: |
   Ollama Web UI
@@ -11,7 +11,7 @@ arch:
   - amd64
 ingress: true
 ingress_entry: "ollama-ui"
-panel_icon: "mdi:forum"
+panel_icon: "mdi:brain"
 panel_title: "Ollama UI"
 boot: auto
 map: 
@@ -26,3 +26,4 @@ ports:
   8080/tcp: 8080
 ports_description:
   8080/tcp: Web serveer port
+webui: http://[HOST]:[PORT:8080]/
