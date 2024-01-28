@@ -1,6 +1,6 @@
 ---
 name: "Ollama UI"
-version: "0.0.5"
+version: "0.0.6"
 slug: "ollama-ui"
 description: |
   Ollama Web UI
@@ -22,7 +22,4 @@ codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/ollama-ui-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
-ports:
-  8080/tcp: null
-ports_description:
-  8080/tcp: Web server port
+webui: http://[HOST]:[PORT:8080]/
