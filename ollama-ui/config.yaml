@@ -1,6 +1,6 @@
 ---
 name: "Ollama UI"
-version: "0.0.3"
+version: "0.0.4"
 slug: "ollama-ui"
 description: |
   Ollama Web UI
@@ -11,6 +11,7 @@ arch:
   - amd64
 ingress: true
 ingress_entry: "ollama-ui"
+ingress_port: 8080
 panel_icon: "mdi:brain"
 panel_title: "Ollama UI"
 boot: auto
@@ -23,7 +24,6 @@ image: "ghcr.io/j0rsa/ollama-ui-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 ports:
-  8080/tcp: 8080
+  8080/tcp: null
 ports_description:
   8080/tcp: Web serveer port
-webui: http://[HOST]:[PORT:8080]/
