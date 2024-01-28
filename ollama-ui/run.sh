@@ -13,4 +13,4 @@ if [ ! -L /app/backend/data ]; then
 fi
 
 # Run ollama
-start.sh
+/app/backend/start.sh
