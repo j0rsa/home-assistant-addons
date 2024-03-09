@@ -1,6 +1,6 @@
 ---
 name: "Ollama"
-version: "0.1.28"
+version: "0.1.28.1"
 slug: "ollama"
 description: |
   Ollama 
