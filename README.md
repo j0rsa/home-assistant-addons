@@ -1,4 +1,4 @@
-# Home assistant add-on: j0rsa
+# Home assistant add-ons: j0rsa
 
 ## About
 
@@ -15,6 +15,8 @@ If you want to do add the repository manually, please follow the procedure highl
 # Add-ons provided by this repository
 
 - SNI Proxy ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
+- Ollama ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+- Ollama UI ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
 
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
