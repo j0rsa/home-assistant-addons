@@ -1,4 +1,4 @@
-FROM ghcr.io/ollama-webui/ollama-webui:main
+FROM ghcr.io/open-webui/open-webui:git-04ddbf4
 
 COPY run.sh /
 RUN chmod a+x /run.sh
