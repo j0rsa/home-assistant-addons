@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix-count: ${{ steps.set-matrix.outputs.matrix-count }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -27,12 +28,14 @@ jobs:
         id: set-matrix
         run: |
           echo "matrix=$(cat matrix.txt)" >> $GITHUB_OUTPUT
+          echo "matrix-count=$(cat matrix-count.txt)" >> $GITHUB_OUTPUT
           cat matrix.txt > $GITHUB_STEP_SUMMARY
 
 
   build:
     runs-on: ubuntu-latest
     needs: generate-matrix
+    if: ${{ needs.generate-matrix.outputs.matrix-count != '0' }}
     permissions:
       contents: read
       packages: write

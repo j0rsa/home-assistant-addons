@@ -72,7 +72,11 @@ args = parser.parse_args()
 converter = MatrixGenerator(from_changes=True, previous=True)
 # converter = MatrixGenerator(from_changes=args.from_changes, previous=args.previous)
 
-matrix = converter.get_json_matrix()
-print(matrix)
+matrix = converter.get_matrix()
+with open('matrix-count.txt', 'w') as f:
+    f.write(str(len(matrix['include'])))
+
+json_matrix = converter.get_json_matrix()
+print(json_matrix)
 with open('matrix.txt', 'w') as f:
-    f.write(matrix)
+    f.write(json_matrix)
