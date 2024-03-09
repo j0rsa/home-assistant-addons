@@ -1,0 +1,1 @@
+{"include": [{"target": "ollama", "platforms": "--aarch64 --amd64"}]}

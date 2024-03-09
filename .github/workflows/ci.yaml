@@ -3,25 +3,42 @@ name: Build add-on
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
 
 jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          # Fetch 2 last commits to get the changes
+          fetch-depth: 2
+
+      - name: Generate matrix
+        run: |
+          # git --no-pager diff --name-only HEAD^ HEAD
+          python get_matrix.py --from-changes --previous
+
+      - name: Set matrix output
+        id: set-matrix
+        run: |
+          echo "matrix=$(cat matrix.txt)" >> $GITHUB_OUTPUT
+          cat matrix.txt > $GITHUB_STEP_SUMMARY
+
+
   build:
     runs-on: ubuntu-latest
+    needs: generate-matrix
     permissions:
       contents: read
       packages: write
       id-token: write
     strategy:
-      matrix:
-        include:
-          - target: sniproxy
-            platforms: "--armv7 --aarch64 --amd64"
-          - target: ollama
-            platforms: "--aarch64 --amd64"
-          - target: ollama-ui
-            platforms: "--aarch64 --amd64"
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
