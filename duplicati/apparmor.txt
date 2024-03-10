@@ -7,6 +7,13 @@ profile example flags=(attach_disconnected,mediate_deleted) {
   file,
   signal (send) set=(kill,term,int,hup,cont),
   capability dac_read_search,
+  
+  # S6-Overlay
+  capability setuid,
+  capability setgid,
+
+  # Allow chown capability
+  capability chown,
 
   # S6-Overlay
   /init ix,
