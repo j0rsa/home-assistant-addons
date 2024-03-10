@@ -1,6 +1,6 @@
 ---
 name: "Duplicati"
-version: "0.0.4"
+version: "0.0.5"
 slug: "duplicati"
 description: |
   Duplicati 
@@ -28,6 +28,11 @@ ports:
   8200/tcp: null
 ports_description:
   8200/tcp: Web UI port (Not required for Ingress)
+backup_exclude: ["/backup"]
+
+privileged:
+- DAC_READ_SEARCH
+
 ingress: true
 ingress_stream: true
 ingress_port: 8200

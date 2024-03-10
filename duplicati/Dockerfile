@@ -1,4 +1,4 @@
-FROM lscr.io/linuxserver/duplicati
+FROM lscr.io/linuxserver/duplicati:2.0.7
 
 
 
