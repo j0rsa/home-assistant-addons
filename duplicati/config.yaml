@@ -7,9 +7,9 @@ description: |
   
   Backup your data to the cloud or locally with Duplicati.
 environment:
-  - PUID=1000
-  - PGID=1000
-  - TZ=Etc/UTC
+  PUID: 1000
+  PGID: 1000
+  TZ: Etc/UTC
 arch:
   - aarch64
   - amd64
