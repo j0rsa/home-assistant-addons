@@ -1,14 +1,14 @@
 ---
 name: "Duplicati"
-version: "0.0.3"
+version: "0.0.4"
 slug: "duplicati"
 description: |
   Duplicati 
   
   Backup your data to the cloud or locally with Duplicati.
 environment:
-  PUID: "1000"
-  PGID: "1000"
+  PUID: "0"
+  PGID: "0"
   TZ: Etc/UTC
 init: false
 arch:
