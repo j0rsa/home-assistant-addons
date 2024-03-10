@@ -1,0 +1,33 @@
+---
+name: "Duplicati"
+version: "0.0.1"
+slug: "duplicati"
+description: |
+  Duplicati 
+  
+  Backup your data to the cloud or locally with Duplicati.
+environment:
+  - PUID=1000
+  - PGID=1000
+  - TZ=Etc/UTC
+arch:
+  - aarch64
+  - amd64
+map: 
+  - addon_config:rw #will be mapped to /config
+  - share:rw
+  - backup:rw
+  - media:rw
+boot: auto
+codenotary: "red.avtovo@gmail.com"
+image: "ghcr.io/j0rsa/duplicati-{arch}"
+udev: false
+url: https://github.com/j0rsa/home-assistant-addons
+ports:
+  8200/tcp: null
+ports_description:
+  8200/tcp: Web UI port (Not required for Ingress)
+ingress: true
+ingress_stream: true
+ingress_port: 8200
+panel_icon: mdi:content-duplicate
