@@ -1,6 +1,6 @@
 ---
 name: "Duplicati"
-version: "0.0.8"
+version: "0.0.9"
 slug: "duplicati"
 description: |
   Duplicati 
@@ -35,7 +35,7 @@ backup_exclude:
 privileged:
   - DAC_READ_SEARCH
 
-ingress: false
-# ingress_stream: true
+ingress: true
+ingress_stream: true
 ingress_port: 8200
 panel_icon: mdi:content-duplicate
