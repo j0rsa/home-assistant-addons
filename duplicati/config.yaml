@@ -12,6 +12,7 @@ environment:
   TZ: Etc/UTC
 init: false
 startup: services
+apparmor: true
 arch:
   - aarch64
   - amd64
