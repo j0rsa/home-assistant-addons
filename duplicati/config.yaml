@@ -1,16 +1,17 @@
 ---
 name: "Duplicati"
-version: "0.0.7"
+version: "0.0.8"
 slug: "duplicati"
 description: |
   Duplicati 
   
   Backup your data to the cloud or locally with Duplicati.
 environment:
-  PUID: "0"
-  PGID: "0"
+  PUID: "1000"
+  PGID: "1000"
   TZ: Etc/UTC
 init: false
+startup: services
 arch:
   - aarch64
   - amd64
@@ -28,12 +29,13 @@ ports:
   8200/tcp: null
 ports_description:
   8200/tcp: Web UI port (Not required for Ingress)
-backup_exclude: ["/backup"]
+backup_exclude: 
+  - "/backup"
 
 privileged:
-- DAC_READ_SEARCH
+  - DAC_READ_SEARCH
 
-ingress: true
-ingress_stream: true
+ingress: false
+# ingress_stream: true
 ingress_port: 8200
 panel_icon: mdi:content-duplicate
