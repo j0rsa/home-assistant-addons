@@ -1,6 +1,6 @@
 ---
 name: "Ollama UI"
-version: "0.0.9"
+version: "0.0.10"
 slug: "ollama_ui"
 description: |
   Ollama Web UI
@@ -12,8 +12,10 @@ arch:
 boot: auto
 map: 
   - share:rw
-environment:
-  OLLAMA_API_URL: "http://d4005b6b-ollama:11434"
+options:
+  ollama_api_url: "http://d4005b6b-ollama:11434"
+schema:
+  ollama_api_url: str?
 codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/ollama-ui-{arch}"
 ports:

@@ -12,5 +12,7 @@ if [ ! -L /app/backend/data ]; then
     ln -s /share/ollama-ui /app/backend/data
 fi
 
+OLLAMA_API_URL="$(bashio::config 'ollama_api_url')"
+
 # Run ollama
 /app/backend/start.sh
