@@ -46,11 +46,13 @@ class MatrixGenerator:
         return result
 
     def extract_architecture(self, config) -> list:
+        """Extracts the architecture from the config.yaml file"""
         config_data = yaml.safe_load(config)
         architecture = config_data.get('arch')
         return architecture
 
     def get_matrix(self, architectures = None) -> dict:
+        """Generates the matrix for the workflow"""
         if architectures is None:
             architectures = self.__find_module_architectures()
         result = []
@@ -60,6 +62,7 @@ class MatrixGenerator:
         return {'include': result}
     
     def get_json_matrix(self, architectures = None) -> str:
+        """Converts matrix dict to json"""
         matrix = self.get_matrix(architectures)
         return json.dumps(matrix)
 
@@ -73,10 +76,10 @@ converter = MatrixGenerator(from_changes=True, previous=True)
 # converter = MatrixGenerator(from_changes=args.from_changes, previous=args.previous)
 
 matrix = converter.get_matrix()
-with open('matrix-count.txt', 'w') as f:
+with open('matrix-count.txt', 'w', encoding='utf-8') as f:
     f.write(str(len(matrix['include'])))
 
 json_matrix = converter.get_json_matrix()
 print(json_matrix)
-with open('matrix.txt', 'w') as f:
+with open('matrix.txt', 'w', encoding='utf-8') as f:
     f.write(json_matrix)
