@@ -1,4 +1,9 @@
-FROM ghcr.io/open-webui/open-webui:git-04ddbf4
+ARG BUILD_FROM=ghcr.io/hassio-addons/base-python:13.1.3
+
+FROM ${BUILD_FROM}
+
+# https://github.com/open-webui/open-webui/pkgs/container/open-webui/versions?filters%5Bversion_type%5D=tagged
+FROM ghcr.io/open-webui/open-webui:0.3.18
 
 COPY run.sh /
 RUN chmod a+x /run.sh
