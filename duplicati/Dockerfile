@@ -1,2 +1,3 @@
 # https://github.com/linuxserver/docker-duplicati
-FROM ghcr.io/linuxserver/duplicati:2.0.7
+# https://github.com/linuxserver/docker-duplicati/pkgs/container/duplicati
+FROM ghcr.io/linuxserver/duplicati:2.0.8
