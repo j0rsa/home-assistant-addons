@@ -1,6 +1,6 @@
 ---
 name: "Ariang"
-version: "0.0.3"
+version: "0.0.4"
 slug: "ariang"
 description: |
   Ariang 
@@ -28,4 +28,5 @@ ports:
 ports_description:
   8080/tcp: Web UI port (Not required for Ingress)
 
+ingress: true
 ingress_port: 8080
