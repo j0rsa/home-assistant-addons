@@ -1,6 +1,6 @@
 ---
 name: "Ariang"
-version: "0.0.2"
+version: "0.0.3"
 slug: "ariang"
 description: |
   Ariang 
@@ -12,8 +12,8 @@ arch:
   - aarch64
   - amd64
 environment:
-  PUID: "1000"
-  PGID: "1000"
+  PUID: "0"
+  PGID: "0"
   TZ: Etc/UTC
 
 map: 
@@ -28,5 +28,4 @@ ports:
 ports_description:
   8080/tcp: Web UI port (Not required for Ingress)
 
-ingress: true
 ingress_port: 8080

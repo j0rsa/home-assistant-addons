@@ -1,6 +1,7 @@
 # https://hub.docker.com/r/hurlenko/aria2-ariang#docker-compose
 FROM hurlenko/aria2-ariang:1.3.8
 
+COPY aria2.conf /aria2/conf/aria2.conf
 COPY run.sh /
 RUN chmod a+x /run.sh
 
