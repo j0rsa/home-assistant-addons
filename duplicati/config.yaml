@@ -1,6 +1,6 @@
 ---
 name: "Duplicati"
-version: "2.1.0.5.2"
+version: "2.1.0.5.3"
 slug: "duplicati"
 description: |
   Duplicati 
@@ -30,8 +30,9 @@ codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/duplicati-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
+webui: "http://[HOST]:8200"
 ports:
-  8200/tcp: null
+  8200/tcp: 8200
 ports_description:
   8200/tcp: Web UI port (no longer ingress possible)
 backup_exclude: 
