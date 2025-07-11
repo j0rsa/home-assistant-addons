@@ -1,6 +1,6 @@
 ---
 name: "Duplicati"
-version: "2.1.0.5"
+version: "2.1.0.5.1"
 slug: "duplicati"
 description: |
   Duplicati 
@@ -10,7 +10,10 @@ environment:
   PUID: "0"
   PGID: "0"
   TZ: Etc/UTC
-  DUPLICATI__WEBSERVICE_PASSWORD: ""
+options:
+  password: "changeme"
+schema:
+  password: str
 init: false
 startup: services
 apparmor: true
