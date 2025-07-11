@@ -10,6 +10,7 @@ environment:
   PUID: "0"
   PGID: "0"
   TZ: Etc/UTC
+  DUPLICATI__WEBSERVICE_PASSWORD: ""
 init: false
 startup: services
 apparmor: true
