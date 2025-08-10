@@ -95,6 +95,37 @@ log_level: warning
 3. The HTTP proxy will be available on port 8080
 4. Configure your applications to use `http://homeassistant-ip:8080` as the HTTP proxy
 
+## Debugging Connection Issues
+
+If you're experiencing connection problems (like 504 Gateway Timeout), you can debug the issue by:
+
+1. **Enable Debug Mode**: Set `debug_mode: true` in your addon configuration to see detailed configuration preview
+2. **Check Logs**: Look at the addon logs for connectivity test results and error messages
+3. **Access Container**: Connect to the Docker container and run the debug script:
+   ```bash
+   # Get container ID
+   docker ps | grep xray
+   
+   # Access container
+   docker exec -it <container_id> /bin/bash
+   
+   # Run debug script
+   xray-debug
+   ```
+
+The debug script will check:
+- Network connectivity to your server
+- DNS resolution
+- Xray process status
+- HTTP proxy functionality
+- Port listening status
+
+Common issues:
+- **504 Gateway Timeout**: Server unreachable or wrong configuration
+- **DNS Issues**: Cannot resolve server hostname
+- **Firewall**: Outbound connections blocked
+- **Wrong Configuration**: Check server address, port, UUID, and protocol settings
+
 ## Support
 
 For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-addons).

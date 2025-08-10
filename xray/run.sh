@@ -3,6 +3,7 @@
 XRAY_CONFIG_JSON=$(bashio::config 'xray_config_json')
 XRAY_CONFIG_BASE64=$(bashio::config 'xray_config_base64')
 LOG_LEVEL=$(bashio::config 'log_level')
+DEBUG_MODE=$(bashio::config 'debug_mode')
 
 CONFIG_FILE="/config/xray_config.json"
 
@@ -40,6 +41,27 @@ jq --arg level "${LOG_LEVEL}" '.log.loglevel = $level' "${CONFIG_FILE}" > "${CON
 
 bashio::log.info "Starting Xray with configuration..."
 bashio::log.info "Proxy will be available on port 8080"
+
+# Debug: Show configuration (without sensitive data) if debug mode is enabled
+if [[ "${DEBUG_MODE}" == "true" ]]; then
+    bashio::log.info "Configuration preview (debug mode):"
+    jq 'del(.outbounds[].settings.vnext[]?.users[]?.id) | del(.outbounds[].settings.servers[]?.password)' "${CONFIG_FILE}" || bashio::log.warning "Could not preview config"
+fi
+
+# Debug: Test connectivity to server
+SERVER=$(jq -r '.outbounds[0].settings.vnext[0].address // .outbounds[0].settings.servers[0].address // "unknown"' "${CONFIG_FILE}")
+PORT=$(jq -r '.outbounds[0].settings.vnext[0].port // .outbounds[0].settings.servers[0].port // "unknown"' "${CONFIG_FILE}")
+
+if [[ "${SERVER}" != "unknown" && "${PORT}" != "unknown" ]]; then
+    bashio::log.info "Testing connectivity to ${SERVER}:${PORT}..."
+    if timeout 10 nc -z "${SERVER}" "${PORT}"; then
+        bashio::log.info "✓ Server ${SERVER}:${PORT} is reachable"
+    else
+        bashio::log.warning "✗ Server ${SERVER}:${PORT} is not reachable - this may cause connection issues"
+    fi
+else
+    bashio::log.warning "Could not extract server info from config for connectivity test"
+fi
 
 # Start Xray
 exec /usr/local/bin/xray run -config "${CONFIG_FILE}"

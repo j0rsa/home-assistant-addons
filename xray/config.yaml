@@ -1,6 +1,6 @@
 ---
 name: "Xray"
-version: "1.0.1"
+version: "1.0.2"
 slug: "xray"
 description: |
   Xray Client
@@ -16,10 +16,12 @@ options:
   xray_config_json: ""
   xray_config_base64: ""
   log_level: "warning"
+  debug_mode: false
 schema:
   xray_config_json: str?
   xray_config_base64: str?
   log_level: list(debug|info|warning|error|none)
+  debug_mode: bool
 # Note: If both xray_config_json and xray_config_base64 are provided,
 # xray_config_base64 takes priority and will be used.
 init: false

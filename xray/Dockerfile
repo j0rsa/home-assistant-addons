@@ -13,7 +13,9 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     apt-get install -y \
       curl \
       unzip \
-      ca-certificates && \
+      ca-certificates \
+      netcat \
+      jq && \
     echo "**** install xray-core ****" && \
     XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")') && \
     echo "Using Xray version: ${XRAY_VERSION}" && \
@@ -35,7 +37,8 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 COPY run.sh /
-RUN chmod a+x /run.sh
+COPY debug.sh /usr/local/bin/xray-debug
+RUN chmod a+x /run.sh && chmod a+x /usr/local/bin/xray-debug
 
 CMD ["/run.sh"]
 
