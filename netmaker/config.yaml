@@ -1,0 +1,51 @@
+---
+name: "Netmaker Client"
+version: "1.0.0"
+slug: "netmaker"
+description: |
+  Netmaker WireGuard Client
+  
+  WireGuard client that routes traffic through a SOCKS proxy. Perfect for combining 
+  WireGuard VPN with additional proxy layers like Xray for enhanced privacy and flexibility.
+  
+  Supports both manual WireGuard configuration and integration with external SOCKS proxies.
+environment:
+  PUID: "0"
+  PGID: "0"
+  TZ: Etc/UTC
+options:
+  netmaker_server: "https://api.nm.example.com"
+  netclient_token: ""
+  wg_interface: "wg0"
+  socks_proxy: "homeassistant:1080"
+  enable_proxy: true
+  log_level: "info"
+  debug_mode: false
+  auto_restart: true
+schema:
+  netmaker_server: url
+  netclient_token: str
+  wg_interface: str
+  socks_proxy: str
+  enable_proxy: bool
+  log_level: list(debug|info|warning|error)
+  debug_mode: bool
+  auto_restart: bool
+init: false
+startup: services
+privileged:
+  - NET_ADMIN
+devices:
+  - "/dev/net/tun"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+map: 
+  - addon_config:rw
+boot: auto
+codenotary: "red.avtovo@gmail.com"
+image: "ghcr.io/j0rsa/netmaker-{arch}"
+udev: false
+url: https://github.com/j0rsa/home-assistant-addons
+panel_icon: mdi:vpn

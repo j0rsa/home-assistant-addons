@@ -1,0 +1,8 @@
+---
+codenotary:
+    signer: "red.avtovo@gmail.com"
+
+build_from:
+    amd64: "ghcr.io/home-assistant/amd64-base-alpine:3.20"
+    aarch64: "ghcr.io/home-assistant/aarch64-base-alpine:3.20"
+    armv7: "ghcr.io/home-assistant/armv7-base-alpine:3.20"
