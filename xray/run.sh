@@ -36,11 +36,25 @@ fi
 
 bashio::log.info "Configuration file created successfully"
 
+# Install debug tools if debug mode is enabled
+if [[ "${DEBUG_MODE}" == "true" ]]; then
+    bashio::log.info "Debug mode enabled - installing debugging tools used by xray-debug..."
+    apt-get update -qq && apt-get install -y -qq \
+        dnsutils \
+        iputils-ping \
+        telnet \
+        nmap \
+        net-tools \
+        iproute2 > /dev/null 2>&1
+    bashio::log.info "Debug tools installed successfully"
+fi
+
 # Set log level in config if not already set
 jq --arg level "${LOG_LEVEL}" '.log.loglevel = $level' "${CONFIG_FILE}" > "${CONFIG_FILE}.tmp" && mv "${CONFIG_FILE}.tmp" "${CONFIG_FILE}"
 
 bashio::log.info "Starting Xray with configuration..."
-bashio::log.info "Proxy will be available on port 8080"
+bashio::log.info "HTTP proxy will be available on port 8080"
+bashio::log.info "SOCKS proxy will be available on port 1080"
 
 # Debug: Show configuration (without sensitive data) if debug mode is enabled
 if [[ "${DEBUG_MODE}" == "true" ]]; then

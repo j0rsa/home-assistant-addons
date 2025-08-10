@@ -10,7 +10,10 @@ Xray-core client for connecting to VLESS/VMess/Trojan servers and creating a loc
 
 ## About
 
-This add-on runs Xray-core as a client to connect to your Xray server (VLESS, VMess, Trojan protocols) and provides a local HTTP proxy on port 8080 that you can use to route traffic through your Xray server.
+This add-on runs Xray-core as a client to connect to your Xray server (VLESS, VMess, Trojan protocols) and provides local proxies that you can use to route traffic through your Xray server:
+
+- **HTTP Proxy**: Port 8080 for HTTP applications
+- **SOCKS Proxy**: Port 1080 for applications supporting SOCKS5 protocol
 
 ## Configuration
 
@@ -92,14 +95,18 @@ log_level: warning
 
 1. Configure your Xray client settings in the add-on configuration
 2. Start the add-on
-3. The HTTP proxy will be available on port 8080
-4. Configure your applications to use `http://homeassistant-ip:8080` as the HTTP proxy
+3. Both proxies will be available:
+   - HTTP proxy: `http://homeassistant-ip:8080`
+   - SOCKS proxy: `socks5://homeassistant-ip:1080`
+4. Configure your applications to use either proxy type based on their support
 
 ## Debugging Connection Issues
 
 If you're experiencing connection problems (like 504 Gateway Timeout), you can debug the issue by:
 
-1. **Enable Debug Mode**: Set `debug_mode: true` in your addon configuration to see detailed configuration preview
+1. **Enable Debug Mode**: Set `debug_mode: true` in your addon configuration to:
+   - See detailed configuration preview in logs
+   - Automatically install additional debugging tools (wget, dig, ping, nmap, etc.)
 2. **Check Logs**: Look at the addon logs for connectivity test results and error messages
 3. **Access Container**: Connect to the Docker container and run the debug script:
    ```bash
@@ -114,11 +121,22 @@ If you're experiencing connection problems (like 504 Gateway Timeout), you can d
    ```
 
 The debug script will check:
-- Network connectivity to your server
-- DNS resolution
+- Network connectivity to your server (netcat, telnet, nmap, ping)
+- DNS resolution (nslookup, dig, getent)
 - Xray process status
-- HTTP proxy functionality
+- HTTP and SOCKS proxy functionality
 - Port listening status
+- Network interface configuration
+
+**Note**: Advanced debugging tools are only installed when `debug_mode: true` to keep the container lightweight by default.
+
+Base tools (always available):
+- `curl`, `netcat`, `jq` - Basic connectivity and JSON processing
+
+Debug tools (when debug_mode enabled):
+- **Network testing**: `ping`, `telnet`, `nmap`
+- **DNS tools**: `dig`, `nslookup`, `getent` (from dnsutils)
+- **Network analysis**: `netstat`, `ifconfig` (from net-tools), `ip`, `ss` (from iproute2)
 
 Common issues:
 - **504 Gateway Timeout**: Server unreachable or wrong configuration

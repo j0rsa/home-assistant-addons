@@ -224,6 +224,16 @@ def create_xray_config_vless(vless_config: Dict[str, Any], proxy_port: int = 808
                     "auth": "noauth",
                     "udp": False
                 }
+            },
+            {
+                "tag": "socks-in",
+                "listen": "0.0.0.0",
+                "port": 1080,
+                "protocol": "socks",
+                "settings": {
+                    "udp": True,
+                    "auth": "noauth"
+                }
             }
         ],
         "outbounds": [
@@ -279,6 +289,16 @@ def create_xray_config_shadowsocks(ss_config: Dict[str, Any], proxy_port: int = 
                 "settings": {
                     "auth": "noauth",
                     "udp": False
+                }
+            },
+            {
+                "tag": "socks-in",
+                "listen": "0.0.0.0",
+                "port": 1080,
+                "protocol": "socks",
+                "settings": {
+                    "udp": True,
+                    "auth": "noauth"
                 }
             }
         ],

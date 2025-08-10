@@ -1,6 +1,6 @@
 ---
 name: "Xray"
-version: "1.0.2"
+version: "1.1.0"
 slug: "xray"
 description: |
   Xray Client
@@ -39,6 +39,8 @@ udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 ports:
   8080/tcp: 8080
+  1080/tcp: 1080
 ports_description:
   8080/tcp: HTTP proxy port
+  1080/tcp: SOCKS proxy port
 panel_icon: mdi:shield-lock
