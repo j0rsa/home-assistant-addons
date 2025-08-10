@@ -1,5 +1,7 @@
 # Xray Add-on
 
+![](logo.png)
+
 Xray-core client for connecting to VLESS/VMess/Trojan servers and creating a local HTTP proxy.
 
 ![Supports aarch64 Architecture][aarch64-shield]
