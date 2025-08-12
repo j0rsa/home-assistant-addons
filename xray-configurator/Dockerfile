@@ -19,9 +19,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY run.sh /
 RUN chmod a+x /run.sh
 
-# Create nginx user and set permissions
-RUN adduser -D -S nginx nginx \
-    && chown -R nginx:nginx /var/www/html \
+# Set permissions for nginx directories
+RUN chown -R nginx:nginx /var/www/html \
     && chown -R nginx:nginx /var/log/nginx \
     && chown -R nginx:nginx /var/lib/nginx \
     && chown -R nginx:nginx /run/nginx
