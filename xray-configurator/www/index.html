@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xray Configurator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Xray Configurator</h1>
+            <p>Convert VLESS and Shadowsocks links to Xray configuration files</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <label for="urlInput">Enter VLESS or Shadowsocks URL:</label>
+                <textarea id="urlInput" placeholder="vless://... or ss://... (conversion happens automatically)" rows="3"></textarea>
+                
+                <div class="options">
+                    <h3>Proxy Configuration</h3>
+                    <div class="inbound-configs">
+                        <div class="option-group">
+                            <div class="option-header">
+                                <input type="checkbox" id="enableHttp" checked>
+                                <label for="enableHttp" class="checkbox-label">HTTP Proxy</label>
+                            </div>
+                            <div class="port-input">
+                                <label for="proxyPort">Port:</label>
+                                <input type="number" id="proxyPort" value="8080" min="1" max="65535">
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <div class="option-header">
+                                <input type="checkbox" id="enableSocks" checked>
+                                <label for="enableSocks" class="checkbox-label">SOCKS Proxy</label>
+                            </div>
+                            <div class="port-input">
+                                <label for="socksPort">Port:</label>
+                                <input type="number" id="socksPort" value="1080" min="1" max="65535">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="conversion-status">
+                    <span id="conversionStatus" class="status-text">Enter a URL to see the configuration</span>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <div class="output-group">
+                    <div class="output-header">
+                        <h3>JSON Configuration</h3>
+                        <button id="copyJsonBtn" class="copy-btn" title="Copy to clipboard">📋 Copy</button>
+                    </div>
+                    <textarea id="jsonOutput" rows="12" placeholder="Generated JSON configuration will appear here..."></textarea>
+                </div>
+
+                <div class="output-group">
+                    <div class="output-header">
+                        <h3 id="base64Header">Base64 Encoded Configuration</h3>
+                        <button id="copyBase64Btn" class="copy-btn" title="Copy to clipboard">📋 Copy</button>
+                    </div>
+                    <textarea id="base64Output" readonly rows="6"></textarea>
+                </div>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+        </main>
+
+        <footer>
+            <p>Supports VLESS and Shadowsocks protocol conversion • 
+               <a href="https://github.com/j0rsa/home-assistant-addons" target="_blank">GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="converter.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
