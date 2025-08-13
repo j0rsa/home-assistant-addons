@@ -9,8 +9,15 @@
 <body>
     <div class="container">
         <header>
-            <h1>🔧 Xray Configurator</h1>
-            <p>Convert VLESS and Shadowsocks links to Xray configuration files</p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>🔧 Xray Configurator</h1>
+                    <p>Convert VLESS and Shadowsocks links to Xray configuration files</p>
+                </div>
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
         </header>
 
         <main>
@@ -39,6 +46,21 @@
                             <div class="port-input">
                                 <label for="socksPort">Port:</label>
                                 <input type="number" id="socksPort" value="1080" min="1" max="65535">
+                            </div>
+                            <div class="auth-section">
+                                <div class="option-header">
+                                    <input type="checkbox" id="enableSocksAuth">
+                                    <label for="enableSocksAuth" class="checkbox-label">Enable Authentication</label>
+                                </div>
+                                <div class="auth-users collapsed">
+                                    <div class="auth-users-header">
+                                        <span class="users-label">Users:</span>
+                                        <button type="button" id="addUserBtn" class="add-user-btn" title="Add user">+ Add User</button>
+                                    </div>
+                                    <div id="authUsersList" class="auth-users-list">
+                                        <!-- Users will be added dynamically -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

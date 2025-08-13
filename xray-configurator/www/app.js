@@ -1,3 +1,71 @@
+// Theme management
+function initTheme() {
+    // Check if user has a saved theme preference or default to system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let currentTheme;
+    if (savedTheme) {
+        currentTheme = savedTheme;
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (systemPrefersDark) {
+        currentTheme = 'dark';
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        currentTheme = 'light';
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    
+    // Update icon once DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        updateThemeIcon(currentTheme);
+    });
+}
+
+// Listen for system theme changes
+function watchSystemTheme() {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+            // Only auto-switch if user hasn't set a preference
+            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        }
+    });
+}
+
+// Theme toggle function
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+// Update theme icon based on current theme
+function updateThemeIcon(theme) {
+    const themeIcon = document.querySelector('.theme-icon');
+    if (themeIcon) {
+        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+}
+
+// Get current theme
+function getCurrentTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+// Initialize theme on page load
+initTheme();
+watchSystemTheme();
+
 // Main application logic
 document.addEventListener('DOMContentLoaded', function() {
     const urlInput = document.getElementById('urlInput');
@@ -5,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const socksPortInput = document.getElementById('socksPort');
     const enableHttpCheckbox = document.getElementById('enableHttp');
     const enableSocksCheckbox = document.getElementById('enableSocks');
+    const enableSocksAuthCheckbox = document.getElementById('enableSocksAuth');
+    const addUserBtn = document.getElementById('addUserBtn');
+    const authUsersList = document.getElementById('authUsersList');
     const jsonOutput = document.getElementById('jsonOutput');
     const base64Output = document.getElementById('base64Output');
     const base64Header = document.getElementById('base64Header');
@@ -19,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let jsonEditTimeout;
     let isJsonEdited = false;
     let originalJsonFromConverter = '';
+    let authUsers = []; // Array to store authentication users
+    let userIdCounter = 0; // Counter for unique user IDs
 
     // Real-time conversion function
     function performConversion() {
@@ -27,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const socksPort = parseInt(socksPortInput.value) || 1080;
         const enableHttp = enableHttpCheckbox.checked;
         const enableSocks = enableSocksCheckbox.checked;
+        const enableSocksAuth = enableSocksAuthCheckbox.checked;
 
         // Clear previous timeout
         if (conversionTimeout) {
@@ -52,12 +126,35 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Validate SOCKS authentication if enabled
+        if (enableSocks && enableSocksAuth) {
+            if (authUsers.length === 0) {
+                clearOutputs();
+                disableCopyButtons();
+                showError('SOCKS authentication is enabled but no users are configured');
+                updateStatus('No authentication users', 'error');
+                resetJsonEditState();
+                return;
+            }
+            
+            // Validate that all users have both username and password
+            const invalidUsers = authUsers.filter(user => !user.username.trim() || !user.password.trim());
+            if (invalidUsers.length > 0) {
+                clearOutputs();
+                disableCopyButtons();
+                showError('Some authentication users are missing username or password');
+                updateStatus('Incomplete user credentials', 'error');
+                resetJsonEditState();
+                return;
+            }
+        }
+
         // Show converting status
         updateStatus('Converting...', 'converting');
 
         // Debounce conversion to avoid excessive calls
         conversionTimeout = setTimeout(() => {
-            const result = converter.convertLink(url, proxyPort, socksPort, enableHttp, enableSocks);
+            const result = converter.convertLink(url, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers);
 
             if (result.success) {
                 // Store the original JSON from converter
@@ -89,6 +186,14 @@ document.addEventListener('DOMContentLoaded', function() {
     socksPortInput.addEventListener('input', performConversion);
     enableHttpCheckbox.addEventListener('change', handleCheckboxChange);
     enableSocksCheckbox.addEventListener('change', handleCheckboxChange);
+    enableSocksAuthCheckbox.addEventListener('change', handleAuthCheckboxChange);
+    addUserBtn.addEventListener('click', addAuthUser);
+    
+    // Theme toggle button
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggleTheme);
+    }
 
     // Handle checkbox changes
     function handleCheckboxChange() {
@@ -96,10 +201,17 @@ document.addEventListener('DOMContentLoaded', function() {
         performConversion();
     }
 
+    // Handle authentication checkbox changes
+    function handleAuthCheckboxChange() {
+        updateAuthUIState();
+        performConversion();
+    }
+
     // Update UI state based on checkbox status
     function updateUIState() {
         const httpOptionGroup = enableHttpCheckbox.closest('.option-group');
         const socksOptionGroup = enableSocksCheckbox.closest('.option-group');
+        const authSection = document.querySelector('.auth-section');
         
         // Toggle disabled state styling
         if (enableHttpCheckbox.checked) {
@@ -113,9 +225,130 @@ document.addEventListener('DOMContentLoaded', function() {
         if (enableSocksCheckbox.checked) {
             socksOptionGroup.classList.remove('disabled');
             socksPortInput.disabled = false;
+            // Show authentication section when SOCKS is enabled
+            if (authSection) {
+                authSection.style.display = 'block';
+                updateAuthUIState();
+            }
         } else {
             socksOptionGroup.classList.add('disabled');
             socksPortInput.disabled = true;
+            // Hide entire authentication section if SOCKS is disabled
+            if (authSection) {
+                authSection.style.display = 'none';
+            }
+        }
+    }
+
+    // Update authentication UI state
+    function updateAuthUIState() {
+        const authUsersSection = document.querySelector('.auth-users');
+        
+        if (enableSocksAuthCheckbox.checked) {
+            // Expand the auth section
+            authUsersSection.classList.remove('collapsed');
+            addUserBtn.disabled = false;
+            updateUserInputsState(false);
+            // Add first user if none exist and list is empty
+            if (authUsers.length === 0) {
+                addAuthUser();
+            }
+        } else {
+            // Collapse the auth section
+            authUsersSection.classList.add('collapsed');
+            addUserBtn.disabled = true;
+            updateUserInputsState(true);
+        }
+    }
+
+    // Update state of all user inputs
+    function updateUserInputsState(disabled) {
+        const userInputs = authUsersList.querySelectorAll('input');
+        const removeButtons = authUsersList.querySelectorAll('.remove-user-btn');
+        
+        userInputs.forEach(input => {
+            input.disabled = disabled;
+        });
+        
+        removeButtons.forEach(btn => {
+            btn.disabled = disabled;
+        });
+    }
+
+    // Add a new authentication user
+    function addAuthUser() {
+        const userId = userIdCounter++;
+        const user = {
+            id: userId,
+            username: '',
+            password: ''
+        };
+        
+        authUsers.push(user);
+        
+        const userItem = document.createElement('div');
+        userItem.className = 'auth-user-item';
+        userItem.dataset.userId = userId;
+        
+        userItem.innerHTML = `
+            <div class="auth-user-inputs">
+                <div class="auth-user-input">
+                    <label>Username:</label>
+                    <input type="text" placeholder="Enter username" data-field="username">
+                </div>
+                <div class="auth-user-input">
+                    <label>Password:</label>
+                    <input type="password" placeholder="Enter password" data-field="password">
+                </div>
+            </div>
+            <button type="button" class="remove-user-btn" title="Remove user">Remove</button>
+        `;
+        
+        // Add event listeners for the new inputs
+        const usernameInput = userItem.querySelector('input[data-field="username"]');
+        const passwordInput = userItem.querySelector('input[data-field="password"]');
+        const removeBtn = userItem.querySelector('.remove-user-btn');
+        
+        usernameInput.addEventListener('input', function() {
+            updateUserData(userId, 'username', this.value);
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            updateUserData(userId, 'password', this.value);
+        });
+        
+        removeBtn.addEventListener('click', function() {
+            removeAuthUser(userId);
+        });
+        
+        authUsersList.appendChild(userItem);
+        
+        // Focus on username input for new user
+        usernameInput.focus();
+        
+        performConversion();
+    }
+
+    // Remove an authentication user
+    function removeAuthUser(userId) {
+        // Remove from array
+        authUsers = authUsers.filter(user => user.id !== userId);
+        
+        // Remove from DOM
+        const userItem = authUsersList.querySelector(`[data-user-id="${userId}"]`);
+        if (userItem) {
+            userItem.remove();
+        }
+        
+        performConversion();
+    }
+
+    // Update user data in the array
+    function updateUserData(userId, field, value) {
+        const user = authUsers.find(u => u.id === userId);
+        if (user) {
+            user[field] = value;
+            performConversion();
         }
     }
 
@@ -175,13 +408,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateBase64Header(isCustomized, hasError = false) {
         if (hasError) {
             base64Header.textContent = 'Base64 Encoded Configuration (Invalid JSON)';
-            base64Header.style.color = '#dc3545';
+            base64Header.style.color = 'var(--accent-danger)';
         } else if (isCustomized) {
             base64Header.textContent = 'Base64 Encoded Configuration (Customized)';
-            base64Header.style.color = '#fd7e14'; // Orange color for customized
+            base64Header.style.color = 'var(--accent-warning)';
         } else {
             base64Header.textContent = 'Base64 Encoded Configuration';
-            base64Header.style.color = '#333'; // Default color
+            base64Header.style.color = 'var(--text-primary)';
         }
     }
 

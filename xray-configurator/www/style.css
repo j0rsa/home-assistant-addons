@@ -1,3 +1,110 @@
+/* Theme Variables */
+:root {
+    /* Light theme colors */
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-muted: #6c757d;
+    --text-white: #ffffff;
+    --border-primary: #e1e1e1;
+    --border-secondary: #dee2e6;
+    --accent-primary: #667eea;
+    --accent-success: #28a745;
+    --accent-success-hover: #218838;
+    --accent-danger: #dc3545;
+    --accent-danger-hover: #c82333;
+    --accent-warning: #fd7e14;
+    --shadow-light: rgba(0,0,0,0.15);
+    --shadow-medium: rgba(0,0,0,0.2);
+    --shadow-dark: rgba(0,0,0,0.3);
+    --accent-focus: rgba(102, 126, 234, 0.25);
+    --accent-hover: rgba(102, 126, 234, 0.1);
+}
+
+/* Dark theme colors - system preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --bg-gradient-start: #2d3748;
+        --bg-gradient-end: #4a5568;
+        --bg-primary: #1a202c;
+        --bg-secondary: #2d3748;
+        --bg-tertiary: #4a5568;
+        --text-primary: #e2e8f0;
+        --text-secondary: #a0aec0;
+        --text-muted: #718096;
+        --text-white: #ffffff;
+        --border-primary: #4a5568;
+        --border-secondary: #2d3748;
+        --accent-primary: #63b3ed;
+        --accent-success: #48bb78;
+        --accent-success-hover: #38a169;
+        --accent-danger: #f56565;
+        --accent-danger-hover: #e53e3e;
+        --accent-warning: #ed8936;
+        --shadow-light: rgba(0,0,0,0.3);
+        --shadow-medium: rgba(0,0,0,0.4);
+        --shadow-dark: rgba(0,0,0,0.6);
+        --accent-focus: rgba(99, 179, 237, 0.25);
+        --accent-hover: rgba(99, 179, 237, 0.1);
+    }
+}
+
+/* Dark theme colors - manual override */
+:root[data-theme="dark"] {
+    --bg-gradient-start: #2d3748;
+    --bg-gradient-end: #4a5568;
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --bg-tertiary: #4a5568;
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --text-muted: #718096;
+    --text-white: #ffffff;
+    --border-primary: #4a5568;
+    --border-secondary: #2d3748;
+    --accent-primary: #63b3ed;
+    --accent-success: #48bb78;
+    --accent-success-hover: #38a169;
+    --accent-danger: #f56565;
+    --accent-danger-hover: #e53e3e;
+    --accent-warning: #ed8936;
+    --shadow-light: rgba(0,0,0,0.3);
+    --shadow-medium: rgba(0,0,0,0.4);
+    --shadow-dark: rgba(0,0,0,0.6);
+    --accent-focus: rgba(99, 179, 237, 0.25);
+    --accent-hover: rgba(99, 179, 237, 0.1);
+}
+
+/* Light theme colors - manual override */
+:root[data-theme="light"] {
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-muted: #6c757d;
+    --text-white: #ffffff;
+    --border-primary: #e1e1e1;
+    --border-secondary: #dee2e6;
+    --accent-primary: #667eea;
+    --accent-success: #28a745;
+    --accent-success-hover: #218838;
+    --accent-danger: #dc3545;
+    --accent-danger-hover: #c82333;
+    --accent-warning: #fd7e14;
+    --shadow-light: rgba(0,0,0,0.15);
+    --shadow-medium: rgba(0,0,0,0.2);
+    --shadow-dark: rgba(0,0,0,0.3);
+    --accent-focus: rgba(102, 126, 234, 0.25);
+    --accent-hover: rgba(102, 126, 234, 0.1);
+}
+
 /* Reset and base styles */
 * {
     margin: 0;
@@ -8,9 +115,10 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
+    transition: color 0.3s ease, background 0.3s ease;
 }
 
 .container {
@@ -21,15 +129,26 @@ body {
 
 /* Header */
 header {
-    text-align: center;
     margin-bottom: 20px;
-    color: white;
+    color: var(--text-white);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+}
+
+.header-text {
+    text-align: center;
+    flex: 1;
 }
 
 header h1 {
     font-size: 2rem;
     margin-bottom: 5px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 4px var(--shadow-dark);
 }
 
 header p {
@@ -37,13 +156,43 @@ header p {
     opacity: 0.9;
 }
 
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.theme-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-icon {
+    transform: rotate(15deg);
+}
+
 /* Main content */
 main {
-    background: white;
+    background: var(--bg-primary);
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 24px var(--shadow-light);
     margin-bottom: 15px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Input section */
@@ -56,37 +205,40 @@ main {
     margin-bottom: 6px;
     font-weight: 600;
     font-size: 0.9rem;
-    color: #333;
+    color: var(--text-primary);
 }
 
 #urlInput {
     width: 100%;
     padding: 10px;
-    border: 2px solid #e1e1e1;
+    border: 2px solid var(--border-primary);
     border-radius: 6px;
     font-size: 13px;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     resize: vertical;
     margin-bottom: 15px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 #urlInput:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--accent-primary);
 }
 
 .options {
     margin-bottom: 15px;
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--bg-secondary);
     border-radius: 6px;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--border-secondary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .options h3 {
     margin: 0 0 12px 0;
-    color: #333;
+    color: var(--text-primary);
     font-size: 0.95rem;
     font-weight: 600;
 }
@@ -103,15 +255,15 @@ main {
     gap: 8px;
     margin-bottom: 0;
     padding: 12px;
-    background: white;
+    background: var(--bg-primary);
     border-radius: 6px;
-    border: 1px solid #dee2e6;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--border-secondary);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .option-group:hover {
-    border-color: #667eea;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+    border-color: var(--accent-primary);
+    box-shadow: 0 2px 8px var(--accent-hover);
 }
 
 .option-header {
@@ -123,7 +275,7 @@ main {
 .checkbox-label {
     font-weight: 600;
     font-size: 0.9rem;
-    color: #333;
+    color: var(--text-primary);
     cursor: pointer;
     user-select: none;
 }
@@ -137,30 +289,177 @@ main {
 
 .port-input label {
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-secondary);
     min-width: 35px;
 }
 
 #proxyPort, #socksPort {
     flex: 1;
     padding: 6px 10px;
-    border: 1px solid #e1e1e1;
+    border: 1px solid var(--border-primary);
     border-radius: 4px;
     font-size: 13px;
-    transition: border-color 0.3s, opacity 0.3s;
+    transition: border-color 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 #proxyPort:focus, #socksPort:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--accent-primary);
 }
 
 /* Checkbox styling */
-#enableHttp, #enableSocks {
+#enableHttp, #enableSocks, #enableSocksAuth {
     width: 16px;
     height: 16px;
-    accent-color: #667eea;
+    accent-color: var(--accent-primary);
     cursor: pointer;
+}
+
+/* Authentication section styling */
+.auth-section {
+    margin-top: 12px;
+    padding: 10px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    border: 1px solid var(--border-secondary);
+    margin-left: 20px; /* Align with port input */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.auth-users {
+    margin-top: 8px;
+    margin-left: 20px; /* Align with checkbox content */
+    max-height: 500px; /* Set a reasonable max height for expanded state */
+    transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+}
+
+.auth-users.collapsed {
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+}
+
+.auth-users-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.users-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.add-user-btn {
+    background: var(--accent-success);
+    color: var(--text-white);
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-user-btn:hover {
+    background: var(--accent-success-hover);
+}
+
+.add-user-btn:disabled {
+    background: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.auth-users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.auth-user-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.auth-user-inputs {
+    display: flex;
+    flex: 1;
+    gap: 8px;
+}
+
+.auth-user-input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 2px;
+}
+
+.auth-user-input label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.auth-user-input input {
+    padding: 4px 8px;
+    border: 1px solid var(--border-primary);
+    border-radius: 4px;
+    font-size: 12px;
+    transition: border-color 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.auth-user-input input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.remove-user-btn {
+    background: var(--accent-danger);
+    color: var(--text-white);
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.remove-user-btn:hover {
+    background: var(--accent-danger-hover);
+}
+
+/* Disabled authentication section */
+.auth-section.disabled {
+    opacity: 0.6;
+}
+
+.auth-section.disabled .auth-user-input input {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.auth-section.disabled .add-user-btn,
+.auth-section.disabled .remove-user-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.auth-section.disabled .checkbox-label {
+    color: var(--text-muted);
 }
 
 /* Disabled state styling */
@@ -174,7 +473,7 @@ main {
 }
 
 .option-group.disabled .checkbox-label {
-    color: #6c757d;
+    color: var(--text-muted);
 }
 
 /* Conversion status styles */
@@ -183,8 +482,9 @@ main {
     margin-top: 10px;
     padding: 8px;
     border-radius: 6px;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .status-text {
@@ -194,11 +494,11 @@ main {
 }
 
 .status-idle {
-    color: #6c757d;
+    color: var(--text-muted);
 }
 
 .status-converting {
-    color: #667eea;
+    color: var(--accent-primary);
     position: relative;
 }
 
@@ -209,17 +509,17 @@ main {
     height: 12px;
     margin-left: 8px;
     border: 2px solid transparent;
-    border-top: 2px solid #667eea;
+    border-top: 2px solid var(--accent-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
 .status-success {
-    color: #28a745;
+    color: var(--accent-success);
 }
 
 .status-error {
-    color: #dc3545;
+    color: var(--accent-danger);
 }
 
 /* Output section */
@@ -247,13 +547,13 @@ main {
 }
 
 .output-header h3 {
-    color: #333;
+    color: var(--text-primary);
     font-size: 0.95rem;
 }
 
 .copy-btn {
-    background: #28a745;
-    color: white;
+    background: var(--accent-success);
+    color: var(--text-white);
     border: none;
     padding: 4px 8px;
     border-radius: 4px;
@@ -263,52 +563,56 @@ main {
 }
 
 .copy-btn:hover {
-    background: #218838;
+    background: var(--accent-success-hover);
 }
 
 .copy-btn:disabled {
-    background: #6c757d;
+    background: var(--text-muted);
     cursor: not-allowed;
 }
 
 #jsonOutput, #base64Output {
     width: 100%;
     padding: 8px;
-    border: 1px solid #e1e1e1;
+    border: 1px solid var(--border-primary);
     border-radius: 4px;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 11px;
-    background-color: #f8f9fa;
+    background-color: var(--bg-secondary);
     resize: vertical;
     line-height: 1.3;
+    color: var(--text-primary);
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 #jsonOutput {
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-secondary);
 }
 
 #jsonOutput:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-focus);
 }
 
 #base64Output:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--accent-primary);
 }
 
 /* Error message */
 .error-message {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    background: var(--bg-secondary);
+    color: var(--accent-danger);
+    border: 1px solid var(--accent-danger);
     padding: 8px;
     border-radius: 4px;
     margin-top: 12px;
     font-size: 0.85rem;
     display: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    opacity: 0.9;
 }
 
 .error-message.show {
@@ -320,16 +624,16 @@ main {
     position: fixed;
     bottom: 15px;
     right: 15px;
-    background: #28a745;
-    color: white;
+    background: var(--accent-success);
+    color: var(--text-white);
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 500;
     transform: translateX(100%);
-    transition: transform 0.3s;
+    transition: transform 0.3s, background-color 0.3s;
     z-index: 1000;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 8px var(--shadow-medium);
     opacity: 0;
     visibility: hidden;
 }
@@ -343,14 +647,15 @@ main {
 /* Footer */
 footer {
     text-align: center;
-    color: white;
+    color: var(--text-white);
     font-size: 0.8rem;
     opacity: 0.8;
 }
 
 footer a {
-    color: white;
+    color: var(--text-white);
     text-decoration: none;
+    transition: color 0.3s;
 }
 
 footer a:hover {
@@ -365,6 +670,17 @@ footer a:hover {
     
     header {
         margin-bottom: 15px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+        align-self: center;
     }
     
     header h1 {
@@ -407,6 +723,36 @@ footer a:hover {
     
     #proxyPort, #socksPort {
         width: 100%;
+    }
+    
+    .auth-section {
+        margin-left: 0;
+        padding: 8px;
+    }
+    
+    .auth-users {
+        margin-left: 0;
+    }
+    
+    .auth-users-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .auth-user-inputs {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .auth-user-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .remove-user-btn {
+        align-self: flex-end;
     }
     
     .copy-btn {

@@ -1,6 +1,6 @@
 ---
 name: "Duplicati"
-version: "2.0.8"
+version: "2.1.0.5.13"
 slug: "duplicati"
 description: |
   Duplicati 
@@ -10,6 +10,12 @@ environment:
   PUID: "0"
   PGID: "0"
   TZ: Etc/UTC
+options:
+  password: "changeme"
+  settings_encryption_key: "db_key_0198000e-6d25-7608-9fcf-7d898e279c82"
+schema:
+  password: str
+  settings_encryption_key: str
 init: false
 startup: services
 apparmor: true
@@ -26,16 +32,18 @@ codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/duplicati-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
+webui: "http://[HOST]:[PORT:8200]/"
 ports:
-  8200/tcp: null
+  8200/tcp: 8200
 ports_description:
-  8200/tcp: Web UI port (Not required for Ingress)
+  8200/tcp: Web UI port (no longer ingress possible)
 backup_exclude: 
   - "/backup"
 
 privileged:
   - DAC_READ_SEARCH
 
-ingress: true
-ingress_port: 8200
+ingress: false
+# Not possible after 2.1.x version, that enforces loging in
+# ingress_port: 8200
 panel_icon: mdi:content-duplicate

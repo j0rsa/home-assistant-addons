@@ -159,7 +159,7 @@ class XrayConverter {
         return params;
     }
 
-    createXrayConfigVless(vlessConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true) {
+    createXrayConfigVless(vlessConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = []) {
         // Build stream settings
         const streamSettings = {
             network: vlessConfig.type || 'tcp'
@@ -237,16 +237,27 @@ class XrayConverter {
         }
         
         if (enableSocks) {
-            inbounds.push({
+            const socksInbound = {
                 tag: 'socks-in',
                 listen: '0.0.0.0',
                 port: socksPort,
                 protocol: 'socks',
                 settings: {
-                    udp: true,
-                    auth: 'noauth'
+                    udp: true
                 }
-            });
+            };
+
+            if (enableSocksAuth && authUsers.length > 0) {
+                socksInbound.settings.auth = 'password';
+                socksInbound.settings.accounts = authUsers.map(user => ({
+                    user: user.username,
+                    pass: user.password
+                }));
+            } else {
+                socksInbound.settings.auth = 'noauth';
+            }
+
+            inbounds.push(socksInbound);
         }
 
         return {
@@ -290,7 +301,7 @@ class XrayConverter {
         };
     }
 
-    createXrayConfigShadowsocks(ssConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true) {
+    createXrayConfigShadowsocks(ssConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = []) {
         // Build inbounds array based on enabled options
         const inbounds = [];
         
@@ -307,16 +318,27 @@ class XrayConverter {
         }
         
         if (enableSocks) {
-            inbounds.push({
+            const socksInbound = {
                 tag: 'socks-in',
                 listen: '0.0.0.0',
                 port: socksPort,
                 protocol: 'socks',
                 settings: {
-                    udp: true,
-                    auth: 'noauth'
+                    udp: true
                 }
-            });
+            };
+
+            if (enableSocksAuth && authUsers.length > 0) {
+                socksInbound.settings.auth = 'password';
+                socksInbound.settings.accounts = authUsers.map(user => ({
+                    user: user.username,
+                    pass: user.password
+                }));
+            } else {
+                socksInbound.settings.auth = 'noauth';
+            }
+
+            inbounds.push(socksInbound);
         }
 
         return {
@@ -360,16 +382,16 @@ class XrayConverter {
         };
     }
 
-    convertLink(url, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true) {
+    convertLink(url, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = []) {
         try {
             let xrayConfig;
             
             if (url.startsWith('vless://')) {
                 const vlessConfig = this.parseVlessLink(url);
-                xrayConfig = this.createXrayConfigVless(vlessConfig, proxyPort, socksPort, enableHttp, enableSocks);
+                xrayConfig = this.createXrayConfigVless(vlessConfig, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers);
             } else if (url.startsWith('ss://')) {
                 const ssConfig = this.parseShadowsocksLink(url);
-                xrayConfig = this.createXrayConfigShadowsocks(ssConfig, proxyPort, socksPort, enableHttp, enableSocks);
+                xrayConfig = this.createXrayConfigShadowsocks(ssConfig, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers);
             } else {
                 throw new Error('Unsupported URL format. Only VLESS and Shadowsocks URLs are supported.');
             }
