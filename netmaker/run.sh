@@ -56,7 +56,7 @@ setup_netclient() {
     
     # Check netclient version
     bashio::log.info "Netclient version:"
-    netclient -v || true
+    netclient version || true
     
     # Clean up any previous installation
     bashio::log.info "Cleaning up previous netclient installation..."
