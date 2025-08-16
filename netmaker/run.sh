@@ -41,7 +41,7 @@ base {
   log_debug = off;
   log_info = on;
   log = "stderr";
-  daemon = off;
+  daemon = on;
   redirector = iptables;
 }
 
@@ -55,7 +55,7 @@ redsocks {
 EOF
 
 bashio::log.info "Testing Redsocks config..."
-redsocks -t -c /config/redsocks.conf
+redsocks -t -c /config/redsocks.conf && bashio::log.info "Redsocks config is valid" || bashio::log.error "Redsocks config is invalid"
 
 bashio::log.info "Starting redsocks..."
 redsocks -c /config/redsocks.conf
