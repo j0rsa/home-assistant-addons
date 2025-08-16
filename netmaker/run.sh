@@ -9,6 +9,7 @@ DEBUG_MODE=$(bashio::config 'debug_mode')
 AUTO_RESTART=$(bashio::config 'auto_restart')
 HTTP_PROXY=$(bashio::config 'http_proxy')
 HTTPS_PROXY=$(bashio::config 'https_proxy')
+HOST_NAME=$(bashio::config 'host_name')
 
 bashio::log.info "Starting Netmaker Client add-on..."
 
@@ -39,6 +40,7 @@ fi
 # Export environment variables for netclient
 export NETCLIENT_TOKEN
 export WG_IFACE=${WG_INTERFACE}
+export HOST_NAME=${HOST_NAME}
 
 if [[ -n "${HTTP_PROXY}" ]]; then
     export HTTP_PROXY=${HTTP_PROXY}

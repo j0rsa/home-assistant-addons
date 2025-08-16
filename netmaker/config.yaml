@@ -1,6 +1,6 @@
 ---
 name: "Netmaker Client"
-version: "1.0.4"
+version: "1.0.5"
 slug: "netmaker"
 description: |
   Netmaker WireGuard Client
@@ -14,6 +14,7 @@ environment:
   PGID: "0"
   TZ: Etc/UTC
 options:
+  host_name: "homeassistant-netmaker"
   netclient_token: ""
   wg_interface: "wg0"
   socks_proxy: "homeassistant:1080"
@@ -24,6 +25,7 @@ options:
   debug_mode: false
   auto_restart: true
 schema:
+  host_name: str
   netclient_token: str
   wg_interface: str
   socks_proxy: str
