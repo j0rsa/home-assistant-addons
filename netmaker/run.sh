@@ -38,13 +38,16 @@ SOCKS_PROXY_PORT=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 2)
 
 cat <<EOF > /config/redsocks.conf
 redsocks {
-  local_ip = 127.0.0.1;       # redsocks listens locally
-  local_port = 12345;         # local port for redirected traffic
-  ip = ${SOCKS_PROXY_IP};     # external socks proxy hostname (use actual IP if needed)
-  port = ${SOCKS_PROXY_PORT}; # socks proxy port
-  type = socks5;              # SOCKS version
+  local_ip = 127.0.0.1;
+  local_port = 12345;
+  ip = ${SOCKS_PROXY_IP};
+  port = ${SOCKS_PROXY_PORT};
+  type = socks5;
 }
 EOF
+
+bashio::log.info "Testing Redsocks config..."
+redsocks -t -c /config/redsocks.conf
 
 bashio::log.info "Starting redsocks..."
 redsocks -c /config/redsocks.conf
