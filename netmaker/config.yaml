@@ -1,6 +1,6 @@
 ---
 name: "Netmaker Client"
-version: "1.0.3"
+version: "1.0.4"
 slug: "netmaker"
 description: |
   Netmaker WireGuard Client
@@ -24,10 +24,11 @@ options:
   debug_mode: false
   auto_restart: true
 schema:
-  netmaker_server: url
   netclient_token: str
   wg_interface: str
   socks_proxy: str
+  http_proxy: str
+  https_proxy: str
   wg_2_socks_proxy: bool
   log_level: list(debug|info|warning|error)
   debug_mode: bool
