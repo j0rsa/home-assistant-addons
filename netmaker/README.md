@@ -10,9 +10,10 @@ Netmaker WireGuard client that can route traffic through a SOCKS proxy for enhan
 
 ## About
 
-This add-on runs the official Netmaker client to connect to your Netmaker network and optionally routes all traffic through a SOCKS proxy (like the Xray add-on). This provides a powerful combination of:
+This add-on runs the official Netmaker client to connect through HTTP/HTTPS proxy to your Netmaker network and optionally routes all traffic through a SOCKS proxy (like the Xray add-on). This provides a powerful combination of:
 
 - **Netmaker Network Access**: Connect to your Netmaker-managed WireGuard network
+- **HTTP/HTTPS Proxy Integration**: Connect to your Netmaker network through HTTP/HTTPS proxy
 - **SOCKS Proxy Integration**: Route traffic through additional proxy layers for enhanced privacy
 - **Flexible Routing**: Choose between direct WireGuard or proxy-routed traffic
 

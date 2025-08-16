@@ -3,10 +3,12 @@
 NETCLIENT_TOKEN=$(bashio::config 'netclient_token')
 WG_INTERFACE=$(bashio::config 'wg_interface')
 SOCKS_PROXY=$(bashio::config 'socks_proxy')
-ENABLE_PROXY=$(bashio::config 'enable_proxy')
+WG_2_SOCKS_PROXY=$(bashio::config 'wg_2_socks_proxy')
 LOG_LEVEL=$(bashio::config 'log_level')
 DEBUG_MODE=$(bashio::config 'debug_mode')
 AUTO_RESTART=$(bashio::config 'auto_restart')
+HTTP_PROXY=$(bashio::config 'http_proxy')
+HTTPS_PROXY=$(bashio::config 'https_proxy')
 
 bashio::log.info "Starting Netmaker Client add-on..."
 
@@ -38,9 +40,16 @@ fi
 export NETCLIENT_TOKEN
 export WG_IFACE=${WG_INTERFACE}
 
+if [[ -n "${HTTP_PROXY}" ]]; then
+    export HTTP_PROXY=${HTTP_PROXY}
+fi
+if [[ -n "${HTTPS_PROXY}" ]]; then
+    export HTTPS_PROXY=${HTTPS_PROXY}
+fi
+
 bashio::log.info "WireGuard Interface: ${WG_INTERFACE}"
 bashio::log.info "SOCKS Proxy: ${SOCKS_PROXY}"
-bashio::log.info "Proxy Enabled: ${ENABLE_PROXY}"
+bashio::log.info "WireGuard to SOCKS Proxy: ${WG_2_SOCKS_PROXY}"
 
 # Function to setup netclient
 setup_netclient() {
@@ -96,7 +105,7 @@ setup_wireguard_with_proxy() {
     fi
     
     # Start tun2socks immediately if proxy is enabled
-    if [[ "${ENABLE_PROXY}" == "true" ]]; then
+    if [[ "${WG_2_SOCKS_PROXY}" == "true" ]]; then
         bashio::log.info "Starting tun2socks proxy bridge immediately..."
         bashio::log.info "Bridging ${WG_INTERFACE} to SOCKS proxy at ${SOCKS_PROXY}"
         

@@ -1,6 +1,6 @@
 ---
 name: "Netmaker Client"
-version: "1.0.2"
+version: "1.0.3"
 slug: "netmaker"
 description: |
   Netmaker WireGuard Client
@@ -17,7 +17,9 @@ options:
   netclient_token: ""
   wg_interface: "wg0"
   socks_proxy: "homeassistant:1080"
-  enable_proxy: true
+  http_proxy: "homeassistant:8080"
+  https_proxy: "homeassistant:8080"
+  wg_2_socks_proxy: true
   log_level: "info"
   debug_mode: false
   auto_restart: true
@@ -26,7 +28,7 @@ schema:
   netclient_token: str
   wg_interface: str
   socks_proxy: str
-  enable_proxy: bool
+  wg_2_socks_proxy: bool
   log_level: list(debug|info|warning|error)
   debug_mode: bool
   auto_restart: bool
