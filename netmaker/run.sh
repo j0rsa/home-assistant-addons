@@ -17,8 +17,8 @@ if [[ -z "${NETCLIENT_TOKEN}" ]]; then
     exit 1
 fi
 
-mkdir -p /data/netclient
-ln -s /data/netclient /etc/netclient
+mkdir -p /config/netclient
+ln -s /config/netclient /etc/netclient
 
 # Set up TUN device
 bashio::log.info "Setting up network devices..."
@@ -36,7 +36,7 @@ bashio::log.info "SOCKS Proxy: ${SOCKS_PROXY}"
 SOCKS_PROXY_IP=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 1)
 SOCKS_PROXY_PORT=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 2)
 
-cat <<EOF > /data/redsocks.conf
+cat <<EOF > /config/redsocks.conf
 redsocks {
   local_ip = 127.0.0.1;       # redsocks listens locally
   local_port = 12345;         # local port for redirected traffic
@@ -47,7 +47,7 @@ redsocks {
 EOF
 
 bashio::log.info "Starting redsocks..."
-redsocks -c /data/redsocks.conf
+redsocks -c /config/redsocks.conf
 
 bashio::log.info "Forwards HTTP(S) traffic to ${SOCKS_PROXY}"
 
