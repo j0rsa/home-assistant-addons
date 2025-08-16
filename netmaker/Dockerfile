@@ -14,6 +14,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
       jq \
       iproute2 \
       iptables \
+      redsocks \
       wireguard-tools && \
     echo "**** install netclient ****" && \
     if [ "$BUILD_ARCH" = "amd64" ]; then \

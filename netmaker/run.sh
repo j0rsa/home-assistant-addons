@@ -7,8 +7,6 @@ WG_2_SOCKS_PROXY=$(bashio::config 'wg_2_socks_proxy')
 LOG_LEVEL=$(bashio::config 'log_level')
 DEBUG_MODE=$(bashio::config 'debug_mode')
 AUTO_RESTART=$(bashio::config 'auto_restart')
-HTTP_PROXY=$(bashio::config 'http_proxy')
-HTTPS_PROXY=$(bashio::config 'https_proxy')
 HOST_NAME=$(bashio::config 'host_name')
 
 bashio::log.info "Starting Netmaker Client add-on..."
@@ -22,17 +20,6 @@ fi
 mkdir -p /data/netclient
 ln -s /data/netclient /etc/netclient
 
-# Install debug tools if debug mode is enabled
-if [[ "${DEBUG_MODE}" == "true" ]]; then
-    bashio::log.info "Debug mode enabled - installing debugging tools..."
-    apk add --no-cache \
-        iputils \
-        bind-tools \
-        tcpdump \
-        netcat-openbsd > /dev/null 2>&1
-    bashio::log.info "Debug tools installed successfully"
-fi
-
 # Set up TUN device
 bashio::log.info "Setting up network devices..."
 mkdir -p /dev/net || true
@@ -45,16 +32,27 @@ export NETCLIENT_TOKEN
 export WG_IFACE=${WG_INTERFACE}
 export HOST_NAME=${HOST_NAME}
 
-if [[ -n "${HTTP_PROXY}" ]]; then
-    export HTTP_PROXY=${HTTP_PROXY}
-fi
-if [[ -n "${HTTPS_PROXY}" ]]; then
-    export HTTPS_PROXY=${HTTPS_PROXY}
-fi
-
-bashio::log.info "WireGuard Interface: ${WG_INTERFACE}"
 bashio::log.info "SOCKS Proxy: ${SOCKS_PROXY}"
-bashio::log.info "WireGuard to SOCKS Proxy: ${WG_2_SOCKS_PROXY}"
+SOCKS_PROXY_IP=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 1)
+SOCKS_PROXY_PORT=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 2)
+
+cat <<EOF > /data/redsocks.conf
+redsocks {
+  local_ip = 127.0.0.1;       # redsocks listens locally
+  local_port = 12345;         # local port for redirected traffic
+  ip = ${SOCKS_PROXY_IP};     # external socks proxy hostname (use actual IP if needed)
+  port = ${SOCKS_PROXY_PORT}; # socks proxy port
+  type = socks5;              # SOCKS version
+}
+EOF
+
+bashio::log.info "Starting redsocks..."
+redsocks -c /data/redsocks.conf
+
+bashio::log.info "Forwards HTTP(S) traffic to ${SOCKS_PROXY}"
+
+iptables -t nat -A OUTPUT -p tcp --dport 80 -j REDIRECT --to-ports 12345
+iptables -t nat -A OUTPUT -p tcp --dport 443 -j REDIRECT --to-ports 12345
 
 # Function to setup netclient
 setup_netclient() {
@@ -109,6 +107,7 @@ setup_wireguard_with_proxy() {
         ip route show
     fi
     
+    bashio::log.info "WireGuard to SOCKS Proxy: ${WG_2_SOCKS_PROXY}"
     # Start tun2socks immediately if proxy is enabled
     if [[ "${WG_2_SOCKS_PROXY}" == "true" ]]; then
         bashio::log.info "Starting tun2socks proxy bridge immediately..."

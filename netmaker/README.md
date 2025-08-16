@@ -10,10 +10,9 @@ Netmaker WireGuard client that can route traffic through a SOCKS proxy for enhan
 
 ## About
 
-This add-on runs the official Netmaker client to connect through HTTP/HTTPS proxy to your Netmaker network and optionally routes all traffic through a SOCKS proxy (like the Xray add-on). This provides a powerful combination of:
+This add-on runs the official Netmaker client to connect to your Netmaker network and optionally routes all traffic through a SOCKS proxy (like the Xray add-on). This provides a powerful combination of:
 
 - **Netmaker Network Access**: Connect to your Netmaker-managed WireGuard network
-- **HTTP/HTTPS Proxy Integration**: Connect to your Netmaker network through HTTP/HTTPS proxy
 - **SOCKS Proxy Integration**: Route traffic through additional proxy layers for enhanced privacy
 - **Flexible Routing**: Choose between direct WireGuard or proxy-routed traffic
 
@@ -23,15 +22,14 @@ Perfect for combining enterprise-grade mesh networking with additional privacy l
 
 ### Required Settings
 
-#### Option: `netmaker_server`
-The URL of your Netmaker server API endpoint.
-
-Example: `https://api.nm.example.com`
+#### Option: `host_name`
+The name of the host that will be used to identify the device in the Netmaker network.
+- Default: `homeassistant-netmaker`
 
 #### Option: `netclient_token`
 The Netclient enrollment token from your Netmaker server. Get this from your Netmaker dashboard when creating a new enrollment key.
 
-Example: `nm_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+Example: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
 
 ### Optional Settings
 
@@ -45,7 +43,7 @@ The SOCKS proxy address to route traffic through when `enable_proxy` is true.
 - Format: `hostname:port` or `ip:port`
 
 #### Option: `enable_proxy`
-Whether to route traffic through the SOCKS proxy or use direct WireGuard routing.
+Whether to route WireGuard traffic through the SOCKS proxy or use direct WireGuard routing.
 - Default: `true`
 - `true`: Route traffic through SOCKS proxy
 - `false`: Use direct WireGuard routing
@@ -67,8 +65,8 @@ Automatically restart the setup process if it fails.
 
 ### Basic Configuration (with SOCKS proxy):
 ```yaml
-netmaker_server: "https://api.nm.yourdomain.com"
-netclient_token: "nm_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your_actual_token_here"
+host_name: "homeassistant-netmaker"
+netclient_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your_actual_token_here"
 wg_interface: "wg0"
 socks_proxy: "homeassistant:1080"
 enable_proxy: true
@@ -79,8 +77,8 @@ auto_restart: true
 
 ### Direct WireGuard (no proxy):
 ```yaml
-netmaker_server: "https://api.nm.yourdomain.com"
-netclient_token: "nm_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your_actual_token_here"
+host_name: "homeassistant-netmaker"
+netclient_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your_actual_token_here"
 enable_proxy: false
 auto_restart: true
 ```
@@ -90,7 +88,7 @@ auto_restart: true
 1. **Set up Netmaker Server**: Ensure you have a working Netmaker server instance
 2. **Generate Enrollment Token**: In your Netmaker dashboard, create a new enrollment key
 3. **Configure Add-on**: 
-   - Set `netmaker_server` to your Netmaker API URL
+   - Set `host_name` to your Netmaker host name
    - Set `netclient_token` to your enrollment token
    - Configure other options as needed
 4. **Start Add-on**: The add-on will automatically join your Netmaker network
