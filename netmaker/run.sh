@@ -37,6 +37,14 @@ SOCKS_PROXY_IP=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 1)
 SOCKS_PROXY_PORT=$(echo "${SOCKS_PROXY}" | cut -d ':' -f 2)
 
 cat <<EOF > /config/redsocks.conf
+base {
+  log_debug = off;
+  log_info = on;
+  log = "stderr";
+  daemon = off;
+  redirector = iptables;
+}
+
 redsocks {
   local_ip = 127.0.0.1;
   local_port = 12345;
