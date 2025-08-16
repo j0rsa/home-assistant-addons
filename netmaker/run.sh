@@ -1,6 +1,5 @@
 #!/usr/bin/with-contenv bashio
 
-NETMAKER_SERVER=$(bashio::config 'netmaker_server')
 NETCLIENT_TOKEN=$(bashio::config 'netclient_token')
 WG_INTERFACE=$(bashio::config 'wg_interface')
 SOCKS_PROXY=$(bashio::config 'socks_proxy')
@@ -14,11 +13,6 @@ bashio::log.info "Starting Netmaker Client add-on..."
 # Validate required configuration
 if [[ -z "${NETCLIENT_TOKEN}" ]]; then
     bashio::log.error "Netclient token is required. Please provide a valid netclient_token."
-    exit 1
-fi
-
-if [[ -z "${NETMAKER_SERVER}" ]]; then
-    bashio::log.error "Netmaker server URL is required. Please provide a valid netmaker_server."
     exit 1
 fi
 
@@ -41,11 +35,9 @@ if [ ! -e /dev/net/tun ]; then
 fi
 
 # Export environment variables for netclient
-export NETMAKER_SERVER
 export NETCLIENT_TOKEN
 export WG_IFACE=${WG_INTERFACE}
 
-bashio::log.info "Netmaker Server: ${NETMAKER_SERVER}"
 bashio::log.info "WireGuard Interface: ${WG_INTERFACE}"
 bashio::log.info "SOCKS Proxy: ${SOCKS_PROXY}"
 bashio::log.info "Proxy Enabled: ${ENABLE_PROXY}"
@@ -58,17 +50,6 @@ setup_netclient() {
     bashio::log.info "Netclient version:"
     netclient version || true
     
-    # Clean up any previous installation
-    bashio::log.info "Cleaning up previous netclient installation..."
-    netclient uninstall || true
-    
-    # Install netclient
-    bashio::log.info "Installing netclient..."
-    if ! netclient install; then
-        bashio::log.error "Failed to install netclient"
-        return 1
-    fi
-    
     # Join the network
     bashio::log.info "Joining Netmaker network..."
     if ! netclient join -t "${NETCLIENT_TOKEN}"; then
@@ -78,30 +59,19 @@ setup_netclient() {
     return 0
 }
 
-# Function to setup WireGuard interface
-setup_wireguard() {
-    bashio::log.info "Setting up WireGuard interface..."
+# Function to wait for and setup WireGuard interface with immediate proxy
+setup_wireguard_with_proxy() {
+    bashio::log.info "Waiting for WireGuard interface ${WG_INTERFACE} (indefinite wait)..."
     
-    # Wait for WireGuard interface to be available
-    local retry_count=0
-    local max_retries=30
-    
-    while [ $retry_count -lt $max_retries ]; do
+    # Wait indefinitely for WireGuard interface to be available
+    while true; do
         if ip link show "${WG_INTERFACE}" >/dev/null 2>&1; then
-            bashio::log.info "WireGuard interface ${WG_INTERFACE} found"
+            bashio::log.info "WireGuard interface ${WG_INTERFACE} found!"
             break
         fi
-        bashio::log.info "Waiting for WireGuard interface ${WG_INTERFACE}... (attempt $((retry_count + 1))/${max_retries})"
-        sleep 2
-        retry_count=$((retry_count + 1))
+        bashio::log.info "WireGuard interface ${WG_INTERFACE} not ready yet, waiting..."
+        sleep 5
     done
-    
-    if [ $retry_count -eq $max_retries ]; then
-        bashio::log.error "WireGuard interface ${WG_INTERFACE} not found after ${max_retries} attempts"
-        bashio::log.info "Available interfaces:"
-        ip addr show
-        return 1
-    fi
     
     # Show interface details
     bashio::log.info "WireGuard interface details:"
@@ -111,68 +81,69 @@ setup_wireguard() {
     bashio::log.info "Bringing up WireGuard interface..."
     ip link set "${WG_INTERFACE}" up || true
     
-    return 0
-}
-
-# Function to setup routing
-setup_routing() {
+    # Setup routing immediately
     bashio::log.info "Setting up routing..."
-    
-    # Route default traffic via WireGuard interface
     if ip route replace default dev "${WG_INTERFACE}"; then
         bashio::log.info "Default route set via ${WG_INTERFACE}"
     else
         bashio::log.warning "Failed to set default route via ${WG_INTERFACE}"
     fi
     
-    # Show current routing table
+    # Show current routing table if in debug mode
     if [[ "${DEBUG_MODE}" == "true" ]]; then
         bashio::log.info "Current routing table:"
         ip route show
     fi
+    
+    # Start tun2socks immediately if proxy is enabled
+    if [[ "${ENABLE_PROXY}" == "true" ]]; then
+        bashio::log.info "Starting tun2socks proxy bridge immediately..."
+        bashio::log.info "Bridging ${WG_INTERFACE} to SOCKS proxy at ${SOCKS_PROXY}"
+        
+        # Start tun2socks - this will block
+        exec tun2socks \
+            -device "${WG_INTERFACE}" \
+            -proxy "socks5://${SOCKS_PROXY}" \
+            -loglevel "${LOG_LEVEL}"
+    else
+        bashio::log.info "Proxy disabled, running in direct WireGuard mode"
+        # Keep monitoring the interface
+        monitor_interface
+    fi
 }
 
-# Function to start tun2socks
-start_tun2socks() {
-    if [[ "${ENABLE_PROXY}" != "true" ]]; then
-        bashio::log.info "Proxy disabled, starting in direct WireGuard mode"
-        bashio::log.info "WireGuard tunnel is active and routing traffic directly"
-        # Keep the container running
-        while true; do
-            sleep 60
-            # Check if interface is still up
-            if ! ip link show "${WG_INTERFACE}" >/dev/null 2>&1; then
-                bashio::log.error "WireGuard interface ${WG_INTERFACE} is down"
-                if [[ "${AUTO_RESTART}" == "true" ]]; then
-                    bashio::log.info "Auto-restart enabled, restarting setup..."
-                    return 1
-                else
-                    exit 1
-                fi
+# Function to monitor interface when proxy is disabled
+monitor_interface() {
+    bashio::log.info "WireGuard tunnel is active and routing traffic directly"
+    # Keep the container running and monitor the interface
+    while true; do
+        sleep 60
+        # Check if interface is still up
+        if ! ip link show "${WG_INTERFACE}" >/dev/null 2>&1; then
+            bashio::log.error "WireGuard interface ${WG_INTERFACE} is down"
+            if [[ "${AUTO_RESTART}" == "true" ]]; then
+                bashio::log.info "Auto-restart enabled, restarting setup..."
+                return 1
+            else
+                exit 1
             fi
-        done
-    fi
-    
-    bashio::log.info "Starting tun2socks proxy bridge..."
-    bashio::log.info "Bridging ${WG_INTERFACE} to SOCKS proxy at ${SOCKS_PROXY}"
-    
-    # Start tun2socks
-    exec tun2socks \
-        -device "${WG_INTERFACE}" \
-        -proxy "socks5://${SOCKS_PROXY}" \
-        -loglevel "${LOG_LEVEL}"
+        fi
+    done
 }
+
+
 
 # Main execution loop
 main_loop() {
     while true; do
         bashio::log.info "Starting Netmaker Client setup..."
         
-        if setup_netclient && setup_wireguard && setup_routing; then
-            bashio::log.info "Setup completed successfully"
-            start_tun2socks
+        if setup_netclient; then
+            bashio::log.info "Netclient setup completed successfully"
+            # Wait for WireGuard interface and start proxy immediately when ready
+            setup_wireguard_with_proxy
         else
-            bashio::log.error "Setup failed"
+            bashio::log.error "Netclient setup failed"
         fi
         
         if [[ "${AUTO_RESTART}" == "true" ]]; then
