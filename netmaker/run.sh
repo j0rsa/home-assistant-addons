@@ -19,6 +19,9 @@ if [[ -z "${NETCLIENT_TOKEN}" ]]; then
     exit 1
 fi
 
+mkdir -p /data/netclient
+ln -s /data/netclient /etc/netclient
+
 # Install debug tools if debug mode is enabled
 if [[ "${DEBUG_MODE}" == "true" ]]; then
     bashio::log.info "Debug mode enabled - installing debugging tools..."
@@ -63,7 +66,7 @@ setup_netclient() {
     
     # Join the network
     bashio::log.info "Joining Netmaker network..."
-    if ! netclient join -t "${NETCLIENT_TOKEN}"; then
+    if ! netclient join -t "${NETCLIENT_TOKEN}" -o "${HOST_NAME}"; then
         bashio::log.warning "Failed to join network or already joined"
     fi
     
