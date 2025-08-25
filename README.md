@@ -14,9 +14,21 @@ If you want to do add the repository manually, please follow the procedure highl
 
 # Add-ons provided by this repository
 
-- SNI Proxy ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
-- Ollama ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
-- Ollama UI ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
+## Backup & Storage
+- **Duplicati** - Backup your data to the cloud or locally ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+
+## Download Management
+- **Ariang** - Modern web frontend for aria2 download utility ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+
+## AI & Machine Learning
+- **Ollama** - Run offline LLM models locally without cloud connectivity ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+- **Open WebUI** - Feature-rich WebUI for Ollama (formerly Ollama WebUI) ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+
+## Networking & Proxy
+- **SNI Proxy** - SNI-based proxy for routing traffic ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
+- **Xray** - High-performance proxy client supporting VLESS/VMess/Trojan protocols ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
+- **Xray Configurator** - Web interface to convert proxy links to Xray configuration files ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+- **Netmaker Client** - WireGuard VPN client with SOCKS proxy support ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
 
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
