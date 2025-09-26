@@ -1,0 +1,44 @@
+---
+name: "Qdrant"
+version: "1.0.0"
+slug: "qdrant"
+description: |
+  Qdrant Vector Database
+
+  High-performance vector database for AI applications. Provides REST API and gRPC endpoints for vector search and storage.
+
+  Configuration: Minimal setup with optional authentication and storage configuration.
+environment:
+  PUID: "0"
+  PGID: "0"
+  TZ: Etc/UTC
+options:
+  api_key: ""
+  read_only: false
+  log_level: "INFO"
+  max_request_size_mb: 32
+schema:
+  api_key: str?
+  read_only: bool
+  log_level: list(TRACE|DEBUG|INFO|WARN|ERROR)
+  max_request_size_mb: int(1,1024)
+init: false
+startup: services
+arch:
+  - aarch64
+  - amd64
+  - armv7
+map:
+  - addon_config:rw
+boot: auto
+codenotary: "red.avtovo@gmail.com"
+image: "ghcr.io/j0rsa/haddon-qdrant-{arch}"
+udev: false
+url: https://github.com/j0rsa/home-assistant-addons
+ports:
+  6333/tcp: 6333
+  6334/tcp: 6334
+ports_description:
+  6333/tcp: REST API port
+  6334/tcp: gRPC API port
+panel_icon: mdi:database-search

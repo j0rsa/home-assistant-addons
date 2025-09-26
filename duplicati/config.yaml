@@ -1,6 +1,6 @@
 ---
 name: "Duplicati"
-version: "2.0.8"
+version: "2.0.8.1"
 slug: "duplicati"
 description: |
   Duplicati 
@@ -23,7 +23,7 @@ map:
   - media:rw
 boot: auto
 codenotary: "red.avtovo@gmail.com"
-image: "ghcr.io/j0rsa/duplicati-{arch}"
+image: "ghcr.io/j0rsa/haddon-duplicati-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 ports:

@@ -1,6 +1,6 @@
 ---
 name: "SniProxy"
-version: "1.1.0"
+version: "1.1.1"
 slug: "sni-proxy"
 description: |
   SNI proxy
@@ -11,7 +11,7 @@ arch:
   - amd64
   - armv7
 codenotary: "red.avtovo@gmail.com"
-image: "ghcr.io/j0rsa/sni-proxy-{arch}"
+image: "ghcr.io/j0rsa/haddon-sni-proxy-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 ports:

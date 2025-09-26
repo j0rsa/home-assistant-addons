@@ -1,6 +1,6 @@
 ---
 name: "Ariang"
-version: "0.0.4"
+version: "0.0.5"
 slug: "ariang"
 description: |
   Ariang 
@@ -20,7 +20,7 @@ map:
   - share:rw
 boot: auto
 codenotary: "red.avtovo@gmail.com"
-image: "ghcr.io/j0rsa/ariang-{arch}"
+image: "ghcr.io/j0rsa/haddon-ariang-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 ports:

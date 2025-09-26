@@ -1,6 +1,6 @@
 ---
 name: "Xray"
-version: "1.1.0"
+version: "1.1.1"
 slug: "xray"
 description: |
   Xray Client
@@ -34,7 +34,7 @@ map:
   - addon_config:rw
 boot: auto
 codenotary: "red.avtovo@gmail.com"
-image: "ghcr.io/j0rsa/xray-{arch}"
+image: "ghcr.io/j0rsa/haddon-xray-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 ports:

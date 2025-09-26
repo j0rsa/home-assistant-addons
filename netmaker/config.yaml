@@ -1,6 +1,6 @@
 ---
 name: "Netmaker Client"
-version: "1.0.11"
+version: "1.0.12"
 slug: "netmaker"
 description: |
   Netmaker WireGuard Client
@@ -45,7 +45,7 @@ map:
   - addon_config:rw
 boot: auto
 codenotary: "red.avtovo@gmail.com"
-image: "ghcr.io/j0rsa/netmaker-{arch}"
+image: "ghcr.io/j0rsa/haddon-netmaker-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-addons
 panel_icon: mdi:vpn
