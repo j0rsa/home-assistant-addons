@@ -26,8 +26,10 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
       echo "Unsupported arch '$BUILD_ARCH'" && \
       exit 255; \
     fi && \
+    echo "**** installing qdrant for ${QDRANT_ARCH} ****" && \
     curl -L "https://github.com/qdrant/qdrant/releases/download/${QDRANT_VERSION}/qdrant-${QDRANT_ARCH}-unknown-linux-musl.tar.gz" -o /tmp/qdrant.tar.gz && \
     tar -xzf /tmp/qdrant.tar.gz -C /usr/local/bin/ --strip-components=1 && \
+    ls -la /usr/local/bin/qdrant && \
     chmod +x /usr/local/bin/qdrant && \
     echo "**** create qdrant user and directories ****" && \
     groupadd -r qdrant && \
