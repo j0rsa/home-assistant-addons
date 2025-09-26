@@ -68,4 +68,4 @@ else
 fi
 
 # Start Qdrant as the qdrant user
-exec su-exec qdrant /usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"
+exec gosu qdrant /qdrant --config-path "${QDRANT_CONFIG_FILE}"

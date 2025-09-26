@@ -12,7 +12,8 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     apt-get update && \
     apt-get install -y \
       curl \
-      ca-certificates && \
+      ca-certificates \
+      gosu && \
     echo "**** install qdrant ****" && \
     QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")') && \
     echo "Using Qdrant version: ${QDRANT_VERSION}" && \
@@ -28,9 +29,9 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     fi && \
     echo "**** installing qdrant for ${QDRANT_ARCH} ****" && \
     curl -L "https://github.com/qdrant/qdrant/releases/download/${QDRANT_VERSION}/qdrant-${QDRANT_ARCH}-unknown-linux-musl.tar.gz" -o /tmp/qdrant.tar.gz && \
-    tar -xzf /tmp/qdrant.tar.gz -C /usr/local/bin/ --strip-components=1 && \
-    ls -la /usr/local/bin/qdrant && \
-    chmod +x /usr/local/bin/qdrant && \
+    tar -xzf /tmp/qdrant.tar.gz -C / --strip-components=1 && \
+    ls -la /qdrant && \
+    chmod +x /qdrant && \
     echo "**** create qdrant user and directories ****" && \
     groupadd -r qdrant && \
     useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
