@@ -38,10 +38,11 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     find /tmp/qdrant -name "qdrant" -type f && \
     cp $(find /tmp/qdrant -name "qdrant" -type f | head -1) /usr/local/bin/qdrant && \
     chmod +x /usr/local/bin/qdrant && \
-    echo "**** create qdrant user and directories ****" && \
-    groupadd -r qdrant && \
-    useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
-    mkdir -p /var/lib/qdrant /var/log/qdrant && \
+    echo "**** install qdrant-web-ui ****" && \
+    DOWNLOAD_LINK="https://github.com/qdrant/qdrant-web-ui/releases/latest/download/dist-qdrant.zip" && \
+    curl -L "${DOWNLOAD_LINK}" -o /tmp/qdrant-web-ui.zip && \
+    unzip /tmp/qdrant-web-ui.zip -d /data/static && \
+    rm -rf /tmp/qdrant-web-ui.zip && \
     echo "**** cleanup ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
