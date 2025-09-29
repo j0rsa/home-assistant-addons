@@ -23,6 +23,7 @@ If you want to do add the repository manually, please follow the procedure highl
 ## AI & Machine Learning
 - **Ollama** - Run offline LLM models locally without cloud connectivity ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 - **Open WebUI** - Feature-rich WebUI for Ollama (formerly Ollama WebUI) ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+- **Qdrant** - High-performance vector database for AI applications with REST and gRPC APIs ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
 ## Networking & Proxy
 - **SNI Proxy** - SNI-based proxy for routing traffic ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
