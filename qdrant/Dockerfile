@@ -18,7 +18,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
       gosu && \
     echo "**** install qdrant ****" && \
     if [ -z "$QDRANT_VERSION" ]; then \
-      QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")') \
+      QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'); \
     fi && \
     echo "Using Qdrant version: ${QDRANT_VERSION}" && \
     if [ "$BUILD_ARCH" = "amd64" ]; then \
