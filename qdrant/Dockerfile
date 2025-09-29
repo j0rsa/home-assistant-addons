@@ -44,12 +44,13 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-COPY run.sh /
-RUN chmod a+x /run.sh
+COPY run.sh /qdrant
+RUN chmod a+x /qdrant/run.sh
 
 EXPOSE 6333 6334
 
-CMD ["/run.sh"]
+WORKDIR /qdrant
+CMD ["/qdrant/run.sh"]
 
 LABEL \
   io.hass.version=${BUILD_VERSION} \

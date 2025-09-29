@@ -6,7 +6,7 @@ LOG_LEVEL=$(bashio::config 'log_level')
 MAX_REQUEST_SIZE_MB=$(bashio::config 'max_request_size_mb')
 
 CONFIG_DIR="/config"
-QDRANT_CONFIG_FILE="${CONFIG_DIR}/qdrant_config.yaml"
+QDRANT_CONFIG_FILE="${CONFIG_DIR}/config.yaml"
 STORAGE_DIR="${CONFIG_DIR}/storage"
 
 bashio::log.info "Starting Qdrant add-on..."
@@ -14,6 +14,8 @@ bashio::log.info "Starting Qdrant add-on..."
 # Create storage directory if it doesn't exist
 mkdir -p "${STORAGE_DIR}"
 chown -R qdrant:qdrant "${STORAGE_DIR}"
+
+chown -R qdrant:qdrant "/qdrant/snapshots/tmp"
 
 # Create Qdrant configuration file
 bashio::log.info "Creating Qdrant configuration..."
@@ -67,5 +69,6 @@ else
     bashio::log.warning "API authentication is disabled - consider setting an API key for production use"
 fi
 
+bashio::log.info "Starting Qdrant in directory $(pwd)..."
 # Start Qdrant as the qdrant user
-exec gosu qdrant /usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"
+exec gosu qdrant /usr/local/bin/qdrant
