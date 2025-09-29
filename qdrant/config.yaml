@@ -1,6 +1,6 @@
 ---
 name: "Qdrant"
-version: "1.0.12"
+version: "1.0.13"
 slug: "qdrant"
 description: |
   Qdrant Vector Database

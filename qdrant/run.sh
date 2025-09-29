@@ -14,8 +14,6 @@ bashio::log.info "Starting Qdrant add-on..."
 # Create Qdrant configuration file
 bashio::log.info "Creating Qdrant configuration..."
 
-mkdir -p /data/static
-
 cat > "${QDRANT_CONFIG_FILE}" << EOF
 log_level: ${LOG_LEVEL}
 
@@ -28,7 +26,7 @@ service:
   grpc_port: 6334
   max_request_size_mb: ${MAX_REQUEST_SIZE_MB}
   enable_static_content: ${WEB_UI_ENABLED}
-  static_content_dir: /data/static
+  static_content_dir: /webui
   enable_cors: true
 EOF
 
