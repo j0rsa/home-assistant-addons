@@ -28,9 +28,9 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
       exit 255; \
     fi && \
     QDRANT_URL="https://github.com/qdrant/qdrant/releases/download/${QDRANT_VERSION}/qdrant-${QDRANT_ARCH}-unknown-linux-musl.tar.gz" && \
-    echo "**** installing qdrant for ${QDRANT_ARCH} from ${QDRANT_URL} ****" && \
+    echo "**** installing qdrant for ${QDRANT_ARCH} ****" && \
     curl -L "${QDRANT_URL}" -o /tmp/qdrant.tar.gz && \
-    echo "**** extracting qdrant ****" && \
+    echo "**** extracting qdrant for ${QDRANT_ARCH} from ${QDRANT_URL} ****" && \
     mkdir -p /tmp/qdrant && \
     tar -xzf /tmp/qdrant.tar.gz -C /tmp/qdrant && \
     echo "**** listing extracted contents ****" && \
