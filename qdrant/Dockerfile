@@ -42,8 +42,8 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     echo "**** create qdrant user and directories ****" && \
     groupadd -r qdrant && \
     useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
-    mkdir -p /var/lib/qdrant /var/log/qdrant /snapshots /static && \
-    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant /snapshots /static&& \
+    mkdir -p /var/lib/qdrant /var/log/qdrant && \
+    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant && \
     echo "**** cleanup ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
@@ -53,7 +53,7 @@ RUN chmod a+x /run.sh
 
 EXPOSE 6333 6334
 
-WORKDIR /
+WORKDIR /data
 CMD ["/run.sh"]
 
 LABEL \

@@ -1,28 +1,21 @@
 #!/usr/bin/with-contenv bashio
 
 API_KEY=$(bashio::config 'api_key')
+READ_ONLY_API_KEY=$(bashio::config 'read_only_api_key')
 READ_ONLY=$(bashio::config 'read_only')
 LOG_LEVEL=$(bashio::config 'log_level')
 MAX_REQUEST_SIZE_MB=$(bashio::config 'max_request_size_mb')
 
 CONFIG_DIR="/config"
 QDRANT_CONFIG_FILE="${CONFIG_DIR}/config.yaml"
-STORAGE_DIR="${CONFIG_DIR}/storage"
 
 bashio::log.info "Starting Qdrant add-on..."
-
-# Create storage directory if it doesn't exist
-mkdir -p "${STORAGE_DIR}"
-chown -R qdrant:qdrant "${STORAGE_DIR}"
 
 # Create Qdrant configuration file
 bashio::log.info "Creating Qdrant configuration..."
 
 cat > "${QDRANT_CONFIG_FILE}" << EOF
 log_level: ${LOG_LEVEL}
-
-storage:
-  storage_path: ${STORAGE_DIR}
 
 service:
   host: 0.0.0.0
@@ -44,6 +37,13 @@ if [[ -n "${API_KEY}" ]]; then
 EOF
 else
     bashio::log.info "Running without API key authentication"
+fi
+
+if [[ -n "${READ_ONLY_API_KEY}" ]]; then
+    bashio::log.info "Read-only API key authentication enabled"
+    cat >> "${QDRANT_CONFIG_FILE}" << EOF
+  read_only_api_key: "${READ_ONLY_API_KEY}"
+EOF
 fi
 
 if [[ "${READ_ONLY}" == "true" ]]; then
@@ -69,4 +69,4 @@ fi
 
 bashio::log.info "Starting Qdrant in directory $(pwd)..."
 # Start Qdrant as the qdrant user
-exec gosu qdrant /usr/local/bin/qdrant
+exec gosu qdrant /usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"

@@ -1,6 +1,6 @@
 ---
 name: "Qdrant"
-version: "1.0.6"
+version: "1.0.8"
 slug: "qdrant"
 description: |
   Qdrant Vector Database
@@ -14,11 +14,13 @@ environment:
   TZ: Etc/UTC
 options:
   api_key: ""
+  read_only_api_key: ""
   read_only: false
   log_level: "INFO"
   max_request_size_mb: 32
 schema:
   api_key: str?
+  read_only_api_key: str?
   read_only: bool
   log_level: list(TRACE|DEBUG|INFO|WARN|ERROR)
   max_request_size_mb: int(1,1024)
