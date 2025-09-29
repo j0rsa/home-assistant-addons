@@ -6,6 +6,8 @@ ARG BUILD_VERSION
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_REF
+ARG QDRANT_VERSION="v1.15.4"
+
 
 RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     echo "**** install packages ****" && \
@@ -15,7 +17,9 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
       ca-certificates \
       gosu && \
     echo "**** install qdrant ****" && \
-    QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")') && \
+    if [ -z "$QDRANT_VERSION" ]; then && \
+      QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")') && \
+    fi && \
     echo "Using Qdrant version: ${QDRANT_VERSION}" && \
     if [ "$BUILD_ARCH" = "amd64" ]; then \
       QDRANT_ARCH="x86_64"; \
@@ -38,8 +42,8 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     echo "**** create qdrant user and directories ****" && \
     groupadd -r qdrant && \
     useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
-    mkdir -p /var/lib/qdrant /var/log/qdrant /snapshots && \
-    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant /snapshots && \
+    mkdir -p /var/lib/qdrant /var/log/qdrant /snapshots /static && \
+    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant /snapshots /static&& \
     echo "**** cleanup ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
