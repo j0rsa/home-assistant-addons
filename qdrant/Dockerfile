@@ -38,7 +38,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     echo "**** create qdrant user and directories ****" && \
     groupadd -r qdrant && \
     useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
-    mkdir -p /var/lib/qdrant /var/log/qdrant /qdrant && \
+    mkdir -p /var/lib/qdrant /var/log/qdrant /qdrant/snapshots/tmp && \
     chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant && \
     echo "**** cleanup ****" && \
     apt-get clean && \
