@@ -1,0 +1,57 @@
+# Jekyll configuration for GitHub Pages
+title: J0rsa Home Assistant Add-ons
+description: High-quality Home Assistant add-ons for backup, AI, networking, and more
+author: j0rsa
+email: red.avtovo@gmail.com
+
+# Theme configuration
+theme: jekyll-theme-cayman
+# Alternative themes you can use:
+# theme: jekyll-theme-minimal
+# theme: jekyll-theme-architect
+# theme: jekyll-theme-slate
+
+# GitHub repository information
+github_username: j0rsa
+repository_url: https://github.com/j0rsa/home-assistant-addons
+repository_name: home-assistant-addons
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Collections for add-ons documentation
+collections:
+  addons:
+    output: true
+    permalink: /addons/:name/
+
+# Default values
+defaults:
+  - scope:
+      path: ""
+      type: "addons"
+    values:
+      layout: "addon"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Installation
+    url: /installation/
+  - title: Add-ons
+    url: /addons/
+  - title: GitHub
+    url: https://github.com/j0rsa/home-assistant-addons

@@ -1,0 +1,193 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Custom styles for J0rsa Home Assistant Add-ons
+
+// Color scheme
+:root {
+  --primary-color: #03a9f4;
+  --secondary-color: #00bcd4;
+  --accent-color: #ff9800;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --danger-color: #f44336;
+  --dark-bg: #1a1a2e;
+  --light-bg: #f5f5f5;
+}
+
+// Enhanced header
+.page-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 3rem 1rem;
+}
+
+.project-name {
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.project-tagline {
+  opacity: 0.95;
+  font-size: 1.25rem;
+}
+
+// Buttons
+.btn {
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+// Cards for add-ons
+.addon-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.addon-card:hover {
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+}
+
+// Category headers
+h2 {
+  color: #333;
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+h3 {
+  color: #444;
+  margin-top: 1.5rem;
+}
+
+// Code blocks
+pre {
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+code {
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  font-size: 85%;
+}
+
+// Tables
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+table th {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+table tr:hover {
+  background-color: #f6f8fa;
+}
+
+// Architecture badges
+.architecture-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--success-color);
+  color: white;
+  border-radius: 3px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+// Navigation
+.main-content {
+  h1:first-child {
+    margin-top: 0;
+  }
+}
+
+// Footer navigation
+.page-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e1e4e8;
+}
+
+.page-navigation a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.page-navigation a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+// Responsive improvements
+@media screen and (max-width: 42em) {
+  .addon-card {
+    padding: 1rem;
+  }
+  
+  table {
+    font-size: 0.875rem;
+  }
+}
+
+// Feature list
+ul li strong {
+  color: var(--primary-color);
+}
+
+// Installation button
+a[href*="my.home-assistant.io"] img {
+  transition: transform 0.3s ease;
+}
+
+a[href*="my.home-assistant.io"]:hover img {
+  transform: scale(1.05);
+}
+
+// Emoji icons
+h2:before,
+h3:before {
+  margin-right: 0.5rem;
+}
+
+// Horizontal rules
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e1e4e8, transparent);
+  margin: 2rem 0;
+}
