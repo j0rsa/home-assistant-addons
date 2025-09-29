@@ -42,7 +42,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     echo "**** install qdrant-web-ui ****" && \
     DOWNLOAD_LINK="https://github.com/qdrant/qdrant-web-ui/releases/latest/download/dist-qdrant.zip" && \
     curl -L "${DOWNLOAD_LINK}" -o /tmp/qdrant-web-ui.zip && \
-    mkdir -p /webui && \
+    mkdir -p /webui /tmp/webui && \
     unzip /tmp/qdrant-web-ui.zip -d /tmp/webui && \
     cp -r /tmp/webui/dist/* /webui && \
     rm -rf /tmp/qdrant-web-ui.zip /tmp/webui && \
