@@ -38,19 +38,19 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     echo "**** create qdrant user and directories ****" && \
     groupadd -r qdrant && \
     useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
-    mkdir -p /var/lib/qdrant /var/log/qdrant /qdrant/snapshots/tmp && \
-    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant && \
+    mkdir -p /var/lib/qdrant /var/log/qdrant /snapshots/tmp && \
+    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant /snapshots/tmp && \
     echo "**** cleanup ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-COPY run.sh /qdrant
-RUN chmod a+x /qdrant/run.sh
+COPY run.sh /
+RUN chmod a+x /run.sh
 
 EXPOSE 6333 6334
 
-WORKDIR /qdrant
-CMD ["/qdrant/run.sh"]
+WORKDIR /
+CMD ["/run.sh"]
 
 LABEL \
   io.hass.version=${BUILD_VERSION} \

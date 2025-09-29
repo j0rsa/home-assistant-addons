@@ -15,8 +15,6 @@ bashio::log.info "Starting Qdrant add-on..."
 mkdir -p "${STORAGE_DIR}"
 chown -R qdrant:qdrant "${STORAGE_DIR}"
 
-chown -R qdrant:qdrant "/qdrant/snapshots/tmp"
-
 # Create Qdrant configuration file
 bashio::log.info "Creating Qdrant configuration..."
 
