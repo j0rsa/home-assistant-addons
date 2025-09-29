@@ -21,8 +21,6 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
       QDRANT_ARCH="x86_64"; \
     elif [ "$BUILD_ARCH" = "aarch64" ]; then \
       QDRANT_ARCH="aarch64"; \
-    elif [ "$BUILD_ARCH" = "armv7" ]; then \
-      QDRANT_ARCH="armv7"; \
     else \
       echo "Unsupported arch '$BUILD_ARCH'" && \
       exit 255; \
