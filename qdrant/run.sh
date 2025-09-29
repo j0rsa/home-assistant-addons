@@ -64,6 +64,4 @@ else
     bashio::log.warning "API authentication is disabled - consider setting an API key for production use"
 fi
 
-bashio::log.info "Starting Qdrant in directory $(pwd)..."
-# Start Qdrant as the qdrant user
-qdrant /usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"
+/usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"
