@@ -53,9 +53,6 @@ if [[ "${READ_ONLY}" == "true" ]]; then
 EOF
 fi
 
-# Ensure proper permissions
-chown qdrant:qdrant "${QDRANT_CONFIG_FILE}"
-
 bashio::log.info "Qdrant configuration created successfully"
 bashio::log.info "REST API will be available on port 6333"
 bashio::log.info "gRPC API will be available on port 6334"
@@ -69,4 +66,4 @@ fi
 
 bashio::log.info "Starting Qdrant in directory $(pwd)..."
 # Start Qdrant as the qdrant user
-exec gosu qdrant /usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"
+qdrant /usr/local/bin/qdrant --config-path "${QDRANT_CONFIG_FILE}"

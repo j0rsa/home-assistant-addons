@@ -14,8 +14,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     apt-get update && \
     apt-get install -y \
       curl \
-      ca-certificates \
-      gosu && \
+      ca-certificates && \
     echo "**** install qdrant ****" && \
     if [ -z "$QDRANT_VERSION" ]; then \
       QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'); \
@@ -43,7 +42,6 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     groupadd -r qdrant && \
     useradd -r -g qdrant -d /var/lib/qdrant -s /sbin/nologin qdrant && \
     mkdir -p /var/lib/qdrant /var/log/qdrant && \
-    chown -R qdrant:qdrant /var/lib/qdrant /var/log/qdrant && \
     echo "**** cleanup ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
