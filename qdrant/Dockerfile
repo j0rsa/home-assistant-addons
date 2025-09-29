@@ -14,7 +14,8 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     apt-get update && \
     apt-get install -y \
       curl \
-      ca-certificates && \
+      ca-certificates \
+      unzip && \
     echo "**** install qdrant ****" && \
     if [ -z "$QDRANT_VERSION" ]; then \
       QDRANT_VERSION=$(curl -s "https://api.github.com/repos/qdrant/qdrant/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'); \
