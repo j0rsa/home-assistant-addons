@@ -40,7 +40,7 @@ bashio::log.info "BETTER_AUTH_URL: ${BETTER_AUTH_URL}"
 
 # Read trusted_origins from config (array)
 TRUSTED_ORIGINS_ARRAY="$(bashio::config 'trusted_origins' '[]')"
-
+bashio::log.info "TRUSTED_ORIGINS_ARRAY: ${TRUSTED_ORIGINS_ARRAY}"
 # Convert array to comma-separated list, adding supervisor URL as default if empty
 if [ "${TRUSTED_ORIGINS_ARRAY}" = "[]" ] || [ -z "${TRUSTED_ORIGINS_ARRAY}" ]; then
     # Use supervisor URL as default
