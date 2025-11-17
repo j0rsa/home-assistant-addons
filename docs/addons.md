@@ -68,6 +68,15 @@ WireGuard VPN client with SOCKS proxy support for secure networking.
 
 ---
 
+## 🛠️ DevOps & Git
+
+### [Gitea Mirror](https://github.com/j0rsa/home-assistant-addons/tree/main/gitea-mirror)
+Mirror GitHub users and organizations into your self-hosted Gitea instance with scheduling, Better Auth, and ingress-ready UI.
+
+**Version:** 3.9.2 | **Architectures:** `amd64`, `aarch64`
+
+---
+
 ## 📊 Add-on Statistics
 
 | Category | Count |
@@ -76,14 +85,15 @@ WireGuard VPN client with SOCKS proxy support for secure networking.
 | Download Management | 1 |
 | AI & Machine Learning | 3 |
 | Networking & Proxy | 4 |
-| **Total Add-ons** | **9** |
+| DevOps & Git | 1 |
+| **Total Add-ons** | **10** |
 
 ## 🏗️ Architecture Support
 
 | Architecture | Description | Supported Add-ons |
 |--------------|-------------|-------------------|
-| `amd64` | Intel/AMD 64-bit | All 9 add-ons |
-| `aarch64` | ARM 64-bit (RPi 4/5) | All 9 add-ons |
+| `amd64` | Intel/AMD 64-bit | All 10 add-ons |
+| `aarch64` | ARM 64-bit (RPi 4/5) | All 10 add-ons |
 | `armv7` | ARM 32-bit (RPi 3) | 3 add-ons (networking) |
 
 ## 🔄 Recent Updates

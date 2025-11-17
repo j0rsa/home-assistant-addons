@@ -1,0 +1,80 @@
+---
+name: "Gitea Mirror"
+version: "3.9.2-1"
+slug: "gitea_mirror"
+description: |
+  Gitea Mirror
+  
+  Mirror GitHub repositories, organizations, and metadata into your self-hosted Gitea instance with a web-based scheduler.
+url: https://github.com/j0rsa/home-assistant-addons
+codenotary: "red.avtovo@gmail.com"
+arch:
+  - aarch64
+  - amd64
+startup: services
+init: false
+boot: auto
+ingress: true
+ingress_port: 4321
+ingress_entry: /
+panel_icon: mdi:source-branch
+panel_title: "Gitea Mirror"
+webui: http://[HOST]:[PORT:4321]/
+watchdog: http://[HOST]:[PORT:4321]/api/health
+image: "ghcr.io/j0rsa/haddon-gitea-mirror-{arch}"
+ports:
+  4321/tcp: null
+ports_description:
+  4321/tcp: Optional direct access to the Gitea Mirror UI (not required for Ingress)
+options:
+  better_auth_url: "http://127.0.0.1:4321"
+  public_better_auth_url: ""
+  trusted_origins:
+    - "http://127.0.0.1:4321"
+  github_username: ""
+  github_token: ""
+  github_account_type: "personal"
+  github_app_id: ""
+  github_app_installation_id: ""
+  github_app_private_key: ""
+  gitea_url: ""
+  gitea_token: ""
+  gitea_username: ""
+  gitea_organization: ""
+  mirror_private: true
+  mirror_public: true
+  include_archived: false
+  skip_forks: false
+  mirror_starred: false
+  mirror_orgs: false
+  preserve_org_structure: false
+  only_mirror_orgs: false
+  schedule_enabled: true
+  mirror_interval: "8h"
+  gitea_skip_tls_verify: false
+schema:
+  better_auth_url: url
+  public_better_auth_url: url?
+  trusted_origins:
+    - str
+  github_username: str?
+  github_token: password?
+  github_account_type: list(personal|organization)
+  github_app_id: str?
+  github_app_installation_id: str?
+  github_app_private_key: str?
+  gitea_url: url?
+  gitea_token: password?
+  gitea_username: str?
+  gitea_organization: str?
+  mirror_private: bool
+  mirror_public: bool
+  include_archived: bool
+  skip_forks: bool
+  mirror_starred: bool
+  mirror_orgs: bool
+  preserve_org_structure: bool
+  only_mirror_orgs: bool
+  schedule_enabled: bool
+  mirror_interval: str?
+  gitea_skip_tls_verify: bool

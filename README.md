@@ -31,6 +31,9 @@ If you want to do add the repository manually, please follow the procedure highl
 - **Xray Configurator** - Web interface to convert proxy links to Xray configuration files ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 - **Netmaker Client** - WireGuard VPN client with SOCKS proxy support ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
 
+## DevOps & Git
+- **Gitea Mirror** - Mirror GitHub users and organizations into your self-hosted Gitea instance with an ingress-ready UI ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

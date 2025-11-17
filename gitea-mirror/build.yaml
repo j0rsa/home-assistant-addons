@@ -1,0 +1,7 @@
+---
+codenotary:
+    signer: "red.avtovo@gmail.com"
+
+build_from:
+    amd64: "ghcr.io/raylabshq/gitea-mirror:v3.9.2"
+    aarch64: "ghcr.io/raylabshq/gitea-mirror:v3.9.2"
