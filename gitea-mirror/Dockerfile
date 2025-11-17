@@ -17,6 +17,16 @@ COPY --from=upstream /app /app
 # Try to copy gitea-mirror binary if it exists (may be in different locations)
 RUN if [ -f /app/docker-entrypoint.sh ]; then chmod +x /app/docker-entrypoint.sh; fi || true
 
+# Install bun (required by the application)
+RUN apk add --no-cache \
+    curl \
+    unzip \
+    bash && \
+    curl -fsSL https://bun.sh/install | bash && \
+    ln -s /root/.bun/bin/bun /usr/local/bin/bun && \
+    apk del curl unzip && \
+    rm -rf /var/cache/apk/* /tmp/*
+
 # Copy run script
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
