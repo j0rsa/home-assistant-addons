@@ -1,7 +1,7 @@
 # Multi-stage build: extract application from upstream image
 ARG UPSTREAM_IMAGE=ghcr.io/raylabshq/gitea-mirror:v3.9.2
-# Use HA Alpine base image with bashio (BUILD_FROM comes from build.yaml)
-ARG BUILD_FROM=ghcr.io/home-assistant/base-alpine:3.20
+# Use HA Ubuntu base image with bashio (BUILD_FROM comes from build.yaml)
+ARG BUILD_FROM
 
 FROM ${UPSTREAM_IMAGE} AS upstream
 
@@ -18,14 +18,16 @@ COPY --from=upstream /app /app
 RUN if [ -f /app/docker-entrypoint.sh ]; then chmod +x /app/docker-entrypoint.sh; fi || true
 
 # Install bun (required by the application)
-RUN apk add --no-cache \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     curl \
     unzip \
-    bash && \
+    ca-certificates && \
     curl -fsSL https://bun.sh/install | bash && \
     ln -s /root/.bun/bin/bun /usr/local/bin/bun && \
-    apk del curl unzip && \
-    rm -rf /var/cache/apk/* /tmp/*
+    apt-get purge -y --auto-remove curl unzip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Copy run script
 COPY run.sh /run.sh
