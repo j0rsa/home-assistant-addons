@@ -26,15 +26,16 @@ fi
 
 bashio::log.info "Gitea Mirror configuration complete"
 
-# Check if upstream entrypoint exists, otherwise run directly
-if [ -x "/app/docker-entrypoint.sh" ]; then
-    exec /app/docker-entrypoint.sh
-else
-    # Fallback: try to run gitea-mirror directly
-    if command -v gitea-mirror >/dev/null 2>&1; then
-        exec gitea-mirror
-    else
-        bashio::log.error "Could not find gitea-mirror executable or entrypoint"
-        exit 1
-    fi
+# Ensure PATH includes /usr/local/bin where bun is installed
+export PATH="/usr/local/bin:/usr/bin:/bin:${PATH}"
+
+# Verify bun is available
+if ! command -v bun >/dev/null 2>&1; then
+    bashio::log.error "bun is not available in PATH. Current PATH: ${PATH}"
+    exit 1
 fi
+
+bashio::log.info "bun version: $(bun --version)"
+
+# Run the upstream entrypoint (using exec for proper signal handling)
+exec /app/docker-entrypoint.sh

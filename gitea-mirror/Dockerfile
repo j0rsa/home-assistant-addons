@@ -24,18 +24,23 @@ RUN apt-get update && \
     unzip \
     ca-certificates && \
     curl -fsSL https://bun.sh/install | bash && \
-    ln -s /root/.bun/bin/bun /usr/local/bin/bun && \
+    if [ ! -f /root/.bun/bin/bun ]; then \
+        echo "ERROR: bun installation failed" && exit 1; \
+    fi && \
+    ln -sf /root/.bun/bin/bun /usr/local/bin/bun && \
+    chmod +x /usr/local/bin/bun && \
+    bun --version && \
     apt-get purge -y --auto-remove curl unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Copy run script
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+COPY run.sh /app/ha-run.sh
+RUN chmod +x /app/ha-run.sh
 
 WORKDIR /app
 
-CMD ["/run.sh"]
+CMD ["/app/ha-run.sh"]
 
 LABEL \
   io.hass.version=${BUILD_VERSION} \
