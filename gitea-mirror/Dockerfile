@@ -30,9 +30,15 @@ RUN apt-get update && \
     ln -sf /root/.bun/bin/bun /usr/local/bin/bun && \
     chmod +x /usr/local/bin/bun && \
     bun --version && \
-    apt-get purge -y --auto-remove curl unzip && \
+    # Keep curl - bashio needs it to communicate with Supervisor API
+    # Only remove unzip as it's not needed at runtime
+    apt-get purge -y --auto-remove unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/*
+
+# Ensure PATH includes /usr/local/bin where bun is installed
+# This ensures PATH is available to all processes, including exec'd scripts
+ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Copy run script
 COPY run.sh /app/ha-run.sh

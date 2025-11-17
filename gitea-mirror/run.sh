@@ -2,14 +2,10 @@
 
 bashio::log.info "Starting Gitea Mirror add-on..."
 
-# Set defaults
-export HOST="0.0.0.0"
-export PORT="4321"
-export DATABASE_URL="file:/data/gitea-mirror.db"
-
 # Setup data directory (read from config with default)
 DATA_DIR="$(bashio::config 'data_dir')"
 DATA_DIR="${DATA_DIR:-/share/gitea-mirror/}"
+export DATABASE_URL="file:${DATA_DIR}/gitea-mirror.db"
 APP_DATA_LINK="/app/data"
 
 bashio::log.info "Using data directory: ${DATA_DIR}"
@@ -25,9 +21,6 @@ if [ ! -L "${APP_DATA_LINK}" ]; then
 fi
 
 bashio::log.info "Gitea Mirror configuration complete"
-
-# Ensure PATH includes /usr/local/bin where bun is installed
-export PATH="/usr/local/bin:/usr/bin:/bin:${PATH}"
 
 # Verify bun is available
 if ! command -v bun >/dev/null 2>&1; then
