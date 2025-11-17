@@ -17,11 +17,6 @@ COPY --from=upstream /app /app
 # Try to copy gitea-mirror binary if it exists (may be in different locations)
 RUN if [ -f /app/docker-entrypoint.sh ]; then chmod +x /app/docker-entrypoint.sh; fi || true
 
-# Install any additional dependencies if needed
-RUN apk add --no-cache \
-    bash \
-    coreutils
-
 # Copy run script
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
