@@ -1,9 +1,10 @@
 # Multi-stage build: extract application from upstream image
 ARG UPSTREAM_IMAGE=ghcr.io/raylabshq/gitea-mirror:v3.9.2
+# Use HA Alpine base image with bashio (BUILD_FROM comes from build.yaml)
+ARG BUILD_FROM=ghcr.io/home-assistant/base-alpine:3.20
+
 FROM ${UPSTREAM_IMAGE} AS upstream
 
-# Use HA Alpine base image with bashio (BUILD_FROM comes from build.yaml)
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-alpine:3.20
 FROM ${BUILD_FROM}
 
 ARG BUILD_VERSION
