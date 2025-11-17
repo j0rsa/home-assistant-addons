@@ -32,7 +32,7 @@ If you want to do add the repository manually, please follow the procedure highl
 - **Netmaker Client** - WireGuard VPN client with SOCKS proxy support ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
 
 ## DevOps & Git
-- **Gitea Mirror** - Mirror GitHub users and organizations into your self-hosted Gitea instance with an ingress-ready UI ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+- **Gitea Mirror** - Mirror GitHub repositories, organizations, and metadata into your self-hosted Gitea instance. Minimal configuration required - all settings managed through the web UI. ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
