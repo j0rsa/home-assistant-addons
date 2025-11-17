@@ -1,6 +1,6 @@
 ---
 name: "Gitea Mirror"
-version: "3.9.2-5"
+version: "3.9.2-6"
 slug: "gitea_mirror"
 description: |
   Gitea Mirror
@@ -32,5 +32,10 @@ ports_description:
   4321/tcp: Optional direct access to the Gitea Mirror UI (not required for Ingress)
 options:
   data_dir: "/share/gitea-mirror/"
+  better_auth_url: "http://172.30.32.1:8123"
+  trusted_origins: ["http://172.30.32.1:8123"]
 schema:
   data_dir: str
+  better_auth_url: url?
+  trusted_origins:
+    - str
