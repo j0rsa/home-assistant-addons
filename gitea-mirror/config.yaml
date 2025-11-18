@@ -1,6 +1,6 @@
 ---
 name: "Gitea Mirror"
-version: "3.9.2-9"
+version: "3.9.2-10"
 slug: "gitea_mirror"
 description: |
   Gitea Mirror

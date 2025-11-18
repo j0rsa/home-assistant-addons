@@ -8,7 +8,6 @@ DATA_DIR="${DATA_DIR:-/share/gitea-mirror/}"
 export DATABASE_URL="file:${DATA_DIR}/gitea-mirror.db"
 APP_DATA_LINK="/app/data"
 
-
 bashio::log.info "Using data directory: ${DATA_DIR}"
 
 mkdir -p "${DATA_DIR}"
@@ -40,12 +39,13 @@ bashio::log.info "BETTER_AUTH_URL: ${BETTER_AUTH_URL}"
 
 # Read trusted_origins from config (array)
 TRUSTED_ORIGINS_ARRAY="$(bashio::config 'trusted_origins' '')"
-# bashio::log.info "TRUSTED_ORIGINS_ARRAY: ${TRUSTED_ORIGINS_ARRAY}"
-# Convert bash array to comma-separated list, adding supervisor URL as default if empty
-BETTER_AUTH_TRUSTED_ORIGINS=$(echo "${TRUSTED_ORIGINS_ARRAY}" | tr ' ' ',')
+# Convert array to comma-separated list, adding supervisor URL as default if empty
+BETTER_AUTH_TRUSTED_ORIGINS=$(echo "$TRUSTED_ORIGINS_ARRAY" | jq -r 'join(",")')
 if [ -z "${BETTER_AUTH_TRUSTED_ORIGINS}" ]; then
     BETTER_AUTH_TRUSTED_ORIGINS="${SUPERVISOR_URL}"
 fi
+
+# Ensure supervisor URL is included if not already present
 if [[ ! "${BETTER_AUTH_TRUSTED_ORIGINS}" =~ ${SUPERVISOR_URL} ]]; then
     BETTER_AUTH_TRUSTED_ORIGINS="${SUPERVISOR_URL},${BETTER_AUTH_TRUSTED_ORIGINS}"
 fi
@@ -60,6 +60,9 @@ if ! command -v bun >/dev/null 2>&1; then
 fi
 
 bashio::log.info "bun version: $(bun --version)"
+
+export HOST=0.0.0.0
+export PORT=4321
 
 # Run the upstream entrypoint (using exec for proper signal handling)
 exec /app/docker-entrypoint.sh

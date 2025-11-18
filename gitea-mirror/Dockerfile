@@ -22,7 +22,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     unzip \
-    ca-certificates && \
+    ca-certificates \
+    jq && \
     curl -fsSL https://bun.sh/install | bash && \
     if [ ! -f /root/.bun/bin/bun ]; then \
         echo "ERROR: bun installation failed" && exit 1; \
