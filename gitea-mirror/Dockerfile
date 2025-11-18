@@ -17,13 +17,15 @@ COPY --from=upstream /app /app
 # Try to copy gitea-mirror binary if it exists (may be in different locations)
 RUN if [ -f /app/docker-entrypoint.sh ]; then chmod +x /app/docker-entrypoint.sh; fi || true
 
-# Install bun (required by the application)
+# Install bun and nginx (required by the application)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     unzip \
     ca-certificates \
-    jq && \
+    jq \
+    nginx \
+    netcat-openbsd && \
     curl -fsSL https://bun.sh/install | bash && \
     if [ ! -f /root/.bun/bin/bun ]; then \
         echo "ERROR: bun installation failed" && exit 1; \
@@ -44,6 +46,11 @@ ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # Copy run script
 COPY run.sh /app/ha-run.sh
 RUN chmod +x /app/ha-run.sh
+
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /var/log/nginx && \
+    chmod 755 /var/log/nginx
 
 WORKDIR /app
 
