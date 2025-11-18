@@ -40,23 +40,14 @@ bashio::log.info "BETTER_AUTH_URL: ${BETTER_AUTH_URL}"
 
 # Read trusted_origins from config (array)
 TRUSTED_ORIGINS_ARRAY="$(bashio::config 'trusted_origins' '[]')"
-bashio::log.info "TRUSTED_ORIGINS_ARRAY: ${TRUSTED_ORIGINS_ARRAY}"
-# Convert array to comma-separated list, adding supervisor URL as default if empty
-if [ "${TRUSTED_ORIGINS_ARRAY}" = "[]" ] || [ -z "${TRUSTED_ORIGINS_ARRAY}" ]; then
-    # Use supervisor URL as default
+# bashio::log.info "TRUSTED_ORIGINS_ARRAY: ${TRUSTED_ORIGINS_ARRAY}"
+# Convert bash array to comma-separated list, adding supervisor URL as default if empty
+BETTER_AUTH_TRUSTED_ORIGINS=$(IFS=,; echo "${TRUSTED_ORIGINS_ARRAY[*]}")
+if [ -z "${BETTER_AUTH_TRUSTED_ORIGINS}" ]; then
     BETTER_AUTH_TRUSTED_ORIGINS="${SUPERVISOR_URL}"
-else
-    # Convert JSON array to comma-separated list using jq if available, otherwise use bash
-    if command -v jq >/dev/null 2>&1; then
-        BETTER_AUTH_TRUSTED_ORIGINS="$(echo "${TRUSTED_ORIGINS_ARRAY}" | jq -r 'join(",")')"
-    else
-        # Fallback: simple bash parsing (removes brackets and quotes)
-        BETTER_AUTH_TRUSTED_ORIGINS="$(echo "${TRUSTED_ORIGINS_ARRAY}" | sed 's/\[//g' | sed 's/\]//g' | sed 's/"//g' | sed 's/, */,/g')"
-    fi
-    # Add supervisor URL if not already in the list
-    if [[ ! "${BETTER_AUTH_TRUSTED_ORIGINS}" =~ ${SUPERVISOR_URL} ]]; then
-        BETTER_AUTH_TRUSTED_ORIGINS="${SUPERVISOR_URL},${BETTER_AUTH_TRUSTED_ORIGINS}"
-    fi
+fi
+if [[ ! "${BETTER_AUTH_TRUSTED_ORIGINS}" =~ ${SUPERVISOR_URL} ]]; then
+    BETTER_AUTH_TRUSTED_ORIGINS="${SUPERVISOR_URL},${BETTER_AUTH_TRUSTED_ORIGINS}"
 fi
 
 export BETTER_AUTH_TRUSTED_ORIGINS
