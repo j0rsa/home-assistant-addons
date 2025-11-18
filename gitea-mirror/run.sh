@@ -39,10 +39,10 @@ export BETTER_AUTH_URL
 bashio::log.info "BETTER_AUTH_URL: ${BETTER_AUTH_URL}"
 
 # Read trusted_origins from config (array)
-TRUSTED_ORIGINS_ARRAY="$(bashio::config 'trusted_origins' '[]')"
+TRUSTED_ORIGINS_ARRAY="$(bashio::config 'trusted_origins' '')"
 # bashio::log.info "TRUSTED_ORIGINS_ARRAY: ${TRUSTED_ORIGINS_ARRAY}"
 # Convert bash array to comma-separated list, adding supervisor URL as default if empty
-BETTER_AUTH_TRUSTED_ORIGINS=$(IFS=,; echo "${TRUSTED_ORIGINS_ARRAY[*]}")
+BETTER_AUTH_TRUSTED_ORIGINS=$(echo "${TRUSTED_ORIGINS_ARRAY}" | tr ' ' ',')
 if [ -z "${BETTER_AUTH_TRUSTED_ORIGINS}" ]; then
     BETTER_AUTH_TRUSTED_ORIGINS="${SUPERVISOR_URL}"
 fi
