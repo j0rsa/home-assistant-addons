@@ -60,18 +60,9 @@ fi
 bashio::log.info "bun version: $(bun --version)"
 
 # Configure header-based authentication (always enabled for nginx proxy)
-export HEADER_AUTH_ENABLED=true
-export HEADER_AUTH_USER_HEADER="X-Remote-User"
-export HEADER_AUTH_EMAIL_HEADER="X-Remote-Email"
-export HEADER_AUTH_NAME_HEADER="X-Remote-Name"
-export HEADER_AUTH_AUTO_PROVISION="true"
-
-bashio::log.info "Header-based authentication enabled for nginx proxy"
-bashio::log.info "Admin user will be auto-provisioned: admin@homeassistant.local"
 
 # Start the application on internal port 4322 (nginx will proxy from 4321)
-export HOST=0.0.0.0
-export PORT=4322
+
 
 # Function to handle shutdown signals
 cleanup() {
