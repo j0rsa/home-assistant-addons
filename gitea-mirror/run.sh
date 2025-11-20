@@ -22,7 +22,7 @@ fi
 
 bashio::log.info "Gitea Mirror configuration complete"
 
-# Setup BETTER_AUTH_URL and BETTER_AUTH_TRUSTED_ORIGINS
+# Setup BETTER_AUTH_TRUSTED_ORIGINS
 # Get Home Assistant supervisor URL as default
 SUPERVISOR_URL="http://172.30.32.1:8123"
 if bashio::var.has_value "$(bashio::supervisor 'host' 2>/dev/null)"; then
@@ -32,12 +32,6 @@ if bashio::var.has_value "$(bashio::supervisor 'host' 2>/dev/null)"; then
         SUPERVISOR_URL="http://${SUPERVISOR_HOST}:${SUPERVISOR_PORT}"
     fi
 fi
-
-# Read better_auth_url from config with supervisor URL as default
-BETTER_AUTH_URL="$(bashio::config 'better_auth_url')"
-BETTER_AUTH_URL="${BETTER_AUTH_URL:-${SUPERVISOR_URL}}"
-export BETTER_AUTH_URL
-bashio::log.info "BETTER_AUTH_URL: ${BETTER_AUTH_URL}"
 
 # Read trusted_origins from /data/options.json directly
 BETTER_AUTH_TRUSTED_ORIGINS=$(cat /data/options.json | jq -r '.trusted_origins // [] | if type == "array" and length > 0 then join(",") else empty end' 2>/dev/null || echo '')
