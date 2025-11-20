@@ -25,7 +25,7 @@ RUN apt-get update && \
     ca-certificates \
     jq \
     netcat-openbsd && \
-    curl -fsSL https://bun.sh/install | bash && \
+    curl --retry 5 --retry-delay 5 -fsSL https://bun.sh/install | bash && \
     if [ ! -f /root/.bun/bin/bun ]; then \
         echo "ERROR: bun installation failed" && exit 1; \
     fi && \
