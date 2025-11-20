@@ -1,6 +1,6 @@
 ---
 name: "Gitea Mirror"
-version: "3.9.2-13"
+version: "3.9.2-14"
 slug: "gitea_mirror"
 description: |
   Gitea Mirror
@@ -12,16 +12,8 @@ arch:
   - aarch64
   - amd64
 environment:
-  HEADER_AUTH_ENABLED: "true"
-  HEADER_AUTH_USER_HEADER: "X-Remote-User"
-  HEADER_AUTH_EMAIL_HEADER: "X-Remote-Email"
-  HEADER_AUTH_NAME_HEADER: "X-Remote-Name"
-  HEADER_AUTH_AUTO_PROVISION: "true"
   HOST: "0.0.0.0"
-  # app port
-  PORT: "4322"
-  # nginx port
-  # NGINX_PORT: "4321"
+  PORT: "4321"
 map:
   - addon_config:rw
   - data:rw
@@ -29,9 +21,6 @@ map:
 startup: services
 init: false
 boot: auto
-ingress: true
-ingress_port: 4321
-ingress_entry: /
 panel_icon: mdi:source-branch-sync
 panel_title: "Gitea Mirror"
 webui: http://[HOST]:[PORT:4321]/
@@ -40,7 +29,7 @@ image: "ghcr.io/j0rsa/haddon-gitea-mirror-{arch}"
 ports:
   4321/tcp: null
 ports_description:
-  4321/tcp: Optional direct access to the Gitea Mirror UI (not required for Ingress)
+  4321/tcp: Gitea Mirror web UI
 options:
   data_dir: "/share/gitea-mirror/"
   better_auth_url: "http://172.30.32.1:8123"

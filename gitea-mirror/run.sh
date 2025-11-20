@@ -25,10 +25,12 @@ bashio::log.info "Gitea Mirror configuration complete"
 # Setup BETTER_AUTH_URL and BETTER_AUTH_TRUSTED_ORIGINS
 # Get Home Assistant supervisor URL as default
 SUPERVISOR_URL="http://172.30.32.1:8123"
-if bashio::var.has_value "$(bashio::supervisor 'host')"; then
-    SUPERVISOR_HOST="$(bashio::supervisor 'host')"
-    SUPERVISOR_PORT="$(bashio::supervisor 'port' || echo '8123')"
-    SUPERVISOR_URL="http://${SUPERVISOR_HOST}:${SUPERVISOR_PORT}"
+if bashio::var.has_value "$(bashio::supervisor 'host' 2>/dev/null)"; then
+    SUPERVISOR_HOST="$(bashio::supervisor 'host' 2>/dev/null | head -n1 | tr -d '\n\r')"
+    if [ -n "${SUPERVISOR_HOST}" ] && [ "${SUPERVISOR_HOST}" != "10.0.0.2" ]; then
+        SUPERVISOR_PORT="$(bashio::supervisor 'port' 2>/dev/null | head -n1 | tr -d '\n\r' || echo '8123')"
+        SUPERVISOR_URL="http://${SUPERVISOR_HOST}:${SUPERVISOR_PORT}"
+    fi
 fi
 
 # Read better_auth_url from config with supervisor URL as default
@@ -59,72 +61,11 @@ fi
 
 bashio::log.info "bun version: $(bun --version)"
 
-# Configure header-based authentication (always enabled for nginx proxy)
+# Set app port (default 4321 for direct access)
+export PORT="${PORT:-4321}"
+export HOST="${HOST:-0.0.0.0}"
 
-# Start the application on internal port 4322 (nginx will proxy from 4321)
+bashio::log.info "Starting Gitea Mirror application on ${HOST}:${PORT}..."
 
-
-# Function to handle shutdown signals
-cleanup() {
-    bashio::log.info "Shutting down..."
-    kill $APP_PID 2>/dev/null || true
-    kill $NGINX_PID 2>/dev/null || true
-    wait $APP_PID 2>/dev/null || true
-    wait $NGINX_PID 2>/dev/null || true
-    exit 0
-}
-
-# Set up signal handlers
-trap cleanup SIGTERM SIGINT
-
-# Start the application in the background
-bashio::log.info "Starting Gitea Mirror application on port 4322..."
-/app/docker-entrypoint.sh &
-APP_PID=$!
-
-# Wait for the app to be ready (check if process is still running and port is listening)
-bashio::log.info "Waiting for application to start..."
-for i in $(seq 1 30); do
-    if ! kill -0 $APP_PID 2>/dev/null; then
-        bashio::log.error "Application failed to start"
-        exit 1
-    fi
-    # Check if port 4322 is listening (using netcat or curl)
-    if command -v nc >/dev/null 2>&1 && nc -z 127.0.0.1 4322 2>/dev/null; then
-        bashio::log.info "Application is ready on port 4322"
-        break
-    elif command -v curl >/dev/null 2>&1 && curl -s http://127.0.0.1:4322/api/health >/dev/null 2>&1; then
-        bashio::log.info "Application is ready on port 4322"
-        break
-    fi
-    if [ $i -eq 30 ]; then
-        bashio::log.warning "Application may not be ready, but starting nginx anyway"
-    fi
-    sleep 1
-done
-
-# Start nginx (which will proxy from 4321 to 4322 with admin headers)
-bashio::log.info "Starting nginx reverse proxy on port 4321..."
-nginx -g "daemon off;" &
-NGINX_PID=$!
-
-# Wait for nginx to start
-sleep 2
-
-# Check if nginx is running
-if ! kill -0 $NGINX_PID 2>/dev/null; then
-    bashio::log.error "Nginx failed to start"
-    kill $APP_PID 2>/dev/null || true
-    exit 1
-fi
-
-bashio::log.info "Nginx proxy started successfully"
-bashio::log.info "Requests to port 4321 will be proxied to the app with admin headers"
-bashio::log.info "Admin user: admin@homeassistant.local (auto-provisioned on first request)"
-
-# Wait for nginx (main process) - if it exits, we exit
-wait $NGINX_PID
-EXIT_CODE=$?
-
-# Cleanup
-cleanup
+# Start the application directly (replaces current process)
+exec /app/docker-entrypoint.sh
