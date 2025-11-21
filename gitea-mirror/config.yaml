@@ -1,6 +1,6 @@
 ---
 name: "Gitea Mirror"
-version: "3.9.2-15"
+version: "3.9.2-16"
 slug: "gitea_mirror"
 description: |
   Gitea Mirror
@@ -27,7 +27,7 @@ webui: http://[HOST]:[PORT:4321]/
 watchdog: http://[HOST]:[PORT:4321]/api/health
 image: "ghcr.io/j0rsa/haddon-gitea-mirror-{arch}"
 ports:
-  4321/tcp: null
+  4321/tcp: 4321
 ports_description:
   4321/tcp: Gitea Mirror web UI
 options:
