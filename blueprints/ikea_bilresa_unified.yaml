@@ -1,0 +1,2000 @@
+blueprint:
+  name: "IKEA Bilresa – Unified 3-Layer Controller"
+  description: "Complete control for IKEA Bilresa with 3 layers × 3 buttons. Left/Right buttons adjust brightness, Center buttons have full multi-press and hold support."
+  domain: automation
+
+  input:
+    # ════════════════════════════════════════════════════════════════════════════
+    # LAYER 1
+    # ════════════════════════════════════════════════════════════════════════════
+    layer1_left_event:
+      name: "Layer 1 – Left Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer1_left_light:
+      name: "Layer 1 – Left Button Target Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer1_left_direction:
+      name: "Layer 1 – Left Button Brightness Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "down"
+
+    layer1_left_step:
+      name: "Layer 1 – Left Button Brightness Step (%)"
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 50
+          unit_of_measurement: "%"
+
+    # --- Layer 1 Center ---
+    layer1_center_event:
+      name: "Layer 1 – Center Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer1_center_single_type:
+      name: "Layer 1 – Center 1× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer1_center_single_light:
+      name: "Layer 1 – Center 1× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer1_center_single_action:
+      name: "Layer 1 – Center 1× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "toggle"
+
+    layer1_center_single_scene:
+      name: "Layer 1 – Center 1× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer1_center_single_cover:
+      name: "Layer 1 – Center 1× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer1_center_single_cover_action:
+      name: "Layer 1 – Center 1× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer1_center_double_type:
+      name: "Layer 1 – Center 2× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer1_center_double_light:
+      name: "Layer 1 – Center 2× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer1_center_double_action:
+      name: "Layer 1 – Center 2× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "brightness_50"
+
+    layer1_center_double_scene:
+      name: "Layer 1 – Center 2× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer1_center_double_cover:
+      name: "Layer 1 – Center 2× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer1_center_double_cover_action:
+      name: "Layer 1 – Center 2× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer1_center_triple_type:
+      name: "Layer 1 – Center 3× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer1_center_triple_light:
+      name: "Layer 1 – Center 3× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer1_center_triple_action:
+      name: "Layer 1 – Center 3× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "brightness_100"
+
+    layer1_center_triple_scene:
+      name: "Layer 1 – Center 3× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer1_center_triple_cover:
+      name: "Layer 1 – Center 3× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer1_center_triple_cover_action:
+      name: "Layer 1 – Center 3× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer1_center_hold_light:
+      name: "Layer 1 – Center Hold Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer1_center_hold_direction:
+      name: "Layer 1 – Center Hold Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "up"
+
+    layer1_center_hold_step:
+      name: "Layer 1 – Center Hold Brightness Step (%)"
+      default: 5
+      selector:
+        number:
+          min: 1
+          max: 20
+          unit_of_measurement: "%"
+
+    # --- Layer 1 Right ---
+    layer1_right_event:
+      name: "Layer 1 – Right Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer1_right_light:
+      name: "Layer 1 – Right Button Target Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer1_right_direction:
+      name: "Layer 1 – Right Button Brightness Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "up"
+
+    layer1_right_step:
+      name: "Layer 1 – Right Button Brightness Step (%)"
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 50
+          unit_of_measurement: "%"
+
+    # ════════════════════════════════════════════════════════════════════════════
+    # LAYER 2
+    # ════════════════════════════════════════════════════════════════════════════
+    layer2_left_event:
+      name: "Layer 2 – Left Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer2_left_light:
+      name: "Layer 2 – Left Button Target Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer2_left_direction:
+      name: "Layer 2 – Left Button Brightness Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "down"
+
+    layer2_left_step:
+      name: "Layer 2 – Left Button Brightness Step (%)"
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 50
+          unit_of_measurement: "%"
+
+    # --- Layer 2 Center ---
+    layer2_center_event:
+      name: "Layer 2 – Center Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer2_center_single_type:
+      name: "Layer 2 – Center 1× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer2_center_single_light:
+      name: "Layer 2 – Center 1× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer2_center_single_action:
+      name: "Layer 2 – Center 1× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "toggle"
+
+    layer2_center_single_scene:
+      name: "Layer 2 – Center 1× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer2_center_single_cover:
+      name: "Layer 2 – Center 1× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer2_center_single_cover_action:
+      name: "Layer 2 – Center 1× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer2_center_double_type:
+      name: "Layer 2 – Center 2× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer2_center_double_light:
+      name: "Layer 2 – Center 2× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer2_center_double_action:
+      name: "Layer 2 – Center 2× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "brightness_50"
+
+    layer2_center_double_scene:
+      name: "Layer 2 – Center 2× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer2_center_double_cover:
+      name: "Layer 2 – Center 2× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer2_center_double_cover_action:
+      name: "Layer 2 – Center 2× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer2_center_triple_type:
+      name: "Layer 2 – Center 3× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer2_center_triple_light:
+      name: "Layer 2 – Center 3× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer2_center_triple_action:
+      name: "Layer 2 – Center 3× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "brightness_100"
+
+    layer2_center_triple_scene:
+      name: "Layer 2 – Center 3× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer2_center_triple_cover:
+      name: "Layer 2 – Center 3× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer2_center_triple_cover_action:
+      name: "Layer 2 – Center 3× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer2_center_hold_light:
+      name: "Layer 2 – Center Hold Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer2_center_hold_direction:
+      name: "Layer 2 – Center Hold Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "up"
+
+    layer2_center_hold_step:
+      name: "Layer 2 – Center Hold Brightness Step (%)"
+      default: 5
+      selector:
+        number:
+          min: 1
+          max: 20
+          unit_of_measurement: "%"
+
+    # --- Layer 2 Right ---
+    layer2_right_event:
+      name: "Layer 2 – Right Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer2_right_light:
+      name: "Layer 2 – Right Button Target Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer2_right_direction:
+      name: "Layer 2 – Right Button Brightness Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "up"
+
+    layer2_right_step:
+      name: "Layer 2 – Right Button Brightness Step (%)"
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 50
+          unit_of_measurement: "%"
+
+    # ════════════════════════════════════════════════════════════════════════════
+    # LAYER 3
+    # ════════════════════════════════════════════════════════════════════════════
+    layer3_left_event:
+      name: "Layer 3 – Left Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer3_left_light:
+      name: "Layer 3 – Left Button Target Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer3_left_direction:
+      name: "Layer 3 – Left Button Brightness Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "down"
+
+    layer3_left_step:
+      name: "Layer 3 – Left Button Brightness Step (%)"
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 50
+          unit_of_measurement: "%"
+
+    # --- Layer 3 Center ---
+    layer3_center_event:
+      name: "Layer 3 – Center Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer3_center_single_type:
+      name: "Layer 3 – Center 1× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer3_center_single_light:
+      name: "Layer 3 – Center 1× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer3_center_single_action:
+      name: "Layer 3 – Center 1× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "toggle"
+
+    layer3_center_single_scene:
+      name: "Layer 3 – Center 1× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer3_center_single_cover:
+      name: "Layer 3 – Center 1× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer3_center_single_cover_action:
+      name: "Layer 3 – Center 1× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer3_center_double_type:
+      name: "Layer 3 – Center 2× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer3_center_double_light:
+      name: "Layer 3 – Center 2× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer3_center_double_action:
+      name: "Layer 3 – Center 2× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "brightness_50"
+
+    layer3_center_double_scene:
+      name: "Layer 3 – Center 2× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer3_center_double_cover:
+      name: "Layer 3 – Center 2× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer3_center_double_cover_action:
+      name: "Layer 3 – Center 2× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer3_center_triple_type:
+      name: "Layer 3 – Center 3× Click Type"
+      selector:
+        select:
+          options:
+            - label: "Light"
+              value: "light"
+            - label: "Scene"
+              value: "scene"
+            - label: "Cover"
+              value: "cover"
+      default: "light"
+
+    layer3_center_triple_light:
+      name: "Layer 3 – Center 3× Click Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer3_center_triple_action:
+      name: "Layer 3 – Center 3× Click Light Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Turn on"
+              value: "turn_on"
+            - label: "Turn off"
+              value: "turn_off"
+            - label: "25% Brightness"
+              value: "brightness_25"
+            - label: "50% Brightness"
+              value: "brightness_50"
+            - label: "75% Brightness"
+              value: "brightness_75"
+            - label: "100% Brightness"
+              value: "brightness_100"
+      default: "brightness_100"
+
+    layer3_center_triple_scene:
+      name: "Layer 3 – Center 3× Click Scene"
+      selector:
+        entity:
+          domain: scene
+      default: ""
+
+    layer3_center_triple_cover:
+      name: "Layer 3 – Center 3× Click Cover"
+      selector:
+        entity:
+          domain: cover
+      default: ""
+
+    layer3_center_triple_cover_action:
+      name: "Layer 3 – Center 3× Click Cover Action"
+      selector:
+        select:
+          options:
+            - label: "Toggle"
+              value: "toggle"
+            - label: "Open"
+              value: "open"
+            - label: "Close"
+              value: "close"
+            - label: "Stop"
+              value: "stop"
+      default: "toggle"
+
+    layer3_center_hold_light:
+      name: "Layer 3 – Center Hold Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer3_center_hold_direction:
+      name: "Layer 3 – Center Hold Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "up"
+
+    layer3_center_hold_step:
+      name: "Layer 3 – Center Hold Brightness Step (%)"
+      default: 5
+      selector:
+        number:
+          min: 1
+          max: 20
+          unit_of_measurement: "%"
+
+    # --- Layer 3 Right ---
+    layer3_right_event:
+      name: "Layer 3 – Right Button Event Entity"
+      selector:
+        entity:
+          domain: event
+      default: ""
+
+    layer3_right_light:
+      name: "Layer 3 – Right Button Target Light"
+      selector:
+        entity:
+          domain: light
+      default: ""
+
+    layer3_right_direction:
+      name: "Layer 3 – Right Button Brightness Direction"
+      selector:
+        select:
+          options:
+            - label: "Increase brightness"
+              value: "up"
+            - label: "Decrease brightness"
+              value: "down"
+      default: "up"
+
+    layer3_right_step:
+      name: "Layer 3 – Right Button Brightness Step (%)"
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 50
+          unit_of_measurement: "%"
+
+trigger:
+  # Layer 1
+  - platform: state
+    entity_id: !input layer1_left_event
+    id: l1_left
+  - platform: state
+    entity_id: !input layer1_center_event
+    id: l1_center
+  - platform: state
+    entity_id: !input layer1_right_event
+    id: l1_right
+  # Layer 2
+  - platform: state
+    entity_id: !input layer2_left_event
+    id: l2_left
+  - platform: state
+    entity_id: !input layer2_center_event
+    id: l2_center
+  - platform: state
+    entity_id: !input layer2_right_event
+    id: l2_right
+  # Layer 3
+  - platform: state
+    entity_id: !input layer3_left_event
+    id: l3_left
+  - platform: state
+    entity_id: !input layer3_center_event
+    id: l3_center
+  - platform: state
+    entity_id: !input layer3_right_event
+    id: l3_right
+
+condition: []
+
+action:
+  - variables:
+      event_type: "{{ state_attr(trigger.entity_id, 'event_type') }}"
+      trigger_id: "{{ trigger.id }}"
+
+      # Layer 1 Left
+      l1_left_light: !input layer1_left_light
+      l1_left_dir: !input layer1_left_direction
+      l1_left_step: !input layer1_left_step
+
+      # Layer 1 Center
+      l1_center_single_type: !input layer1_center_single_type
+      l1_center_single_light: !input layer1_center_single_light
+      l1_center_single_action: !input layer1_center_single_action
+      l1_center_single_scene: !input layer1_center_single_scene
+      l1_center_single_cover: !input layer1_center_single_cover
+      l1_center_single_cover_action: !input layer1_center_single_cover_action
+      l1_center_double_type: !input layer1_center_double_type
+      l1_center_double_light: !input layer1_center_double_light
+      l1_center_double_action: !input layer1_center_double_action
+      l1_center_double_scene: !input layer1_center_double_scene
+      l1_center_double_cover: !input layer1_center_double_cover
+      l1_center_double_cover_action: !input layer1_center_double_cover_action
+      l1_center_triple_type: !input layer1_center_triple_type
+      l1_center_triple_light: !input layer1_center_triple_light
+      l1_center_triple_action: !input layer1_center_triple_action
+      l1_center_triple_scene: !input layer1_center_triple_scene
+      l1_center_triple_cover: !input layer1_center_triple_cover
+      l1_center_triple_cover_action: !input layer1_center_triple_cover_action
+      l1_center_hold_light: !input layer1_center_hold_light
+      l1_center_hold_dir: !input layer1_center_hold_direction
+      l1_center_hold_step: !input layer1_center_hold_step
+
+      # Layer 1 Right
+      l1_right_light: !input layer1_right_light
+      l1_right_dir: !input layer1_right_direction
+      l1_right_step: !input layer1_right_step
+
+      # Layer 2 Left
+      l2_left_light: !input layer2_left_light
+      l2_left_dir: !input layer2_left_direction
+      l2_left_step: !input layer2_left_step
+
+      # Layer 2 Center
+      l2_center_single_type: !input layer2_center_single_type
+      l2_center_single_light: !input layer2_center_single_light
+      l2_center_single_action: !input layer2_center_single_action
+      l2_center_single_scene: !input layer2_center_single_scene
+      l2_center_single_cover: !input layer2_center_single_cover
+      l2_center_single_cover_action: !input layer2_center_single_cover_action
+      l2_center_double_type: !input layer2_center_double_type
+      l2_center_double_light: !input layer2_center_double_light
+      l2_center_double_action: !input layer2_center_double_action
+      l2_center_double_scene: !input layer2_center_double_scene
+      l2_center_double_cover: !input layer2_center_double_cover
+      l2_center_double_cover_action: !input layer2_center_double_cover_action
+      l2_center_triple_type: !input layer2_center_triple_type
+      l2_center_triple_light: !input layer2_center_triple_light
+      l2_center_triple_action: !input layer2_center_triple_action
+      l2_center_triple_scene: !input layer2_center_triple_scene
+      l2_center_triple_cover: !input layer2_center_triple_cover
+      l2_center_triple_cover_action: !input layer2_center_triple_cover_action
+      l2_center_hold_light: !input layer2_center_hold_light
+      l2_center_hold_dir: !input layer2_center_hold_direction
+      l2_center_hold_step: !input layer2_center_hold_step
+
+      # Layer 2 Right
+      l2_right_light: !input layer2_right_light
+      l2_right_dir: !input layer2_right_direction
+      l2_right_step: !input layer2_right_step
+
+      # Layer 3 Left
+      l3_left_light: !input layer3_left_light
+      l3_left_dir: !input layer3_left_direction
+      l3_left_step: !input layer3_left_step
+
+      # Layer 3 Center
+      l3_center_single_type: !input layer3_center_single_type
+      l3_center_single_light: !input layer3_center_single_light
+      l3_center_single_action: !input layer3_center_single_action
+      l3_center_single_scene: !input layer3_center_single_scene
+      l3_center_single_cover: !input layer3_center_single_cover
+      l3_center_single_cover_action: !input layer3_center_single_cover_action
+      l3_center_double_type: !input layer3_center_double_type
+      l3_center_double_light: !input layer3_center_double_light
+      l3_center_double_action: !input layer3_center_double_action
+      l3_center_double_scene: !input layer3_center_double_scene
+      l3_center_double_cover: !input layer3_center_double_cover
+      l3_center_double_cover_action: !input layer3_center_double_cover_action
+      l3_center_triple_type: !input layer3_center_triple_type
+      l3_center_triple_light: !input layer3_center_triple_light
+      l3_center_triple_action: !input layer3_center_triple_action
+      l3_center_triple_scene: !input layer3_center_triple_scene
+      l3_center_triple_cover: !input layer3_center_triple_cover
+      l3_center_triple_cover_action: !input layer3_center_triple_cover_action
+      l3_center_hold_light: !input layer3_center_hold_light
+      l3_center_hold_dir: !input layer3_center_hold_direction
+      l3_center_hold_step: !input layer3_center_hold_step
+
+      # Layer 3 Right
+      l3_right_light: !input layer3_right_light
+      l3_right_dir: !input layer3_right_direction
+      l3_right_step: !input layer3_right_step
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 1 – LEFT (Brightness adjustment)
+  # ════════════════════════════════════════════════════════════════════════════
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l1_left' and event_type == 'multi_press_1' and l1_left_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l1_left_light }}"
+        data:
+          brightness_step_pct: "{{ l1_left_step if l1_left_dir == 'up' else -l1_left_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 1 – CENTER (Full functionality)
+  # ════════════════════════════════════════════════════════════════════════════
+  # Single press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l1_center' and event_type == 'multi_press_1' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_single_type == 'scene' and l1_center_single_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l1_center_single_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_single_type == 'cover' and l1_center_single_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l1_center_single_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l1_center_single_cover }}"
+                  - conditions: "{{ l1_center_single_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l1_center_single_cover }}"
+                  - conditions: "{{ l1_center_single_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l1_center_single_cover }}"
+                  - conditions: "{{ l1_center_single_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l1_center_single_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_single_type == 'light' and l1_center_single_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l1_center_single_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                  - conditions: "{{ l1_center_single_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                  - conditions: "{{ l1_center_single_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                  - conditions: "{{ l1_center_single_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l1_center_single_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l1_center_single_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l1_center_single_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_single_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Double press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l1_center' and event_type == 'multi_press_2' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_double_type == 'scene' and l1_center_double_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l1_center_double_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_double_type == 'cover' and l1_center_double_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l1_center_double_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l1_center_double_cover }}"
+                  - conditions: "{{ l1_center_double_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l1_center_double_cover }}"
+                  - conditions: "{{ l1_center_double_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l1_center_double_cover }}"
+                  - conditions: "{{ l1_center_double_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l1_center_double_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_double_type == 'light' and l1_center_double_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l1_center_double_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                  - conditions: "{{ l1_center_double_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                  - conditions: "{{ l1_center_double_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                  - conditions: "{{ l1_center_double_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l1_center_double_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l1_center_double_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l1_center_double_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_double_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Triple press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l1_center' and event_type == 'multi_press_3' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_triple_type == 'scene' and l1_center_triple_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l1_center_triple_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_triple_type == 'cover' and l1_center_triple_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l1_center_triple_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l1_center_triple_cover }}"
+                  - conditions: "{{ l1_center_triple_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l1_center_triple_cover }}"
+                  - conditions: "{{ l1_center_triple_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l1_center_triple_cover }}"
+                  - conditions: "{{ l1_center_triple_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l1_center_triple_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l1_center_triple_type == 'light' and l1_center_triple_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l1_center_triple_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                  - conditions: "{{ l1_center_triple_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                  - conditions: "{{ l1_center_triple_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                  - conditions: "{{ l1_center_triple_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l1_center_triple_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l1_center_triple_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l1_center_triple_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l1_center_triple_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Hold
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l1_center' and (event_type == 'initial_press' or event_type == 'repeat') and l1_center_hold_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l1_center_hold_light }}"
+        data:
+          brightness_step_pct: "{{ l1_center_hold_step if l1_center_hold_dir == 'up' else -l1_center_hold_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 1 – RIGHT (Brightness adjustment)
+  # ════════════════════════════════════════════════════════════════════════════
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l1_right' and event_type == 'multi_press_1' and l1_right_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l1_right_light }}"
+        data:
+          brightness_step_pct: "{{ l1_right_step if l1_right_dir == 'up' else -l1_right_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 2 – LEFT (Brightness adjustment)
+  # ════════════════════════════════════════════════════════════════════════════
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l2_left' and event_type == 'multi_press_1' and l2_left_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l2_left_light }}"
+        data:
+          brightness_step_pct: "{{ l2_left_step if l2_left_dir == 'up' else -l2_left_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 2 – CENTER (Full functionality)
+  # ════════════════════════════════════════════════════════════════════════════
+  # Single press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l2_center' and event_type == 'multi_press_1' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_single_type == 'scene' and l2_center_single_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l2_center_single_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_single_type == 'cover' and l2_center_single_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l2_center_single_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l2_center_single_cover }}"
+                  - conditions: "{{ l2_center_single_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l2_center_single_cover }}"
+                  - conditions: "{{ l2_center_single_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l2_center_single_cover }}"
+                  - conditions: "{{ l2_center_single_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l2_center_single_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_single_type == 'light' and l2_center_single_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l2_center_single_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                  - conditions: "{{ l2_center_single_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                  - conditions: "{{ l2_center_single_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                  - conditions: "{{ l2_center_single_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l2_center_single_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l2_center_single_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l2_center_single_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_single_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Double press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l2_center' and event_type == 'multi_press_2' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_double_type == 'scene' and l2_center_double_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l2_center_double_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_double_type == 'cover' and l2_center_double_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l2_center_double_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l2_center_double_cover }}"
+                  - conditions: "{{ l2_center_double_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l2_center_double_cover }}"
+                  - conditions: "{{ l2_center_double_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l2_center_double_cover }}"
+                  - conditions: "{{ l2_center_double_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l2_center_double_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_double_type == 'light' and l2_center_double_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l2_center_double_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                  - conditions: "{{ l2_center_double_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                  - conditions: "{{ l2_center_double_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                  - conditions: "{{ l2_center_double_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l2_center_double_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l2_center_double_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l2_center_double_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_double_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Triple press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l2_center' and event_type == 'multi_press_3' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_triple_type == 'scene' and l2_center_triple_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l2_center_triple_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_triple_type == 'cover' and l2_center_triple_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l2_center_triple_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l2_center_triple_cover }}"
+                  - conditions: "{{ l2_center_triple_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l2_center_triple_cover }}"
+                  - conditions: "{{ l2_center_triple_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l2_center_triple_cover }}"
+                  - conditions: "{{ l2_center_triple_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l2_center_triple_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l2_center_triple_type == 'light' and l2_center_triple_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l2_center_triple_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                  - conditions: "{{ l2_center_triple_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                  - conditions: "{{ l2_center_triple_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                  - conditions: "{{ l2_center_triple_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l2_center_triple_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l2_center_triple_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l2_center_triple_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l2_center_triple_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Hold
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l2_center' and (event_type == 'initial_press' or event_type == 'repeat') and l2_center_hold_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l2_center_hold_light }}"
+        data:
+          brightness_step_pct: "{{ l2_center_hold_step if l2_center_hold_dir == 'up' else -l2_center_hold_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 2 – RIGHT (Brightness adjustment)
+  # ════════════════════════════════════════════════════════════════════════════
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l2_right' and event_type == 'multi_press_1' and l2_right_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l2_right_light }}"
+        data:
+          brightness_step_pct: "{{ l2_right_step if l2_right_dir == 'up' else -l2_right_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 3 – LEFT (Brightness adjustment)
+  # ════════════════════════════════════════════════════════════════════════════
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l3_left' and event_type == 'multi_press_1' and l3_left_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l3_left_light }}"
+        data:
+          brightness_step_pct: "{{ l3_left_step if l3_left_dir == 'up' else -l3_left_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 3 – CENTER (Full functionality)
+  # ════════════════════════════════════════════════════════════════════════════
+  # Single press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l3_center' and event_type == 'multi_press_1' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_single_type == 'scene' and l3_center_single_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l3_center_single_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_single_type == 'cover' and l3_center_single_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l3_center_single_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l3_center_single_cover }}"
+                  - conditions: "{{ l3_center_single_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l3_center_single_cover }}"
+                  - conditions: "{{ l3_center_single_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l3_center_single_cover }}"
+                  - conditions: "{{ l3_center_single_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l3_center_single_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_single_type == 'light' and l3_center_single_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l3_center_single_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                  - conditions: "{{ l3_center_single_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                  - conditions: "{{ l3_center_single_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                  - conditions: "{{ l3_center_single_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l3_center_single_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l3_center_single_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l3_center_single_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_single_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Double press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l3_center' and event_type == 'multi_press_2' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_double_type == 'scene' and l3_center_double_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l3_center_double_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_double_type == 'cover' and l3_center_double_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l3_center_double_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l3_center_double_cover }}"
+                  - conditions: "{{ l3_center_double_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l3_center_double_cover }}"
+                  - conditions: "{{ l3_center_double_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l3_center_double_cover }}"
+                  - conditions: "{{ l3_center_double_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l3_center_double_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_double_type == 'light' and l3_center_double_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l3_center_double_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                  - conditions: "{{ l3_center_double_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                  - conditions: "{{ l3_center_double_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                  - conditions: "{{ l3_center_double_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l3_center_double_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l3_center_double_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l3_center_double_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_double_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Triple press
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l3_center' and event_type == 'multi_press_3' }}"
+    then:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_triple_type == 'scene' and l3_center_triple_scene != '' }}"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: "{{ l3_center_triple_scene }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_triple_type == 'cover' and l3_center_triple_cover != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l3_center_triple_cover_action == 'toggle' }}"
+                    sequence:
+                      - service: cover.toggle
+                        target:
+                          entity_id: "{{ l3_center_triple_cover }}"
+                  - conditions: "{{ l3_center_triple_cover_action == 'open' }}"
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: "{{ l3_center_triple_cover }}"
+                  - conditions: "{{ l3_center_triple_cover_action == 'close' }}"
+                    sequence:
+                      - service: cover.close_cover
+                        target:
+                          entity_id: "{{ l3_center_triple_cover }}"
+                  - conditions: "{{ l3_center_triple_cover_action == 'stop' }}"
+                    sequence:
+                      - service: cover.stop_cover
+                        target:
+                          entity_id: "{{ l3_center_triple_cover }}"
+          - conditions:
+              - condition: template
+                value_template: "{{ l3_center_triple_type == 'light' and l3_center_triple_light != '' }}"
+            sequence:
+              - choose:
+                  - conditions: "{{ l3_center_triple_action == 'toggle' }}"
+                    sequence:
+                      - service: light.toggle
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                  - conditions: "{{ l3_center_triple_action == 'turn_on' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                  - conditions: "{{ l3_center_triple_action == 'turn_off' }}"
+                    sequence:
+                      - service: light.turn_off
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                  - conditions: "{{ l3_center_triple_action == 'brightness_25' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                        data:
+                          brightness_pct: 25
+                  - conditions: "{{ l3_center_triple_action == 'brightness_50' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                        data:
+                          brightness_pct: 50
+                  - conditions: "{{ l3_center_triple_action == 'brightness_75' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                        data:
+                          brightness_pct: 75
+                  - conditions: "{{ l3_center_triple_action == 'brightness_100' }}"
+                    sequence:
+                      - service: light.turn_on
+                        target:
+                          entity_id: "{{ l3_center_triple_light }}"
+                        data:
+                          brightness_pct: 100
+
+  # Hold
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l3_center' and (event_type == 'initial_press' or event_type == 'repeat') and l3_center_hold_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l3_center_hold_light }}"
+        data:
+          brightness_step_pct: "{{ l3_center_hold_step if l3_center_hold_dir == 'up' else -l3_center_hold_step }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # LAYER 3 – RIGHT (Brightness adjustment)
+  # ════════════════════════════════════════════════════════════════════════════
+  - if:
+      - condition: template
+        value_template: "{{ trigger_id == 'l3_right' and event_type == 'multi_press_1' and l3_right_light != '' }}"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: "{{ l3_right_light }}"
+        data:
+          brightness_step_pct: "{{ l3_right_step if l3_right_dir == 'up' else -l3_right_step }}"
+
+mode: parallel
+max: 10
