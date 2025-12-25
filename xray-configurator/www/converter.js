@@ -292,6 +292,11 @@ class XrayConverter {
             routing: {
                 rules: [
                     {
+                        "type": "field",
+                        "inboundTag": ["socks-in", "http-in"],
+                        "outboundTag": "vless-out"
+                    },
+                    {
                         type: 'field',
                         ip: ['geoip:private'],
                         outboundTag: 'direct'
