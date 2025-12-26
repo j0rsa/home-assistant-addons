@@ -1086,6 +1086,8 @@ action:
   - variables:
       event_type: "{{ state_attr(trigger.entity_id, 'event_type') }}"
       trigger_id: "{{ trigger.id }}"
+      # Press count for scroll wheel support (number of ticks in one gesture)
+      press_count: "{{ trigger.to_state.attributes.totalNumberOfPressesCounted | int(1) }}"
 
       # Layer 1
       l1_light: !input layer1_light
@@ -1178,16 +1180,16 @@ action:
   # ║                         LAYER 1 ACTIONS                                  ║
   # ╚══════════════════════════════════════════════════════════════════════════╝
 
-  # Layer 1 – Left (Brightness adjustment)
+  # Layer 1 – Left (Brightness adjustment with scroll wheel support)
   - if:
       - condition: template
-        value_template: "{{ trigger_id == 'l1_left' and event_type == 'multi_press_1' and l1_light != '' }}"
+        value_template: "{{ trigger_id == 'l1_left' and l1_light != '' }}"
     then:
       - service: light.turn_on
         target:
           entity_id: "{{ l1_light }}"
         data:
-          brightness_step_pct: "{{ l1_left_step if l1_left_dir == 'up' else -l1_left_step }}"
+          brightness_step_pct: "{{ (l1_left_step * press_count) if l1_left_dir == 'up' else -(l1_left_step * press_count) }}"
 
   # Layer 1 – Center Single Press
   - if:
@@ -1520,31 +1522,31 @@ action:
                         data:
                           brightness_pct: 100
 
-  # Layer 1 – Right (Brightness adjustment)
+  # Layer 1 – Right (Brightness adjustment with scroll wheel support)
   - if:
       - condition: template
-        value_template: "{{ trigger_id == 'l1_right' and event_type == 'multi_press_1' and l1_light != '' }}"
+        value_template: "{{ trigger_id == 'l1_right' and l1_light != '' }}"
     then:
       - service: light.turn_on
         target:
           entity_id: "{{ l1_light }}"
         data:
-          brightness_step_pct: "{{ l1_right_step if l1_right_dir == 'up' else -l1_right_step }}"
+          brightness_step_pct: "{{ (l1_right_step * press_count) if l1_right_dir == 'up' else -(l1_right_step * press_count) }}"
 
   # ╔══════════════════════════════════════════════════════════════════════════╗
   # ║                         LAYER 2 ACTIONS                                  ║
   # ╚══════════════════════════════════════════════════════════════════════════╝
 
-  # Layer 2 – Left (Brightness adjustment)
+  # Layer 2 – Left (Brightness adjustment with scroll wheel support)
   - if:
       - condition: template
-        value_template: "{{ trigger_id == 'l2_left' and event_type == 'multi_press_1' and l2_light != '' }}"
+        value_template: "{{ trigger_id == 'l2_left' and l2_light != '' }}"
     then:
       - service: light.turn_on
         target:
           entity_id: "{{ l2_light }}"
         data:
-          brightness_step_pct: "{{ l2_left_step if l2_left_dir == 'up' else -l2_left_step }}"
+          brightness_step_pct: "{{ (l2_left_step * press_count) if l2_left_dir == 'up' else -(l2_left_step * press_count) }}"
 
   # Layer 2 – Center Single Press
   - if:
@@ -1877,31 +1879,31 @@ action:
                         data:
                           brightness_pct: 100
 
-  # Layer 2 – Right (Brightness adjustment)
+  # Layer 2 – Right (Brightness adjustment with scroll wheel support)
   - if:
       - condition: template
-        value_template: "{{ trigger_id == 'l2_right' and event_type == 'multi_press_1' and l2_light != '' }}"
+        value_template: "{{ trigger_id == 'l2_right' and l2_light != '' }}"
     then:
       - service: light.turn_on
         target:
           entity_id: "{{ l2_light }}"
         data:
-          brightness_step_pct: "{{ l2_right_step if l2_right_dir == 'up' else -l2_right_step }}"
+          brightness_step_pct: "{{ (l2_right_step * press_count) if l2_right_dir == 'up' else -(l2_right_step * press_count) }}"
 
   # ╔══════════════════════════════════════════════════════════════════════════╗
   # ║                         LAYER 3 ACTIONS                                  ║
   # ╚══════════════════════════════════════════════════════════════════════════╝
 
-  # Layer 3 – Left (Brightness adjustment)
+  # Layer 3 – Left (Brightness adjustment with scroll wheel support)
   - if:
       - condition: template
-        value_template: "{{ trigger_id == 'l3_left' and event_type == 'multi_press_1' and l3_light != '' }}"
+        value_template: "{{ trigger_id == 'l3_left' and l3_light != '' }}"
     then:
       - service: light.turn_on
         target:
           entity_id: "{{ l3_light }}"
         data:
-          brightness_step_pct: "{{ l3_left_step if l3_left_dir == 'up' else -l3_left_step }}"
+          brightness_step_pct: "{{ (l3_left_step * press_count) if l3_left_dir == 'up' else -(l3_left_step * press_count) }}"
 
   # Layer 3 – Center Single Press
   - if:
@@ -2234,16 +2236,16 @@ action:
                         data:
                           brightness_pct: 100
 
-  # Layer 3 – Right (Brightness adjustment)
+  # Layer 3 – Right (Brightness adjustment with scroll wheel support)
   - if:
       - condition: template
-        value_template: "{{ trigger_id == 'l3_right' and event_type == 'multi_press_1' and l3_light != '' }}"
+        value_template: "{{ trigger_id == 'l3_right' and l3_light != '' }}"
     then:
       - service: light.turn_on
         target:
           entity_id: "{{ l3_light }}"
         data:
-          brightness_step_pct: "{{ l3_right_step if l3_right_dir == 'up' else -l3_right_step }}"
+          brightness_step_pct: "{{ (l3_right_step * press_count) if l3_right_dir == 'up' else -(l3_right_step * press_count) }}"
 
-mode: parallel
-max: 10
+mode: queued
+max: 20
