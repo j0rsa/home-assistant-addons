@@ -50,6 +50,16 @@ blueprint:
       selector:
         text:
 
+    update_delay:
+      name: "Delay Between Updates"
+      description: "Time to wait between updating each device (in seconds)"
+      default: 5
+      selector:
+        number:
+          min: 0
+          max: 300
+          unit_of_measurement: "seconds"
+
 trigger:
   # Trigger when any selected update entity changes to 'on' (update available)
   - platform: state
@@ -72,6 +82,7 @@ action:
       window_end: !input update_time_end
       notify_enabled: !input notify_before_update
       notification_svc: !input notification_service
+      update_delay_seconds: !input update_delay
       current_time: "{{ now().strftime('%H:%M:%S') }}"
       in_time_window: >
         {% if time_window_enabled %}
@@ -156,9 +167,9 @@ action:
                             message: "{{ device_name }} has been updated to {{ latest_version }}"
                             notification_id: "esphome_update_{{ update_entity | replace('.', '_') }}"
 
-                # Small delay between devices
+                # Delay between devices to reduce system load
                 - delay:
-                    seconds: 30
+                    seconds: "{{ update_delay_seconds }}"
 
       # Triggered by state change - check if within window
       - conditions:
