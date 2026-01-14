@@ -1,6 +1,6 @@
 blueprint:
   name: "ESPHome Auto-Updater"
-  description: "Automatically compile and update selected ESPHome devices when new versions are available"
+  description: "Automatically compile and update selected ESPHome devices when new versions are available. Can be triggered manually to force update checks."
   domain: automation
 
   input:
@@ -62,6 +62,11 @@ trigger:
     at: !input update_time_start
     id: window_start
 
+  # Manual trigger - allows user to force update check and install
+  - platform: event
+    event_type: automation_trigger
+    id: manual_trigger
+
 condition: []
 
 action:
@@ -81,10 +86,10 @@ action:
         {% endif %}
 
   - choose:
-      # Triggered by window start time - process all pending updates
+      # Triggered by window start time or manual trigger - process all pending updates
       - conditions:
           - condition: template
-            value_template: "{{ trigger.id == 'window_start' }}"
+            value_template: "{{ trigger.id in ['window_start', 'manual_trigger'] }}"
         sequence:
           - repeat:
               for_each: "{{ update_entities_list }}"
