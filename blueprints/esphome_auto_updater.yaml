@@ -62,11 +62,6 @@ trigger:
     at: !input update_time_start
     id: window_start
 
-  # Manual trigger - allows user to force update check and install
-  - platform: event
-    event_type: automation_trigger
-    id: manual_trigger
-
 condition: []
 
 action:
@@ -89,7 +84,7 @@ action:
       # Triggered by window start time or manual trigger - process all pending updates
       - conditions:
           - condition: template
-            value_template: "{{ trigger.id in ['window_start', 'manual_trigger'] }}"
+            value_template: "{{ trigger.id == 'window_start' or trigger.id is not defined }}"
         sequence:
           - repeat:
               for_each: "{{ update_entities_list }}"
