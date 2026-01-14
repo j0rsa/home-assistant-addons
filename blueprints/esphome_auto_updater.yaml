@@ -1,0 +1,120 @@
+blueprint:
+  name: "ESPHome Auto-Updater"
+  description: "Automatically compile and update selected ESPHome devices when new versions are available"
+  domain: automation
+
+  input:
+    update_entities:
+      name: "ESPHome Update Entities"
+      description: "Select the update entities for your ESPHome devices (update.device_name_firmware)"
+      selector:
+        entity:
+          multiple: true
+          filter:
+            - domain: update
+              integration: esphome
+      default: []
+
+    update_time_start:
+      name: "Update Window Start (Optional)"
+      description: "Only update devices after this time (leave empty for any time)"
+      default: "02:00:00"
+      selector:
+        time:
+
+    update_time_end:
+      name: "Update Window End (Optional)"
+      description: "Only update devices before this time (leave empty for any time)"
+      default: "06:00:00"
+      selector:
+        time:
+
+    enable_time_window:
+      name: "Enable Time Window"
+      description: "Only update devices within the specified time window"
+      default: true
+      selector:
+        boolean:
+
+    notify_before_update:
+      name: "Notify Before Update"
+      description: "Send notification before starting update"
+      default: true
+      selector:
+        boolean:
+
+    notification_service:
+      name: "Notification Service (Optional)"
+      description: "Service to use for notifications (e.g., notify.mobile_app_phone)"
+      default: ""
+      selector:
+        text:
+
+trigger:
+  # Trigger when any selected update entity changes to 'on' (update available)
+  - platform: state
+    entity_id: !input update_entities
+    to: "on"
+    id: update_available
+
+condition: []
+
+action:
+  - variables:
+      update_entities: !input update_entities
+      time_window_enabled: !input enable_time_window
+      window_start: !input update_time_start
+      window_end: !input update_time_end
+      notify_enabled: !input notify_before_update
+      notification_svc: !input notification_service
+      current_time: "{{ now().strftime('%H:%M:%S') }}"
+      triggered_entity: "{{ trigger.entity_id }}"
+
+  # Check if we're within the update window
+  - condition: template
+    value_template: >
+      {% if time_window_enabled %}
+        {{ window_start <= current_time <= window_end }}
+      {% else %}
+        true
+      {% endif %}
+
+  # Process the triggered update entity
+  - variables:
+      update_entity: "{{ triggered_entity }}"
+      device_name: "{{ state_attr(update_entity, 'friendly_name') | default(update_entity.replace('update.', '').replace('_firmware', '')) }}"
+      installed_version: "{{ state_attr(update_entity, 'installed_version') }}"
+      latest_version: "{{ state_attr(update_entity, 'latest_version') }}"
+
+  # Send notification before update if enabled
+  - if:
+      - condition: template
+        value_template: "{{ notify_enabled and notification_svc != '' }}"
+    then:
+      - service: "{{ notification_svc }}"
+        data:
+          title: "ESPHome Update Starting"
+          message: "Updating {{ device_name }} from {{ installed_version }} to {{ latest_version }}"
+
+  # Trigger ESPHome update using the update entity's install service
+  - service: update.install
+    target:
+      entity_id: "{{ update_entity }}"
+
+  # Wait for update to complete (max 10 minutes)
+  - wait_template: "{{ states(update_entity) == 'off' }}"
+    timeout: "00:10:00"
+    continue_on_timeout: true
+
+  # Send completion notification if enabled
+  - if:
+      - condition: template
+        value_template: "{{ notify_enabled and notification_svc != '' }}"
+    then:
+      - service: "{{ notification_svc }}"
+        data:
+          title: "ESPHome Update Complete"
+          message: "{{ device_name }} has been updated to {{ latest_version }}"
+
+mode: single
+max_exceeded: silent
