@@ -172,68 +172,68 @@ action:
               latest_version: "{{ state_attr(trigger.entity_id, 'latest_version') }}"
 
           - choose:
-              # Update is within time window - proceed with auto-update
-              - conditions:
-                  - condition: template
-                    value_template: "{{ in_time_window }}"
-                sequence:
-                  # Send notification before update if enabled
-                  - if:
-                      - condition: template
-                        value_template: "{{ notify_enabled }}"
-                    then:
-                      - choose:
-                          # Use custom notification service if provided
-                          - conditions:
-                              - condition: template
-                                value_template: "{{ notification_svc != '' }}"
-                            sequence:
-                              - service: "{{ notification_svc }}"
-                                data:
-                                  title: "ESPHome Update Starting"
-                                  message: "Updating {{ device_name }} from {{ installed_version }} to {{ latest_version }}"
-                        # Fallback to persistent notification
-                        default:
-                          - service: persistent_notification.create
-                            data:
-                              title: "ESPHome Update Starting"
-                              message: "Updating {{ device_name }} from {{ installed_version }} to {{ latest_version }}"
-                              notification_id: "esphome_update_{{ update_entity | replace('.', '_') }}"
+            # Update is within time window - proceed with auto-update
+            - conditions:
+                - condition: template
+                  value_template: "{{ in_time_window }}"
+              sequence:
+                # Send notification before update if enabled
+                - if:
+                    - condition: template
+                      value_template: "{{ notify_enabled }}"
+                  then:
+                    - choose:
+                        # Use custom notification service if provided
+                        - conditions:
+                            - condition: template
+                              value_template: "{{ notification_svc != '' }}"
+                          sequence:
+                            - service: "{{ notification_svc }}"
+                              data:
+                                title: "ESPHome Update Starting"
+                                message: "Updating {{ device_name }} from {{ installed_version }} to {{ latest_version }}"
+                      # Fallback to persistent notification
+                      default:
+                        - service: persistent_notification.create
+                          data:
+                            title: "ESPHome Update Starting"
+                            message: "Updating {{ device_name }} from {{ installed_version }} to {{ latest_version }}"
+                            notification_id: "esphome_update_{{ update_entity | replace('.', '_') }}"
 
-                  # Trigger ESPHome update using the update entity's install service
-                  - service: update.install
-                    target:
-                      entity_id: "{{ update_entity }}"
+                # Trigger ESPHome update using the update entity's install service
+                - service: update.install
+                  target:
+                    entity_id: "{{ update_entity }}"
 
-                  # Wait for update to complete (max 10 minutes)
-                  - wait_template: "{{ states(update_entity) == 'off' }}"
-                    timeout: "00:10:00"
-                    continue_on_timeout: true
+                # Wait for update to complete (max 10 minutes)
+                - wait_template: "{{ states(update_entity) == 'off' }}"
+                  timeout: "00:10:00"
+                  continue_on_timeout: true
 
-                  # Send completion notification if enabled
-                  - if:
-                      - condition: template
-                        value_template: "{{ notify_enabled }}"
-                    then:
-                      - choose:
-                          # Use custom notification service if provided
-                          - conditions:
-                              - condition: template
-                                value_template: "{{ notification_svc != '' }}"
-                            sequence:
-                              - service: "{{ notification_svc }}"
-                                data:
-                                  title: "ESPHome Update Complete"
-                                  message: "{{ device_name }} has been updated to {{ latest_version }}"
-                        # Fallback to persistent notification
-                        default:
-                          - service: persistent_notification.create
-                            data:
-                              title: "ESPHome Update Complete"
-                              message: "{{ device_name }} has been updated to {{ latest_version }}"
-                              notification_id: "esphome_update_{{ update_entity | replace('.', '_') }}"
+                # Send completion notification if enabled
+                - if:
+                    - condition: template
+                      value_template: "{{ notify_enabled }}"
+                  then:
+                    - choose:
+                        # Use custom notification service if provided
+                        - conditions:
+                            - condition: template
+                              value_template: "{{ notification_svc != '' }}"
+                          sequence:
+                            - service: "{{ notification_svc }}"
+                              data:
+                                title: "ESPHome Update Complete"
+                                message: "{{ device_name }} has been updated to {{ latest_version }}"
+                      # Fallback to persistent notification
+                      default:
+                        - service: persistent_notification.create
+                          data:
+                            title: "ESPHome Update Complete"
+                            message: "{{ device_name }} has been updated to {{ latest_version }}"
+                            notification_id: "esphome_update_{{ update_entity | replace('.', '_') }}"
 
-              # Update is outside time window - notify and schedule for next window
+            # Update is outside time window - notify and schedule for next window
             default:
               - if:
                   - condition: template
