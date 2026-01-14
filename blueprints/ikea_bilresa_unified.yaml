@@ -21,7 +21,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer1_left_direction:
       name: "Layer 1 – Left Button Direction"
@@ -49,7 +48,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer1_right_direction:
       name: "Layer 1 – Right Button Direction"
@@ -77,7 +75,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer1_center_single_type:
       name: "Layer 1 – Center 1× Type"
@@ -370,7 +367,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer2_left_direction:
       name: "Layer 2 – Left Button Direction"
@@ -398,7 +394,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer2_right_direction:
       name: "Layer 2 – Right Button Direction"
@@ -426,7 +421,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer2_center_single_type:
       name: "Layer 2 – Center 1× Type"
@@ -719,7 +713,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer3_left_direction:
       name: "Layer 3 – Left Button Direction"
@@ -747,7 +740,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer3_right_direction:
       name: "Layer 3 – Right Button Direction"
@@ -775,7 +767,6 @@ blueprint:
       selector:
         entity:
           domain: event
-      default: ""
 
     layer3_center_single_type:
       name: "Layer 3 – Center 1× Type"
