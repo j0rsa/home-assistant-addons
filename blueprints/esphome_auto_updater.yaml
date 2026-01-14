@@ -234,44 +234,35 @@ action:
                               notification_id: "esphome_update_{{ update_entity | replace('.', '_') }}"
 
               # Update is outside time window - notify and schedule for next window
-              default:
-                - if:
-                    - condition: template
-                      value_template: "{{ notify_enabled }}"
-                  then:
-                    - choose:
-                        # Use custom notification service if provided
-                        - conditions:
-                            - condition: template
-                              value_template: "{{ notification_svc != '' }}"
-                          sequence:
-                            - service: "{{ notification_svc }}"
-                              data:
-                                title: "ESPHome Update Scheduled"
-                                message: |
-                                  {{ device_name }} has an update available ({{ installed_version }} → {{ latest_version }}). Update scheduled for {{ window_start }} tomorrow.
-                      # Fallback to persistent notification
-                      default:
-                        - service: persistent_notification.create
-                          data:
-                            title: "ESPHome Update Scheduled"
-                            message: |
-                              **{{ device_name }}** has an update available but is outside the configured update window.
-                              
-                              Current version: {{ installed_version }}
-                              Available version: {{ latest_version }}
-                              
-                              The update will be installed automatically at {{ window_start }} when the next update window opens.
-                            notification_id: "esphome_update_pending_{{ update_entity | replace('.', '_') }}"
-  # Send completion notification if enabled
-  - if:
-      - condition: template
-        value_template: "{{ notify_enabled and notification_svc != '' }}"
-    then:
-      - service: "{{ notification_svc }}"
-        data:
-          title: "ESPHome Update Complete"
-          message: "{{ device_name }} has been updated to {{ latest_version }}"
+            default:
+              - if:
+                  - condition: template
+                    value_template: "{{ notify_enabled }}"
+                then:
+                  - choose:
+                      # Use custom notification service if provided
+                      - conditions:
+                          - condition: template
+                            value_template: "{{ notification_svc != '' }}"
+                        sequence:
+                          - service: "{{ notification_svc }}"
+                            data:
+                              title: "ESPHome Update Scheduled"
+                              message: |
+                                {{ device_name }} has an update available ({{ installed_version }} → {{ latest_version }}). Update scheduled for {{ window_start }} tomorrow.
+                    # Fallback to persistent notification
+                    default:
+                      - service: persistent_notification.create
+                        data:
+                          title: "ESPHome Update Scheduled"
+                          message: |
+                            **{{ device_name }}** has an update available but is outside the configured update window.
+                            
+                            Current version: {{ installed_version }}
+                            Available version: {{ latest_version }}
+                            
+                            The update will be installed automatically at {{ window_start }} when the next update window opens.
+                          notification_id: "esphome_update_pending_{{ update_entity | replace('.', '_') }}"
 
 mode: single
 max_exceeded: silent
