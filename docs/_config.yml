@@ -45,7 +45,6 @@ defaults:
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-google_search_console_verification_file
 
 # Navigation
 navigation:
@@ -57,7 +56,3 @@ navigation:
     url: /addons/
   - title: GitHub
     url: https://github.com/j0rsa/home-assistant-addons
-
-# https://github.com/erikw/jekyll-google_search_console_verification_file
-google_search_console:
-  verification_file_code: "84f654e56aa77b93"
