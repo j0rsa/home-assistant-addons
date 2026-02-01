@@ -4,6 +4,7 @@ description: High-quality Home Assistant add-ons for backup, AI, networking, and
 author: j0rsa
 email: red.avtovo@gmail.com
 
+
 # Theme configuration
 theme: jekyll-theme-cayman
 # Alternative themes you can use:
@@ -55,3 +56,6 @@ navigation:
     url: /addons/
   - title: GitHub
     url: https://github.com/j0rsa/home-assistant-addons
+
+google_search_console:
+  verification_file_code: "84f654e56aa77b93"
