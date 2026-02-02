@@ -66,6 +66,16 @@ WireGuard VPN client with SOCKS proxy support for secure networking.
 
 **Version:** Latest | **Architectures:** `amd64`, `aarch64`, `armv7`
 
+### [Go SOCKS5 Proxy](/addons/go-socks5-proxy)
+Simple, lightweight SOCKS5 proxy server with authentication and IP allowlisting support.
+
+**Version:** 1.0.0 | **Architectures:** `amd64`, `aarch64`
+
+### [SNI Socket Proxy](https://github.com/j0rsa/home-assistant-addons/tree/main/sni-socket)
+SNI proxy with SOCKS5 proxy support. Routes HTTP and HTTPS traffic through a SOCKS5 proxy based on hostname matching.
+
+**Version:** 1.0.0 | **Architectures:** `amd64`, `aarch64`
+
 ---
 
 ## 🛠️ DevOps & Git
@@ -84,16 +94,16 @@ Mirror GitHub users and organizations into your self-hosted Gitea instance with 
 | Backup & Storage | 1 |
 | Download Management | 1 |
 | AI & Machine Learning | 3 |
-| Networking & Proxy | 4 |
+| Networking & Proxy | 6 |
 | DevOps & Git | 1 |
-| **Total Add-ons** | **10** |
+| **Total Add-ons** | **12** |
 
 ## 🏗️ Architecture Support
 
 | Architecture | Description | Supported Add-ons |
 |--------------|-------------|-------------------|
-| `amd64` | Intel/AMD 64-bit | All 10 add-ons |
-| `aarch64` | ARM 64-bit (RPi 4/5) | All 10 add-ons |
+| `amd64` | Intel/AMD 64-bit | All 12 add-ons |
+| `aarch64` | ARM 64-bit (RPi 4/5) | All 12 add-ons |
 | `armv7` | ARM 32-bit (RPi 3) | 3 add-ons (networking) |
 
 ## 🔄 Recent Updates
