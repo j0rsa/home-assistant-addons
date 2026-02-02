@@ -1,0 +1,40 @@
+---
+name: "Go SOCKS5 Proxy"
+version: "1.0.0"
+slug: "go-socks5-proxy"
+description: |
+  Simple, lightweight SOCKS5 proxy server.
+
+  High-performance SOCKS5 proxy written in Go. Supports authentication, IP allowlisting, and destination filtering.
+
+  Configuration: Set username/password for authentication, or run in open mode.
+environment:
+  PUID: "0"
+  PGID: "0"
+  TZ: Etc/UTC
+options:
+  proxy_user: ""
+  proxy_password: ""
+  allowed_ips: []
+  allowed_dest_fqdn: ""
+schema:
+  proxy_user: str?
+  proxy_password: str?
+  allowed_ips:
+    - str
+  allowed_dest_fqdn: str?
+init: false
+startup: services
+arch:
+  - aarch64
+  - amd64
+boot: auto
+codenotary: "red.avtovo@gmail.com"
+image: "ghcr.io/j0rsa/haddon-go-socks5-proxy-{arch}"
+udev: false
+url: https://github.com/j0rsa/home-assistant-addons
+ports:
+  1080/tcp: 1080
+ports_description:
+  1080/tcp: SOCKS5 proxy port
+panel_icon: mdi:server-network
