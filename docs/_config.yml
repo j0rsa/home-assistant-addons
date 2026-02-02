@@ -36,10 +36,16 @@ defaults:
       type: "addons"
     values:
       layout: "addon"
+      last_modified_at: 2026-02-02T00:00:00+00:00
   - scope:
       path: ""
     values:
       layout: "default"
+      last_modified_at: 2026-02-02T00:00:00+00:00
+  - scope:
+      path: "google*.html"
+    values:
+      sitemap: false
 
 # Plugins
 plugins:
