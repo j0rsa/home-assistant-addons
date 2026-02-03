@@ -18,6 +18,7 @@ else
     bashio::log.warning "Running without authentication - consider setting username and password for production use"
     export PROXY_USER=""
     export PROXY_PASSWORD=""
+    export REQUIRE_AUTH="false"
 fi
 
 # Configure IP allowlist (convert list to comma-separated string)
