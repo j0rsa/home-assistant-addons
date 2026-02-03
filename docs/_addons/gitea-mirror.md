@@ -2,7 +2,7 @@
 name: gitea-mirror
 title: Gitea Mirror - GitHub ➜ Gitea Sync
 description: Mirror GitHub repos, orgs, and metadata into your self-hosted Gitea from Home Assistant
-date: 2024-01-01
+date: 2026-02-02
 category: DevOps & Git
 version: 3.9.2
 architectures:
