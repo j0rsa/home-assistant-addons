@@ -37,4 +37,4 @@ fi
 
 bashio::log.info "SOCKS5 proxy will be available on port 1080"
 
-exec /usr/local/bin/go-socks5-proxy
+exec /usr/local/bin/socks5

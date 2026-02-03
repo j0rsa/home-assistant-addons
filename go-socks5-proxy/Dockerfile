@@ -20,7 +20,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # Copy the socks5 binary from the official image
-COPY --from=socks5-source /app/go-socks5-proxy /usr/local/bin/go-socks5-proxy
+COPY --from=socks5-source /socks5 /usr/local/bin/socks5
 RUN chmod +x /usr/local/bin/go-socks5-proxy
 
 COPY run.sh /
