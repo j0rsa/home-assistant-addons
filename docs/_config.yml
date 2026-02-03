@@ -6,11 +6,7 @@ email: red.avtovo@gmail.com
 
 
 # Theme configuration
-theme: jekyll-theme-cayman
-# Alternative themes you can use:
-# theme: jekyll-theme-minimal
-# theme: jekyll-theme-architect
-# theme: jekyll-theme-slate
+theme: jekyll-theme-architect
 
 # GitHub repository information
 github_username: j0rsa
