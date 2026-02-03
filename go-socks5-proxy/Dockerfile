@@ -21,7 +21,7 @@ RUN echo "**** Building $BUILD_ARCH:$BUILD_VERSION image ****" && \
 
 # Copy the socks5 binary from the official image
 COPY --from=socks5-source /socks5 /usr/local/bin/socks5
-RUN chmod +x /usr/local/bin/go-socks5-proxy
+RUN chmod +x /usr/local/bin/socks5
 
 COPY run.sh /
 RUN chmod a+x /run.sh
