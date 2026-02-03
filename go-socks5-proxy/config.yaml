@@ -19,7 +19,7 @@ options:
   allowed_dest_fqdn: ""
 schema:
   proxy_user: str?
-  proxy_password: str?
+  proxy_password: password?
   allowed_ips:
     - str
   allowed_dest_fqdn: str?
