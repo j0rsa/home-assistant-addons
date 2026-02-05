@@ -1,6 +1,6 @@
 # Home Assistant Apps: J0rsa
 
-> **Note:** Home Assistant apps were formerly known as "add-ons." You may still see this terminology in the Home Assistant and documentation after 2026.02.
+> **Note:** As of [Home Assistant 2026.2](https://www.home-assistant.io/blog/2026/02/04/release-20262/), add-ons are now called "apps." You may still see the old terminology in some places.
 
 ## About
 
