@@ -30,7 +30,7 @@ defaults:
   - scope:
       path: ""
     values:
-      template: default
+      layout: default
       last_modified_at: 2026-02-05T00:00:00+00:00
   - scope:
       path: "google*.html"
