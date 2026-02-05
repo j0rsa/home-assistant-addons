@@ -1,19 +1,18 @@
 // Theme management
 function initTheme() {
-    // Check if user has a saved theme preference or default to system preference
+    // Check if user has a saved theme preference
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     let currentTheme;
     if (savedTheme) {
+        // User has explicitly set a theme - apply it
         currentTheme = savedTheme;
         document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (systemPrefersDark) {
-        currentTheme = 'dark';
-        document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-        currentTheme = 'light';
-        document.documentElement.setAttribute('data-theme', 'light');
+        // No saved preference - let CSS media query handle it
+        // Don't set data-theme attribute so :root:not([data-theme]) rules apply
+        currentTheme = systemPrefersDark ? 'dark' : 'light';
     }
     
     // Update icon once DOM is loaded
@@ -29,7 +28,8 @@ function watchSystemTheme() {
     mediaQuery.addEventListener('change', function(e) {
         if (!localStorage.getItem('theme')) {
             // Only auto-switch if user hasn't set a preference
-            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            // Update icon to reflect new system theme
+            updateThemeIcon(e.matches ? 'dark' : 'light');
         }
     });
 }
@@ -452,24 +452,38 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        navigator.clipboard.writeText(text).then(() => {
-            showToast(successMessage);
-        }).catch(err => {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
+        // Use fallback method first since navigator.clipboard requires secure context (HTTPS)
+        // and Home Assistant add-ons typically run over HTTP
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
                 showToast(successMessage);
-            } catch (err) {
-                showError('Failed to copy to clipboard');
+            } else {
+                // Try navigator.clipboard as fallback (works in secure contexts)
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        showToast(successMessage);
+                    }).catch(() => {
+                        showError('Failed to copy to clipboard');
+                    });
+                } else {
+                    showError('Failed to copy to clipboard');
+                }
             }
-            
-            document.body.removeChild(textArea);
-        });
+        } catch (err) {
+            showError('Failed to copy to clipboard');
+        }
+        
+        document.body.removeChild(textArea);
     }
 
     function showError(message) {
