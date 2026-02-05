@@ -11,7 +11,7 @@ ports:
   - 1080
 ---
 
-# Go SOCKS5 Proxy Add-on
+# Go SOCKS5 Proxy App
 
 Simple, lightweight SOCKS5 proxy server written in Go, based on [serjs/socks5-server](https://github.com/serjs/socks5-server).
 
@@ -37,10 +37,10 @@ Limit which external services can be accessed through the proxy.
 ## Installation
 
 1. Add the J0rsa repository to your Home Assistant
-2. Search for "Go SOCKS5 Proxy" in the Add-on Store
+2. Search for "Go SOCKS5 Proxy" in the App Store (formerly Add-on Store)
 3. Click Install and wait for the download to complete
-4. Configure the add-on (see Configuration below)
-5. Start the add-on
+4. Configure the app (see Configuration below)
+5. Start the app
 
 ## Configuration
 
@@ -65,7 +65,7 @@ allowed_dest_fqdn: ""       # Regex pattern for allowed destinations
 
 ### Accessing the Proxy
 
-After starting the add-on, configure your applications to use:
+After starting the app, configure your applications to use:
 
 - **Proxy Address**: `homeassistant.local:1080`
 - **Protocol**: SOCKS5
@@ -137,9 +137,9 @@ shell_command:
   test_socks_proxy: 'curl --socks5 homeassistant.local:1080 https://ipinfo.io'
 ```
 
-### Use with Other Add-ons
+### Use with Other Apps
 
-This proxy can be used with other add-ons that support SOCKS5, such as:
+This proxy can be used with other apps that support SOCKS5, such as:
 
 - SNI Socket Proxy - route traffic through this SOCKS5 proxy
 - Aria2/Ariang - download through the proxy
@@ -164,12 +164,12 @@ This proxy can be used with other add-ons that support SOCKS5, such as:
 
 ## Troubleshooting
 
-### Add-on Won't Start
+### App Won't Start
 - Check logs for error messages
 - Ensure port 1080 is not in use by another service
 
 ### Connection Refused
-- Ensure the add-on is running
+- Ensure the app is running
 - Check if authentication is required
 - Verify client IP is in the allowlist (if configured)
 
@@ -184,4 +184,4 @@ This proxy can be used with other add-ons that support SOCKS5, such as:
 
 ---
 
-[← Back to Add-ons](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/go-socks5-proxy)
+[← Back to Apps](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/go-socks5-proxy)

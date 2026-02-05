@@ -2,11 +2,13 @@
 title: Home
 ---
 
-# J0rsa Home Assistant Add-ons
+# J0rsa Home Assistant Apps
 
-Welcome to the J0rsa Home Assistant Add-ons repository! We provide high-quality, reliable add-ons to enhance your Home Assistant experience.
+> **Note:** Home Assistant apps were formerly known as "add-ons." You may still see this terminology in the Home Assistant UI and documentation.
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
+Welcome to the J0rsa Home Assistant Apps repository! We provide high-quality, reliable apps to enhance your Home Assistant experience.
+
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
 
 ## 🚀 Quick Installation
 
@@ -15,7 +17,7 @@ Click the button above or add this repository URL to your Home Assistant:
 https://github.com/j0rsa/home-assistant-addons
 ```
 
-## 📦 Available Add-ons
+## 📦 Available Apps
 
 ### 💾 Backup & Storage
 
@@ -119,15 +121,15 @@ WireGuard VPN client with advanced networking features.
 - **Easy Installation**: One-click installation through Home Assistant
 - **Regular Updates**: Actively maintained with frequent updates
 - **Multi-Architecture**: Support for various hardware platforms
-- **Secure**: All add-ons follow security best practices
-- **Documentation**: Comprehensive documentation for each add-on
+- **Secure**: All apps follow security best practices
+- **Documentation**: Comprehensive documentation for each app
 
 ## 💡 Getting Started
 
 1. **Add the Repository**: Click the installation button or manually add the repository URL
-2. **Browse Add-ons**: Navigate to Supervisor → Add-on Store → J0rsa Add-ons
-3. **Install**: Click on any add-on to view details and install
-4. **Configure**: Follow the documentation for each add-on to configure
+2. **Browse Apps**: Navigate to Supervisor → App Store (formerly Add-on Store) → J0rsa Apps
+3. **Install**: Click on any app to view details and install
+4. **Configure**: Follow the documentation for each app to configure
 
 ## 🤝 Contributing
 
@@ -144,7 +146,7 @@ Contributions are welcome! Feel free to:
 
 ## ☕ Support
 
-If you find these add-ons useful, consider supporting the development:
+If you find these apps useful, consider supporting the development:
 
 <a href="https://www.buymeacoffee.com/j0rsa" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 

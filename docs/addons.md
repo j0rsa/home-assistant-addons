@@ -1,10 +1,10 @@
 ---
-title: All Add-ons
+title: All Apps
 ---
 
-# Available Add-ons
+# Available Apps
 
-Browse all available add-ons organized by category. Click on any add-on for detailed documentation.
+Browse all available apps organized by category. Click on any app for detailed documentation.
 
 ## 💾 Backup & Storage
 
@@ -86,7 +86,7 @@ Mirror GitHub users and organizations into your self-hosted Gitea instance with 
 
 ---
 
-## 📊 Add-on Statistics
+## 📊 App Statistics
 
 | Category | Count |
 |----------|-------|
@@ -95,15 +95,15 @@ Mirror GitHub users and organizations into your self-hosted Gitea instance with 
 | AI & Machine Learning | 3 |
 | Networking & Proxy | 6 |
 | DevOps & Git | 1 |
-| **Total Add-ons** | **12** |
+| **Total Apps** | **12** |
 
 ## 🏗️ Architecture Support
 
-| Architecture | Description | Supported Add-ons |
+| Architecture | Description | Supported Apps |
 |--------------|-------------|-------------------|
-| `amd64` | Intel/AMD 64-bit | All 12 add-ons |
-| `aarch64` | ARM 64-bit (RPi 4/5) | All 12 add-ons |
-| `armv7` | ARM 32-bit (RPi 3) | 3 add-ons (networking) |
+| `amd64` | Intel/AMD 64-bit | All 12 apps |
+| `aarch64` | ARM 64-bit (RPi 4/5) | All 12 apps |
+| `armv7` | ARM 32-bit (RPi 3) | 3 apps (networking) |
 
 ## 🔄 Recent Updates
 
@@ -112,9 +112,9 @@ Stay informed about the latest updates:
 - Enable notifications for new releases
 - Join discussions in the Issues section
 
-## 📝 Request New Add-ons
+## 📝 Request New Apps
 
-Have an idea for a new add-on? We welcome suggestions!
+Have an idea for a new app? We welcome suggestions!
 
 1. Check if it's already requested in [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
 2. Create a new issue with the "enhancement" label

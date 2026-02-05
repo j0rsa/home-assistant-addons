@@ -1,4 +1,4 @@
-# HevSocks5 TProxy Add-on
+# HevSocks5 TProxy App
 
 Transparent SOCKS5 proxy client for routing network traffic through a remote SOCKS5 server.
 
@@ -7,7 +7,7 @@ Transparent SOCKS5 proxy client for routing network traffic through a remote SOC
 
 ## About
 
-This add-on runs [hev-socks5-tproxy](https://github.com/heiher/hev-socks5-tproxy), a high-performance transparent proxy that intercepts TCP and UDP traffic and forwards it through a SOCKS5 server.
+This app runs [hev-socks5-tproxy](https://github.com/heiher/hev-socks5-tproxy), a high-performance transparent proxy that intercepts TCP and UDP traffic and forwards it through a SOCKS5 server.
 
 ### What is a Transparent Proxy?
 
@@ -18,7 +18,7 @@ Unlike a regular SOCKS5 proxy where each application must be configured to use i
 App → [configured to use proxy] → SOCKS5 Server → Internet
 ```
 
-**Transparent Proxy (this add-on):**
+**Transparent Proxy (this app):**
 ```
 App → [normal connection] → [iptables intercepts] → TProxy → SOCKS5 Server → Internet
 ```
@@ -154,7 +154,7 @@ When you configure `listen_ports: [80, 443]` and make a request to `https://exam
 
 ### Step by Step
 
-1. The add-on starts the hev-socks5-tproxy daemon on internal port 12345
+1. The app starts the hev-socks5-tproxy daemon on internal port 12345
 2. iptables TPROXY rules intercept traffic destined for your configured ports
 3. Intercepted packets are redirected to the daemon (original destination preserved)
 4. The daemon extracts the original destination and forwards via SOCKS5
@@ -163,7 +163,7 @@ When you configure `listen_ports: [80, 443]` and make a request to `https://exam
 
 ## Requirements
 
-This add-on requires:
+This app requires:
 - **Host network access** — to intercept network traffic
 - **NET_ADMIN capability** — to configure iptables rules
 - **NET_RAW capability** — for raw socket access
@@ -172,23 +172,23 @@ These permissions are automatically configured.
 
 ## Combining with go-socks5-proxy
 
-You can use this add-on together with the **Go SOCKS5 Proxy** add-on:
+You can use this app together with the **Go SOCKS5 Proxy** app:
 
 1. Install and configure **go-socks5-proxy** (provides the SOCKS5 server)
-2. Install **hev-socks5-tproxy** (this add-on)
+2. Install **hev-socks5-tproxy** (this app)
 3. Point `socks5_address` to your Home Assistant IP and `socks5_port` to `1080`
 
 This setup allows transparent proxying of traffic through a local SOCKS5 server.
 
 ## Troubleshooting
 
-### Add-on won't start
+### App won't start
 - Check that `socks5_address` is configured
 - Verify the SOCKS5 server is reachable
 
 ### Traffic not being proxied
 - Ensure the SOCKS5 server is running and accepting connections
-- Check add-on logs for iptables rule errors
+- Check app logs for iptables rule errors
 - Verify your network topology allows traffic interception
 
 ### Connection timeouts

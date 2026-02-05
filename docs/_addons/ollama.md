@@ -11,7 +11,7 @@ ports:
   - 11434
 ---
 
-# Ollama Add-on
+# Ollama App
 
 Run Large Language Models (LLMs) locally on your Home Assistant hardware with complete privacy and no cloud dependency.
 
@@ -26,10 +26,10 @@ Run Large Language Models (LLMs) locally on your Home Assistant hardware with co
 ## Installation
 
 1. Add the J0rsa repository to your Home Assistant
-2. Search for "Ollama" in the Add-on Store
+2. Search for "Ollama" in the App Store (formerly Add-on Store)
 3. Click Install and wait for the download to complete
-4. Configure the add-on (see Configuration below)
-5. Start the add-on
+4. Configure the app (see Configuration below)
+5. Start the app
 
 ## Configuration
 
@@ -54,7 +54,7 @@ api_port: 11434  # API port
 
 ### Downloading Models
 
-After starting the add-on, you can download models using the API:
+After starting the app, you can download models using the API:
 
 ```bash
 curl http://homeassistant.local:11434/api/pull -d '{
@@ -134,7 +134,7 @@ curl http://homeassistant.local:11434/api/tags
 
 ## Troubleshooting
 
-### Add-on Won't Start
+### App Won't Start
 - Check logs for error messages
 - Ensure sufficient RAM is available
 - Verify port 11434 is not in use
@@ -147,7 +147,7 @@ curl http://homeassistant.local:11434/api/tags
 ### Slow Performance
 - Consider using smaller models
 - Enable GPU acceleration if available
-- Close other resource-intensive add-ons
+- Close other resource-intensive apps
 
 ## Support
 
@@ -157,4 +157,4 @@ curl http://homeassistant.local:11434/api/tags
 
 ---
 
-[← Back to Add-ons](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/ollama)
+[← Back to Apps](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/ollama)

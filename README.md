@@ -1,18 +1,20 @@
-# Home assistant add-ons: j0rsa
+# Home Assistant Apps: J0rsa
+
+> **Note:** Home Assistant apps were formerly known as "add-ons." You may still see this terminology in the Home Assistant and documentation after 2026.02.
 
 ## About
 
-Home Assistant allows anyone to create add-on repositories to share their add-ons for Home Assistant easily. This repository is one of those repositories, providing extra Home Assistant add-ons for your installation.
+Home Assistant allows anyone to create app repositories to share their apps for Home Assistant easily. This repository is one of those repositories, providing extra Home Assistant apps for your installation.
 
-The primary goal of this project is to provide you (as a Home Assistant user) with additional, high quality, add-ons that allow you to take your automated home to the next level.
+The primary goal of this project is to provide you (as a Home Assistant user) with additional, high quality, apps that allow you to take your automated home to the next level.
 
 ## Installation
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
 
 If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: https://github.com/j0rsa/home-assistant-addons
 
-# Add-ons provided by this repository
+# Apps provided by this repository
 
 ## Backup & Storage
 - **Duplicati** - Backup your data to the cloud or locally ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]

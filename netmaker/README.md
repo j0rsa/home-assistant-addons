@@ -1,4 +1,4 @@
-# Netmaker Client Add-on
+# Netmaker Client App
 
 ![](logo.png)
 
@@ -10,7 +10,7 @@ Netmaker WireGuard client that can route traffic through a SOCKS proxy for enhan
 
 ## About
 
-This add-on runs the official Netmaker client to connect to your Netmaker network and optionally routes all traffic through a SOCKS proxy (like the Xray add-on). This provides a powerful combination of:
+This app runs the official Netmaker client to connect to your Netmaker network and optionally routes all traffic through a SOCKS proxy (like the Xray app). This provides a powerful combination of:
 
 - **Netmaker Network Access**: Connect to your Netmaker-managed WireGuard network
 - **SOCKS Proxy Integration**: Route traffic through additional proxy layers for enhanced privacy
@@ -39,7 +39,7 @@ The WireGuard interface name that will be created by Netclient.
 
 #### Option: `socks_proxy`
 The SOCKS proxy address to route traffic through when `enable_proxy` is true.
-- Default: `homeassistant:1080` (assumes Xray add-on running on port 1080)
+- Default: `homeassistant:1080` (assumes Xray app running on port 1080)
 - Format: `hostname:port` or `ip:port`
 
 #### Option: `enable_proxy`
@@ -87,18 +87,18 @@ auto_restart: true
 
 1. **Set up Netmaker Server**: Ensure you have a working Netmaker server instance
 2. **Generate Enrollment Token**: In your Netmaker dashboard, create a new enrollment key
-3. **Configure Add-on**: 
+3. **Configure App**: 
    - Set `host_name` to your Netmaker host name
    - Set `netclient_token` to your enrollment token
    - Configure other options as needed
-4. **Start Add-on**: The add-on will automatically join your Netmaker network
+4. **Start App**: The app will automatically join your Netmaker network
 
-## Integration with Xray Add-on
+## Integration with Xray App
 
-This add-on works perfectly with the Xray add-on for enhanced privacy:
+This app works perfectly with the Xray app for enhanced privacy:
 
-1. **Install and configure Xray add-on** with your VPN server details
-2. **Configure Netmaker add-on** with:
+1. **Install and configure Xray app** with your VPN server details
+2. **Configure Netmaker app** with:
    - `enable_proxy: true`
    - `socks_proxy: "homeassistant:1080"` (Xray's SOCKS port)
 3. **Traffic flow**: Your device → Netmaker WireGuard → SOCKS proxy → Xray → VPN server
@@ -121,7 +121,7 @@ This add-on works perfectly with the Xray add-on for enhanced privacy:
 Set `debug_mode: true` to get additional debugging tools and verbose logging.
 
 ### Check Logs
-Monitor the add-on logs for connection status and error messages.
+Monitor the app logs for connection status and error messages.
 
 ### Common Issues
 
@@ -132,7 +132,7 @@ Monitor the add-on logs for connection status and error messages.
 
 ### Network Requirements
 
-The add-on requires:
+The app requires:
 - `NET_ADMIN` capability for network configuration
 - Access to `/dev/net/tun` device
 - Outbound connectivity to your Netmaker server

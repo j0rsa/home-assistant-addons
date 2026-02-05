@@ -1,4 +1,4 @@
-# Duplicati Add-on
+# Duplicati App
 
 Provides a Duplicati backup service for your Home Assistant instance.
 

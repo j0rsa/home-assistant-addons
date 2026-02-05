@@ -1,4 +1,4 @@
-# SNI Proxy Add-on
+# SNI Proxy App
 
 Forwards the HTTP(S) traffic respecting the L7 DNS rules
 

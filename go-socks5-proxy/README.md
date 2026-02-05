@@ -1,4 +1,4 @@
-# Go SOCKS5 Proxy Add-on
+# Go SOCKS5 Proxy App
 
 Simple, lightweight SOCKS5 proxy server written in Go.
 
@@ -7,7 +7,7 @@ Simple, lightweight SOCKS5 proxy server written in Go.
 
 ## About
 
-This add-on runs a high-performance SOCKS5 proxy server based on [serjs/socks5-server](https://github.com/serjs/socks5-server). It provides:
+This app runs a high-performance SOCKS5 proxy server based on [serjs/socks5-server](https://github.com/serjs/socks5-server). It provides:
 
 - **SOCKS5 Protocol**: Standard SOCKS5 proxy support
 - **Authentication**: Optional username/password authentication
@@ -71,8 +71,8 @@ allowed_dest_fqdn: ""
 
 ## Usage
 
-1. Configure your SOCKS5 proxy settings in the add-on configuration
-2. Start the add-on
+1. Configure your SOCKS5 proxy settings in the app configuration
+2. Start the app
 3. Configure your applications to use the proxy:
    - **Proxy Address**: `homeassistant-ip:1080`
    - **Protocol**: SOCKS5
@@ -94,7 +94,7 @@ curl --socks5 myuser:mysecurepassword@homeassistant-ip:1080 https://ipinfo.io
 - **Authentication**: Always set username and password for production deployments
 - **IP Allowlist**: Use `allowed_ips` to restrict which clients can connect
 - **Destination Filter**: Use `allowed_dest_fqdn` to control accessible destinations
-- **Network**: The add-on binds to all interfaces (0.0.0.0) for Home Assistant integration
+- **Network**: The app binds to all interfaces (0.0.0.0) for Home Assistant integration
 
 ## Support
 

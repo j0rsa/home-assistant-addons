@@ -1,4 +1,4 @@
-# Qdrant Add-on
+# Qdrant App
 
 ![](logo.png)
 
@@ -9,7 +9,7 @@ High-performance vector database for AI applications with REST and gRPC APIs.
 
 ## About
 
-This add-on runs Qdrant, a high-performance vector database designed for AI applications. It provides both REST and gRPC APIs for vector search and storage, making it ideal for:
+This app runs Qdrant, a high-performance vector database designed for AI applications. It provides both REST and gRPC APIs for vector search and storage, making it ideal for:
 
 - **Semantic Search**: Build search engines that understand meaning
 - **Recommendation Systems**: Create personalized recommendations
@@ -18,7 +18,7 @@ This add-on runs Qdrant, a high-performance vector database designed for AI appl
 
 ## Configuration
 
-The add-on provides a minimal configuration for quick setup with optional security and performance tuning.
+The app provides a minimal configuration for quick setup with optional security and performance tuning.
 
 ### Option: `api_key`
 
@@ -68,8 +68,8 @@ max_request_size_mb: 16
 
 ## Usage
 
-1. Configure your Qdrant settings in the add-on configuration
-2. Start the add-on
+1. Configure your Qdrant settings in the app configuration
+2. Start the app
 3. Access the APIs:
    - **REST API**: `http://homeassistant-ip:6333`
    - **gRPC API**: `homeassistant-ip:6334`
@@ -132,7 +132,7 @@ All vector data and collections are stored in the `/config/storage` directory, w
 
 - **API Key**: Always set an API key for production deployments
 - **Read-Only Mode**: Use for applications that only need to query existing data
-- **Network**: The add-on binds to all interfaces (0.0.0.0) for Home Assistant integration
+- **Network**: The app binds to all interfaces (0.0.0.0) for Home Assistant integration
 
 ## Support
 

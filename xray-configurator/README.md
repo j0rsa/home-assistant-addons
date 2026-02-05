@@ -6,7 +6,7 @@
 
 ## About
 
-Xray Configurator is a Home Assistant add-on that provides a web-based interface for converting VLESS and Shadowsocks proxy links into Xray configuration files. This tool makes it easy to generate properly formatted Xray configurations without needing command-line tools.
+Xray Configurator is a Home Assistant app that provides a web-based interface for converting VLESS and Shadowsocks proxy links into Xray configuration files. This tool makes it easy to generate properly formatted Xray configurations without needing command-line tools.
 
 ## Features
 
@@ -28,9 +28,9 @@ Xray Configurator is a Home Assistant add-on that provides a web-based interface
    https://github.com/j0rsa/home-assistant-addons
    ```
 
-2. Install the "Xray Configurator" add-on
+2. Install the "Xray Configurator" app
 
-3. Start the add-on
+3. Start the app
 
 4. Access the web interface through the Home Assistant sidebar or directly at:
    ```
@@ -66,11 +66,11 @@ The generated JSON configuration can be used directly with Xray:
 xray run -config config.json
 ```
 
-The base64 configuration can be used with the main Xray add-on by pasting it into the `xray_config_base64` option.
+The base64 configuration can be used with the main Xray app by pasting it into the `xray_config_base64` option.
 
 ## Configuration Options
 
-The add-on itself requires no configuration - it's ready to use out of the box. However, you can customize:
+The app itself requires no configuration - it's ready to use out of the box. However, you can customize:
 
 - **HTTP Proxy Port**: Set the port for the HTTP proxy in the generated configuration (default: 8080)
 - **SOCKS Proxy Port**: Always set to 1080 in generated configurations
@@ -78,7 +78,7 @@ The add-on itself requires no configuration - it's ready to use out of the box. 
 ## Security Features
 
 - **Local Processing**: All conversion happens locally in your browser - no data is sent to external servers
-- **No Data Storage**: The add-on doesn't store any configuration data
+- **No Data Storage**: The app doesn't store any configuration data
 - **Home Assistant Ingress**: Secure access through Home Assistant's authentication system
 
 ## Network Configuration
@@ -122,7 +122,7 @@ All standard Shadowsocks encryption methods are supported:
 
 ## License
 
-This add-on is released under the MIT License.
+This app is released under the MIT License.
 
 ## Support
 

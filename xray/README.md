@@ -1,4 +1,4 @@
-# Xray Add-on
+# Xray App
 
 ![](logo.png)
 
@@ -10,14 +10,14 @@ Xray-core client for connecting to VLESS/VMess/Trojan servers and creating a loc
 
 ## About
 
-This add-on runs Xray-core as a client to connect to your Xray server (VLESS, VMess, Trojan protocols) and provides local proxies that you can use to route traffic through your Xray server:
+This app runs Xray-core as a client to connect to your Xray server (VLESS, VMess, Trojan protocols) and provides local proxies that you can use to route traffic through your Xray server:
 
 - **HTTP Proxy**: Port 8080 for HTTP applications
 - **SOCKS Proxy**: Port 1080 for applications supporting SOCKS5 protocol
 
 ## Configuration
 
-The add-on accepts the complete Xray client configuration in JSON format, either as plain text or base64 encoded.
+The app accepts the complete Xray client configuration in JSON format, either as plain text or base64 encoded.
 
 ### Option: `xray_config_json`
 
@@ -93,8 +93,8 @@ log_level: warning
 
 ## Usage
 
-1. Configure your Xray client settings in the add-on configuration
-2. Start the add-on
+1. Configure your Xray client settings in the app configuration
+2. Start the app
 3. Both proxies will be available:
    - HTTP proxy: `http://homeassistant-ip:8080`
    - SOCKS proxy: `socks5://homeassistant-ip:1080`

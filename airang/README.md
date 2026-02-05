@@ -1,4 +1,4 @@
-# Aria NG Add-on
+# Aria NG App
 
 ![](logo.png)
 

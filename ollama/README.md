@@ -1,4 +1,4 @@
-# Ollama Add-on
+# Ollama App
 
 Runs the Ollama service and exposes the API
 

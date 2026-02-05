@@ -10,7 +10,7 @@ architectures:
 ports: []
 ---
 
-# HevSocks5 TProxy Add-on
+# HevSocks5 TProxy App
 
 Transparent SOCKS5 proxy client that intercepts TCP/UDP traffic and forwards it through a remote SOCKS5 server, based on [hev-socks5-tproxy](https://github.com/heiher/hev-socks5-tproxy).
 
@@ -27,7 +27,7 @@ Browser [proxy settings: 192.168.1.1:1080] → SOCKS5 Server → Internet
 **Pros:** Simple, no special permissions needed
 **Cons:** Apps must support proxy settings; some apps ignore proxy config
 
-### Transparent Proxy (this add-on)
+### Transparent Proxy (this app)
 
 A transparent proxy **intercepts traffic at the network level** and forwards it through an external SOCKS5 server. Apps don't need any configuration:
 
@@ -50,10 +50,10 @@ Browser [no config] → Network → [iptables intercepts] → TProxy → SOCKS5 
 ## Installation
 
 1. Add the J0rsa repository to your Home Assistant
-2. Search for "HevSocks5 TProxy" in the Add-on Store
+2. Search for "HevSocks5 TProxy" in the App Store (formerly Add-on Store)
 3. Click Install and wait for the download to complete
-4. Configure the add-on (see Configuration below)
-5. Start the add-on
+4. Configure the app (see Configuration below)
+5. Start the app
 
 ## Configuration
 
@@ -196,12 +196,12 @@ Your App                    hev-socks5-tproxy              SOCKS5 Server        
 - **Destination port preserved** — The final destination keeps the original port (443 → 443).
 - **Transparent** — Apps don't know they're being proxied; no app configuration needed.
 
-## Using with go-socks5-proxy Add-on
+## Using with go-socks5-proxy App
 
-This add-on pairs well with the **Go SOCKS5 Proxy** add-on from this repository:
+This app pairs well with the **Go SOCKS5 Proxy** app from this repository:
 
 1. **Install go-socks5-proxy**: Provides a local SOCKS5 server on port 1080
-2. **Install hev-socks5-tproxy**: This add-on
+2. **Install hev-socks5-tproxy**: This app
 3. **Configure hev-socks5-tproxy**:
    - Set `socks5_address` to your Home Assistant IP (e.g., `172.30.32.1`)
    - Set `socks5_port` to `1080`
@@ -210,8 +210,8 @@ This creates a transparent proxy that routes traffic through your local SOCKS5 s
 
 ## Security Considerations
 
-- This add-on requires **privileged access** to configure network rules
-- **Host network mode** is required — the add-on can see all network traffic
+- This app requires **privileged access** to configure network rules
+- **Host network mode** is required — the app can see all network traffic
 - Only intercept ports you specifically need (don't use `listen_ports: [1-65535]`)
 - Consider enabling DNS proxying to prevent DNS leaks
 
@@ -232,7 +232,7 @@ The `socks5_address` option must be set to a valid IP or hostname.
 
 ### Traffic not being proxied
 - Verify the upstream SOCKS5 server is running
-- Check add-on logs for iptables errors
+- Check app logs for iptables errors
 - Ensure the configured ports match the traffic you're trying to proxy
 
 ### UDP not working
@@ -249,4 +249,4 @@ Enable the DNS proxy options and configure your system to use the proxy's DNS po
 
 ---
 
-[← Back to Add-ons](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/hev-socks5-tproxy)
+[← Back to Apps](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/hev-socks5-tproxy)

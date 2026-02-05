@@ -12,7 +12,7 @@ ports:
   - 6334
 ---
 
-# Qdrant Vector Database Add-on
+# Qdrant Vector Database App
 
 High-performance vector database designed for AI applications, providing both REST and gRPC APIs for vector search and storage.
 
@@ -46,10 +46,10 @@ Identify outliers in your data by finding vectors that are dissimilar to the nor
 ## Installation
 
 1. Add the J0rsa repository to your Home Assistant
-2. Search for "Qdrant" in the Add-on Store
+2. Search for "Qdrant" in the App Store (formerly Add-on Store)
 3. Click Install and wait for the download to complete
-4. Configure the add-on (see Configuration below)
-5. Start the add-on
+4. Configure the app (see Configuration below)
+5. Start the app
 
 ## Configuration
 
@@ -78,7 +78,7 @@ max_request_size_mb: 32        # Maximum request size in MB
 
 ### Accessing the Services
 
-After starting the add-on, you can access:
+After starting the app, you can access:
 
 - **REST API**: `http://homeassistant.local:6333`
 - **gRPC API**: `homeassistant.local:6334`
@@ -291,13 +291,13 @@ curl -X POST 'http://homeassistant.local:6333/collections/my_collection/snapshot
 
 ## Troubleshooting
 
-### Add-on Won't Start
+### App Won't Start
 - Check logs for error messages
 - Ensure ports 6333 and 6334 are not in use
 - Verify sufficient disk space and RAM
 
 ### Connection Refused
-- Ensure the add-on is running
+- Ensure the app is running
 - Check if API key is required but not provided
 - Verify network connectivity
 
@@ -355,4 +355,4 @@ curl -X PUT 'http://homeassistant.local:6333/collections/my_collection/index' \
 
 ---
 
-[← Back to Add-ons](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/qdrant)
+[← Back to Apps](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/qdrant)
