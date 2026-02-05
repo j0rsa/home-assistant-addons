@@ -1,29 +1,25 @@
 ---
 name: "Xray"
-version: "1.1.1"
+version: "1.2.0"
 slug: "xray"
 description: |
   Xray Client
   
   Xray-core client for VLESS/VMess/Trojan protocols. Connect to your server and create a local proxy.
   
-  Configuration: Provide either xray_config_json OR xray_config_base64. If both are provided, base64 takes priority.
+  Configuration: Provide your Xray JSON config as base64 encoded string.
 environment:
   PUID: "0"
   PGID: "0"
   TZ: Etc/UTC
 options:
-  xray_config_json: ""
   xray_config_base64: ""
   log_level: "warning"
   debug_mode: false
 schema:
-  xray_config_json: str?
-  xray_config_base64: str?
+  xray_config_base64: str
   log_level: list(debug|info|warning|error|none)
   debug_mode: bool
-# Note: If both xray_config_json and xray_config_base64 are provided,
-# xray_config_base64 takes priority and will be used.
 init: false
 startup: services
 arch:

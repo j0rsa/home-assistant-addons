@@ -1,31 +1,25 @@
 #!/usr/bin/with-contenv bashio
 
-XRAY_CONFIG_JSON=$(bashio::config 'xray_config_json')
 XRAY_CONFIG_BASE64=$(bashio::config 'xray_config_base64')
 LOG_LEVEL=$(bashio::config 'log_level')
 DEBUG_MODE=$(bashio::config 'debug_mode')
 
 CONFIG_FILE="/config/xray_config.json"
 
-bashio::log.info "Starting Xray add-on..."
+bashio::log.info "Starting Xray app..."
 
-# Check if either config is provided
-if [[ -z "${XRAY_CONFIG_JSON}" && -z "${XRAY_CONFIG_BASE64}" ]]; then
-    bashio::log.error "No Xray configuration provided. Please set either 'xray_config_json' or 'xray_config_base64'."
+# Check if config is provided
+if [[ -z "${XRAY_CONFIG_BASE64}" ]]; then
+    bashio::log.error "No Xray configuration provided. Please set 'xray_config_base64'."
     exit 1
 fi
 
-# Process configuration
-if [[ -n "${XRAY_CONFIG_BASE64}" ]]; then
-    bashio::log.info "Using base64 encoded configuration"
-    echo "${XRAY_CONFIG_BASE64}" | base64 -d > "${CONFIG_FILE}"
-    if [[ $? -ne 0 ]]; then
-        bashio::log.error "Failed to decode base64 configuration"
-        exit 1
-    fi
-elif [[ -n "${XRAY_CONFIG_JSON}" ]]; then
-    bashio::log.info "Using JSON configuration"
-    echo "${XRAY_CONFIG_JSON}" > "${CONFIG_FILE}"
+# Decode base64 configuration
+bashio::log.info "Decoding base64 configuration"
+echo "${XRAY_CONFIG_BASE64}" | base64 -d > "${CONFIG_FILE}"
+if [[ $? -ne 0 ]]; then
+    bashio::log.error "Failed to decode base64 configuration"
+    exit 1
 fi
 
 # Validate JSON configuration
