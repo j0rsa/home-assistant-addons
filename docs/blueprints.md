@@ -1,11 +1,5 @@
 ---
-name: blueprints
 title: Automation Blueprints
-description: Ready-to-use Home Assistant automation blueprints
-category: Automation
-version: latest
-architectures: []
-ports: []
 ---
 
 # Automation Blueprints
@@ -108,4 +102,4 @@ After importing:
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/blueprints)
+[← Back to Home](/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/blueprints)

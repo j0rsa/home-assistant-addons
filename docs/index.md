@@ -116,6 +116,17 @@ WireGuard VPN client with advanced networking features.
 
 ---
 
+## 🤖 Automation Blueprints
+
+Ready-to-use automation blueprints for Home Assistant:
+
+- **[IKEA Bilresa Unified Controller](/blueprints)** - Complete control for scroll wheel with 3 layers × 3 buttons
+- **[ESPHome Auto-Updater](/blueprints)** - Automatically update ESPHome devices
+
+[View all blueprints →](/blueprints)
+
+---
+
 ## 🎯 Features
 
 - **Easy Installation**: One-click installation through Home Assistant
