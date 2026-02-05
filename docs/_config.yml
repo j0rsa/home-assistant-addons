@@ -10,8 +10,8 @@ theme: jekyll-theme-architect
 
 # GitHub repository information
 github_username: j0rsa
-repository_url: https://github.com/j0rsa/home-assistant-addons
-repository_name: home-assistant-addons
+repository_url: https://github.com/j0rsa/home-assistant-apps
+repository_name: home-assistant-apps
 
 # Build settings
 markdown: kramdown
@@ -30,6 +30,7 @@ defaults:
   - scope:
       path: ""
     values:
+      template: default
       last_modified_at: 2026-02-05T00:00:00+00:00
   - scope:
       path: "google*.html"
@@ -50,4 +51,4 @@ navigation:
   - title: Apps
     url: /apps/
   - title: GitHub
-    url: https://github.com/j0rsa/home-assistant-addons
+    url: https://github.com/j0rsa/home-assistant-apps
