@@ -1,0 +1,58 @@
+---
+name: "HevSocks5 TProxy"
+version: "1.0.0"
+slug: "hev-socks5-tproxy"
+description: |
+  Transparent SOCKS5 proxy client for Linux.
+
+  Intercepts TCP/UDP traffic and forwards it through a remote SOCKS5 server.
+  Useful for routing traffic through a VPN or proxy without configuring each application.
+environment:
+  TZ: Etc/UTC
+options:
+  # --- Upstream SOCKS5 Server ---
+  socks5_address: ""
+  socks5_port: 1080
+  socks5_username: ""
+  socks5_password: ""
+  socks5_udp_mode: "udp"
+  # --- Local Listener ---
+  listen_ports:
+    - 80
+    - 443
+  # --- DNS Proxy (optional) ---
+  dns_enabled: false
+  dns_listen_port: 1053
+  dns_upstream_address: ""
+  dns_upstream_port: 53
+schema:
+  # --- Upstream SOCKS5 Server ---
+  socks5_address: str
+  socks5_port: port
+  socks5_username: str?
+  socks5_password: password?
+  socks5_udp_mode: list(udp|tcp)
+  # --- Local Listener ---
+  listen_ports:
+    - port
+  # --- DNS Proxy (optional) ---
+  dns_enabled: bool
+  dns_listen_port: port
+  dns_upstream_address: str?
+  dns_upstream_port: port
+init: false
+startup: services
+arch:
+  - aarch64
+  - amd64
+boot: auto
+codenotary: "red.avtovo@gmail.com"
+image: "ghcr.io/j0rsa/haddon-hev-socks5-tproxy-{arch}"
+udev: false
+url: https://github.com/j0rsa/home-assistant-addons
+panel_icon: mdi:network-outline
+full_access: true
+host_network: true
+privileged:
+  - NET_ADMIN
+  - NET_RAW
