@@ -39,8 +39,23 @@ If you want to do add the repository manually, please follow the procedure highl
 ## DevOps & Git
 - **Gitea Mirror** - Mirror GitHub repositories, organizations, and metadata into your self-hosted Gitea instance. Minimal configuration required - all settings managed through the web UI. ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
+# Automation Blueprints
 
-[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+Ready-to-use Home Assistant automation blueprints:
+
+- **IKEA Bilresa Unified Controller** - Complete control for IKEA Bilresa scroll wheel with 3 layers × 3 buttons. Supports brightness adjustment, multi-press actions, hold actions, scenes, and covers.
+  
+  [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
+  
+  [View YAML](https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/ikea_bilresa_unified.yaml)
+
+- **ESPHome Auto-Updater** - Automatically update ESPHome devices when new versions are available. Supports update windows, notifications, and selective device updates.
+  
+  [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
+  
+  [View YAML](https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/esphome_auto_updater.yaml)
+
+[aarch64-shield]:
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
