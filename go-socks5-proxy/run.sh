@@ -23,7 +23,7 @@ fi
 
 # Configure IP allowlist (convert list to comma-separated string)
 if bashio::config.has_value 'allowed_ips'; then
-    ALLOWED_IPS=$(bashio::config 'allowed_ips' | jq -r 'join(",")')
+    ALLOWED_IPS=$(jq -r '.allowed_ips | join(",")' /data/options.json)
     if [[ -n "${ALLOWED_IPS}" ]]; then
         bashio::log.info "IP allowlist configured: ${ALLOWED_IPS}"
         export ALLOWED_IPS="${ALLOWED_IPS}"

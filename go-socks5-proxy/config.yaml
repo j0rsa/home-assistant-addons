@@ -1,6 +1,6 @@
 ---
 name: "Go SOCKS5 Proxy"
-version: "1.0.1"
+version: "1.0.2"
 slug: "go-socks5-proxy"
 description: |
   Simple, lightweight SOCKS5 proxy server.
