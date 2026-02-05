@@ -145,4 +145,4 @@ If you encounter issues:
 
 ---
 
-[← Back to Home](/) | [View Apps →](/addons/)
+[← Back to Home](/) | [View Apps →](/apps/)

@@ -355,4 +355,4 @@ curl -X PUT 'http://homeassistant.local:6333/collections/my_collection/index' \
 
 ---
 
-[← Back to Apps](/addons/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/qdrant)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/qdrant)

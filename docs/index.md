@@ -21,7 +21,7 @@ https://github.com/j0rsa/home-assistant-addons
 
 ### 💾 Backup & Storage
 
-#### [Duplicati](/addons/duplicati)
+#### [Duplicati](/apps/duplicati)
 Comprehensive backup solution with cloud support. Back up your Home Assistant data to various cloud providers or local storage with encryption and scheduling options.
 - Supports multiple cloud providers (Google Drive, Dropbox, S3, etc.)
 - Encrypted backups with strong AES-256 encryption
@@ -34,7 +34,7 @@ Comprehensive backup solution with cloud support. Back up your Home Assistant da
 
 ### 📥 Download Management
 
-#### [Ariang](/addons/ariang)
+#### [Ariang](/apps/ariang)
 Modern web frontend for the powerful aria2 download utility. Manage all your downloads through a sleek, responsive interface.
 - Support for HTTP/HTTPS, FTP, BitTorrent, and Metalink
 - Real-time download statistics
@@ -47,7 +47,7 @@ Modern web frontend for the powerful aria2 download utility. Manage all your dow
 
 ### 🤖 AI & Machine Learning
 
-#### [Ollama](/addons/ollama)
+#### [Ollama](/apps/ollama)
 Run Large Language Models locally on your Home Assistant hardware. Complete privacy with no cloud dependency.
 - Support for various LLM models (Llama, Mistral, etc.)
 - REST API for integration
@@ -56,7 +56,7 @@ Run Large Language Models locally on your Home Assistant hardware. Complete priv
 
 **Architectures:** `aarch64` `amd64`
 
-#### [Open WebUI](/addons/open-webui)
+#### [Open WebUI](/apps/open-webui)
 Feature-rich web interface for Ollama. ChatGPT-like experience with your local models.
 - Clean, intuitive chat interface
 - Multiple conversation management
@@ -65,7 +65,7 @@ Feature-rich web interface for Ollama. ChatGPT-like experience with your local m
 
 **Architectures:** `aarch64` `amd64`
 
-#### [Qdrant](/addons/qdrant)
+#### [Qdrant](/apps/qdrant)
 High-performance vector database for AI applications. Essential for semantic search and RAG systems.
 - REST and gRPC APIs
 - Real-time index updates
@@ -78,7 +78,7 @@ High-performance vector database for AI applications. Essential for semantic sea
 
 ### 🌐 Networking & Proxy
 
-#### [SNI Proxy](/addons/sniproxy)
+#### [SNI Proxy](/apps/sniproxy)
 Transparent SNI-based proxy for routing HTTPS traffic without decryption.
 - SNI-based routing
 - Minimal resource usage
@@ -87,7 +87,7 @@ Transparent SNI-based proxy for routing HTTPS traffic without decryption.
 
 **Architectures:** `aarch64` `amd64` `armv7`
 
-#### [Xray](/addons/xray)
+#### [Xray](/apps/xray)
 Advanced proxy client with support for modern protocols. Enhanced privacy and network freedom.
 - VLESS/VMess/Trojan protocol support
 - Advanced routing rules
@@ -96,7 +96,7 @@ Advanced proxy client with support for modern protocols. Enhanced privacy and ne
 
 **Architectures:** `aarch64` `amd64` `armv7`
 
-#### [Xray Configurator](/addons/xray-configurator)
+#### [Xray Configurator](/apps/xray-configurator)
 Web-based configuration generator for Xray. Simplify complex proxy setups.
 - Convert proxy links to configurations
 - Visual configuration editor
@@ -105,7 +105,7 @@ Web-based configuration generator for Xray. Simplify complex proxy setups.
 
 **Architectures:** `aarch64` `amd64`
 
-#### [Netmaker Client](/addons/netmaker)
+#### [Netmaker Client](/apps/netmaker)
 WireGuard VPN client with advanced networking features.
 - WireGuard VPN connectivity
 - SOCKS proxy support

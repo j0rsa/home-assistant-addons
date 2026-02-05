@@ -26,7 +26,7 @@ Modern web frontend making aria2 easier to use. Manage downloads with a clean, r
 
 ## 🤖 AI & Machine Learning
 
-### [Ollama](/addons/ollama)
+### [Ollama](/apps/ollama)
 Run Large Language Models locally with complete privacy. Support for Llama 2, Mistral, and more.
 
 **Version:** Latest | **Architectures:** `amd64`, `aarch64`
@@ -36,7 +36,7 @@ Feature-rich web UI for Ollama. ChatGPT-like interface for your local models.
 
 **Version:** Latest | **Architectures:** `amd64`, `aarch64`
 
-### [Qdrant](/addons/qdrant)
+### [Qdrant](/apps/qdrant)
 High-performance vector database for AI applications. Essential for semantic search and RAG.
 
 **Version:** 1.0.14 | **Architectures:** `amd64`, `aarch64`
@@ -65,7 +65,7 @@ WireGuard VPN client with SOCKS proxy support for secure networking.
 
 **Version:** Latest | **Architectures:** `amd64`, `aarch64`, `armv7`
 
-### [Go SOCKS5 Proxy](/addons/go-socks5-proxy)
+### [Go SOCKS5 Proxy](/apps/go-socks5-proxy)
 Simple, lightweight SOCKS5 proxy server with authentication and IP allowlisting support.
 
 **Version:** 1.0.0 | **Architectures:** `amd64`, `aarch64`

@@ -1,6 +1,6 @@
 # Jekyll configuration for GitHub Pages
-title: J0rsa Home Assistant Add-ons
-description: High-quality Home Assistant add-ons for backup, AI, networking, and more
+title: J0rsa Home Assistant Apps
+description: High-quality Home Assistant apps for backup, AI, networking, and more
 author: j0rsa
 email: red.avtovo@gmail.com
 
@@ -19,18 +19,18 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# Collections for add-ons documentation
+# Collections for apps documentation
 collections:
-  addons:
+  apps:
     output: true
-    permalink: /addons/:name/
+    permalink: /apps/:name/
 
 # Default values
 defaults:
   - scope:
       path: ""
     values:
-      last_modified_at: 2026-02-02T00:00:00+00:00
+      last_modified_at: 2026-02-05T00:00:00+00:00
   - scope:
       path: "google*.html"
     values:
@@ -47,7 +47,7 @@ navigation:
     url: /
   - title: Installation
     url: /installation/
-  - title: Add-ons
-    url: /addons/
+  - title: Apps
+    url: /apps/
   - title: GitHub
     url: https://github.com/j0rsa/home-assistant-addons
