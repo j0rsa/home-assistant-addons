@@ -82,4 +82,8 @@ fabric.properties
 matrix.txt
 matrix-count.txt
 
+# Jekyll
+docs/_site/
+docs/.jekyll-cache/
+
 CLAUDE.md

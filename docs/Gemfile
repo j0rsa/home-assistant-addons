@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gem "jekyll", "~> 3.10"
+gem "jekyll-theme-architect"
+gem "jekyll-seo-tag"
+gem "jekyll-sitemap"
+gem "jekyll-last-modified-at"
