@@ -96,7 +96,7 @@ Configure routing rules to direct traffic to appropriate backends based on hostn
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 
 ---
 

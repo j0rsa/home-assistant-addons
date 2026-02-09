@@ -1,5 +1,7 @@
 ---
 title: Installation Guide
+description: "Step-by-step guide to install J0rsa Home Assistant apps. One-click setup, manual installation, troubleshooting, and architecture support."
+permalink: /installation/
 ---
 
 # Installation Guide
@@ -132,7 +134,7 @@ Our apps support various architectures. Check compatibility before installation:
 If you encounter issues:
 
 1. **Check Documentation**: Each app has a Documentation tab with specific information
-2. **GitHub Issues**: Report bugs or request features on our [GitHub repository](https://github.com/j0rsa/home-assistant-addons/issues)
+2. **GitHub Issues**: Report bugs or request features on our [GitHub repository](https://github.com/j0rsa/home-assistant-apps/issues)
 3. **Community Forum**: Ask questions in the [Home Assistant Community](https://community.home-assistant.io/)
 4. **Logs**: Always include relevant logs when reporting issues
 

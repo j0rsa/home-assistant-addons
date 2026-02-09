@@ -244,7 +244,7 @@ Enable the DNS proxy options and configure your system to use the proxy's DNS po
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Upstream Repository](https://github.com/heiher/hev-socks5-tproxy)
 
 ---

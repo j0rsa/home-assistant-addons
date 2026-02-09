@@ -32,11 +32,11 @@ Open WebUI (formerly Ollama WebUI) is an extensible, feature-rich, and user-frie
 
 ## Prerequisites
 
-This app works best with the **Ollama** app installed and running. Install Ollama first to run local LLM models.
+This app works best with the [Ollama](/apps/ollama/) app installed and running. Install Ollama first to run local LLM models.
 
 ## Installation
 
-1. Install and start the **Ollama** app (recommended)
+1. Install and start the [Ollama](/apps/ollama/) app (recommended)
 2. Add the J0rsa repository to your Home Assistant
 3. Search for "Open WebUI" in the App Store (formerly Add-on Store)
 4. Click Install and wait for the download to complete
@@ -121,7 +121,7 @@ curl http://homeassistant.local:11434/api/tags
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Open WebUI Documentation](https://docs.openwebui.com/)
 - [Open WebUI GitHub](https://github.com/open-webui/open-webui)
 

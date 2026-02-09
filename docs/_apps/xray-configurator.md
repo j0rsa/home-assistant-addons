@@ -121,11 +121,11 @@ Encoded configuration string for use with the Xray app's `xray_config_base64` op
 | `pbk` | REALITY public key |
 | `sid` | REALITY short ID |
 
-## Using with Xray App
+## Using with [Xray](/apps/xray/) App
 
 1. Generate configuration using this tool
 2. Copy the Base64 output
-3. Open Xray app configuration
+3. Open [Xray](/apps/xray/) app configuration
 4. Paste into `xray_config_base64` field
 5. Start Xray app
 
@@ -154,7 +154,7 @@ Encoded configuration string for use with the Xray app's `xray_config_base64` op
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 
 ---
 

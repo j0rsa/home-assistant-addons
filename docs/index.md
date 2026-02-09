@@ -1,5 +1,6 @@
 ---
-title: Home
+title: J0rsa Home Assistant Apps
+description: "Custom Home Assistant apps for backup, AI, local LLM, networking, and proxy management. Free, open source, and easy to install."
 ---
 
 # J0rsa Home Assistant Apps
@@ -21,7 +22,7 @@ https://github.com/j0rsa/home-assistant-addons
 
 ### 💾 Backup & Storage
 
-#### [Duplicati](/apps/duplicati)
+#### [Duplicati](/apps/duplicati/)
 Comprehensive backup solution with cloud support. Back up your Home Assistant data to various cloud providers or local storage with encryption and scheduling options.
 - Supports multiple cloud providers (Google Drive, Dropbox, S3, etc.)
 - Encrypted backups with strong AES-256 encryption
@@ -34,7 +35,7 @@ Comprehensive backup solution with cloud support. Back up your Home Assistant da
 
 ### 📥 Download Management
 
-#### [Ariang](/apps/ariang)
+#### [Ariang](/apps/ariang/)
 Modern web frontend for the powerful aria2 download utility. Manage all your downloads through a sleek, responsive interface.
 - Support for HTTP/HTTPS, FTP, BitTorrent, and Metalink
 - Real-time download statistics
@@ -47,7 +48,7 @@ Modern web frontend for the powerful aria2 download utility. Manage all your dow
 
 ### 🤖 AI & Machine Learning
 
-#### [Ollama](/apps/ollama)
+#### [Ollama](/apps/ollama/)
 Run Large Language Models locally on your Home Assistant hardware. Complete privacy with no cloud dependency.
 - Support for various LLM models (Llama, Mistral, etc.)
 - REST API for integration
@@ -56,7 +57,7 @@ Run Large Language Models locally on your Home Assistant hardware. Complete priv
 
 **Architectures:** `aarch64` `amd64`
 
-#### [Open WebUI](/apps/open-webui)
+#### [Open WebUI](/apps/open-webui/)
 Feature-rich web interface for Ollama. ChatGPT-like experience with your local models.
 - Clean, intuitive chat interface
 - Multiple conversation management
@@ -65,7 +66,7 @@ Feature-rich web interface for Ollama. ChatGPT-like experience with your local m
 
 **Architectures:** `aarch64` `amd64`
 
-#### [Qdrant](/apps/qdrant)
+#### [Qdrant](/apps/qdrant/)
 High-performance vector database for AI applications. Essential for semantic search and RAG systems.
 - REST and gRPC APIs
 - Real-time index updates
@@ -78,7 +79,7 @@ High-performance vector database for AI applications. Essential for semantic sea
 
 ### 🌐 Networking & Proxy
 
-#### [SNI Proxy](/apps/sniproxy)
+#### [SNI Proxy](/apps/sniproxy/)
 Transparent SNI-based proxy for routing HTTPS traffic without decryption.
 - SNI-based routing
 - Minimal resource usage
@@ -87,7 +88,7 @@ Transparent SNI-based proxy for routing HTTPS traffic without decryption.
 
 **Architectures:** `aarch64` `amd64` `armv7`
 
-#### [Xray](/apps/xray)
+#### [Xray](/apps/xray/)
 Advanced proxy client with support for modern protocols. Enhanced privacy and network freedom.
 - VLESS/VMess/Trojan protocol support
 - Advanced routing rules
@@ -96,7 +97,7 @@ Advanced proxy client with support for modern protocols. Enhanced privacy and ne
 
 **Architectures:** `aarch64` `amd64` `armv7`
 
-#### [Xray Configurator](/apps/xray-configurator)
+#### [Xray Configurator](/apps/xray-configurator/)
 Web-based configuration generator for Xray. Simplify complex proxy setups.
 - Convert proxy links to configurations
 - Visual configuration editor
@@ -105,7 +106,7 @@ Web-based configuration generator for Xray. Simplify complex proxy setups.
 
 **Architectures:** `aarch64` `amd64`
 
-#### [Netmaker Client](/apps/netmaker)
+#### [Netmaker Client](/apps/netmaker/)
 WireGuard VPN client with advanced networking features.
 - WireGuard VPN connectivity
 - SOCKS proxy support
@@ -114,16 +115,25 @@ WireGuard VPN client with advanced networking features.
 
 **Architectures:** `aarch64` `amd64` `armv7`
 
+#### [HevSocks5 TProxy](/apps/hev-socks5-tproxy/)
+Transparent SOCKS5 proxy client that intercepts TCP/UDP traffic and forwards it through a remote SOCKS5 server.
+- Transparent TCP/UDP proxying
+- DNS request forwarding
+- Low-level traffic interception
+- Works with [Go SOCKS5 Proxy](/apps/go-socks5-proxy/)
+
+**Architectures:** `aarch64` `amd64`
+
 ---
 
 ## 🤖 Automation Blueprints
 
 Ready-to-use automation blueprints for Home Assistant:
 
-- **[IKEA Bilresa Unified Controller](/blueprints)** - Complete control for scroll wheel with 3 layers × 3 buttons
-- **[ESPHome Auto-Updater](/blueprints)** - Automatically update ESPHome devices
+- **[IKEA Bilresa Unified Controller](/blueprints/)** - Complete control for scroll wheel with 3 layers × 3 buttons
+- **[ESPHome Auto-Updater](/blueprints/)** - Automatically update ESPHome devices
 
-[View all blueprints →](/blueprints)
+[View all blueprints →](/blueprints/)
 
 ---
 
@@ -145,7 +155,7 @@ Ready-to-use automation blueprints for Home Assistant:
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to:
-- Report bugs or request features via [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- Report bugs or request features via [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - Submit pull requests with improvements
 - Share your experience and help others in discussions
 

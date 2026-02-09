@@ -179,7 +179,7 @@ This proxy can be used with other apps that support SOCKS5, such as:
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Upstream Repository](https://github.com/serjs/socks5-server)
 
 ---

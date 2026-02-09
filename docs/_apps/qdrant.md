@@ -348,7 +348,7 @@ curl -X PUT 'http://homeassistant.local:6333/collections/my_collection/index' \
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Qdrant Documentation](https://qdrant.tech/documentation/)
 - [Qdrant API Reference](https://api.qdrant.tech/)
 - [Community Forum](https://community.home-assistant.io/)

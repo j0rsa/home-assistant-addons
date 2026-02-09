@@ -78,4 +78,4 @@ All credentials (GitHub token, Gitea URL, Gitea token) and advanced options can 
 - **Data directory**: Check the app logs to see which data directory is being used. You can change it via the `data_dir` configuration option.
 - **Backups**: If you want application data included in app backups, set `data_dir` to `/data/gitea-mirror/` instead of the default `/share/gitea-mirror/`.
 
-Need more help? Open an issue on [GitHub](https://github.com/j0rsa/home-assistant-addons/issues) with the app logs attached.
+Need more help? Open an issue on [GitHub](https://github.com/j0rsa/home-assistant-apps/issues) with the app logs attached.

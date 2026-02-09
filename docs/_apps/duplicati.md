@@ -127,7 +127,7 @@ Encryption: AES-256
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Duplicati Documentation](https://duplicati.readthedocs.io/)
 - [Duplicati Forum](https://forum.duplicati.com/)
 

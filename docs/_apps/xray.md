@@ -173,12 +173,13 @@ The debug script checks:
 
 This app works well with:
 
-- **Netmaker Client**: Route WireGuard traffic through Xray
-- **HevSocks5 TProxy**: Use Xray as upstream SOCKS server
+- [Xray Configurator](/apps/xray-configurator/): Generate Xray configs from proxy links
+- [Netmaker Client](/apps/netmaker/): Route WireGuard traffic through Xray
+- [HevSocks5 TProxy](/apps/hev-socks5-tproxy/): Use Xray as upstream SOCKS server
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Xray Documentation](https://xtls.github.io/)
 
 ---

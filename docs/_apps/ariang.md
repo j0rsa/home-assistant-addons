@@ -84,7 +84,7 @@ The app comes pre-configured and ready to use. Downloads are stored in the share
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [aria2 Documentation](https://aria2.github.io/manual/en/html/)
 - [AriaNg Project](https://github.com/mayswind/AriaNg)
 

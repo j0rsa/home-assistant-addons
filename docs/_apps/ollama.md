@@ -149,9 +149,14 @@ curl http://homeassistant.local:11434/api/tags
 - Enable GPU acceleration if available
 - Close other resource-intensive apps
 
+## Related Apps
+
+- [Open WebUI](/apps/open-webui/) - ChatGPT-like web interface for Ollama
+- [Qdrant](/apps/qdrant/) - Vector database for RAG and semantic search with LLMs
+
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Ollama Documentation](https://ollama.ai/docs)
 - [Community Forum](https://community.home-assistant.io/)
 

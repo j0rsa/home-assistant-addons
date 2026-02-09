@@ -1,5 +1,7 @@
 ---
 title: Automation Blueprints
+description: "Ready-to-use Home Assistant automation blueprints: IKEA Bilresa controller and ESPHome auto-updater."
+permalink: /blueprints/
 ---
 
 # Automation Blueprints
@@ -97,7 +99,7 @@ After importing:
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Home Assistant Blueprints Documentation](https://www.home-assistant.io/docs/automation/using_blueprints/)
 
 ---

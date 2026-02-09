@@ -148,7 +148,7 @@ Set `debug_mode: true` for additional tools and logging.
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Netmaker Documentation](https://docs.netmaker.io/)
 
 ---

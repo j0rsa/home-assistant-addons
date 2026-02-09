@@ -1,6 +1,8 @@
 # Jekyll configuration for GitHub Pages
 title: J0rsa Home Assistant Apps
 description: High-quality Home Assistant apps for backup, AI, networking, and more
+url: https://home-assistant-apps.j0rsa.com
+lang: en
 author: j0rsa
 email: red.avtovo@gmail.com
 
@@ -31,7 +33,6 @@ defaults:
       path: ""
     values:
       layout: default
-      last_modified_at: 2026-02-05T00:00:00+00:00
   - scope:
       path: "google*.html"
     values:

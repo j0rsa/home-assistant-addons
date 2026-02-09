@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://home-assistant-apps.j0rsa.com/sitemap.xml
