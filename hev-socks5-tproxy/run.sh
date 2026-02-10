@@ -16,8 +16,18 @@ DNS_LISTEN_PORT=$(bashio::config 'dns_listen_port')
 DNS_UPSTREAM_ADDRESS=$(bashio::config 'dns_upstream_address')
 DNS_UPSTREAM_PORT=$(bashio::config 'dns_upstream_port')
 
-# Read listen ports array
-LISTEN_PORTS=$(jq -r '.listen_ports[]' /data/options.json)
+# Read listen port arrays
+LISTEN_TCP_PORTS=$(jq -r '.listen_tcp_ports[]' /data/options.json 2>/dev/null || true)
+LISTEN_UDP_PORTS=$(jq -r '.listen_udp_ports[]' /data/options.json 2>/dev/null || true)
+
+HAS_TCP=false
+HAS_UDP=false
+if [[ -n "${LISTEN_TCP_PORTS}" ]]; then
+    HAS_TCP=true
+fi
+if [[ -n "${LISTEN_UDP_PORTS}" ]]; then
+    HAS_UDP=true
+fi
 
 # Validate required fields
 if [[ -z "${SOCKS5_ADDRESS}" ]]; then
@@ -25,9 +35,19 @@ if [[ -z "${SOCKS5_ADDRESS}" ]]; then
     exit 1
 fi
 
+if [[ "${HAS_TCP}" == "false" ]] && [[ "${HAS_UDP}" == "false" ]]; then
+    bashio::log.fatal "At least one of listen_tcp_ports or listen_udp_ports must contain ports!"
+    exit 1
+fi
+
 bashio::log.info "SOCKS5 server: ${SOCKS5_ADDRESS}:${SOCKS5_PORT}"
 bashio::log.info "UDP relay mode: ${SOCKS5_UDP_MODE}"
-bashio::log.info "Listen ports: $(echo ${LISTEN_PORTS} | tr '\n' ' ')"
+if [[ "${HAS_TCP}" == "true" ]]; then
+    bashio::log.info "TCP listen ports: $(echo ${LISTEN_TCP_PORTS} | tr '\n' ' ')"
+fi
+if [[ "${HAS_UDP}" == "true" ]]; then
+    bashio::log.info "UDP listen ports: $(echo ${LISTEN_UDP_PORTS} | tr '\n' ' ')"
+fi
 
 # Generate configuration file
 cat > "${CONFIG_FILE}" <<EOF
@@ -49,17 +69,25 @@ if [[ -n "${SOCKS5_USERNAME}" ]] && [[ -n "${SOCKS5_PASSWORD}" ]]; then
 EOF
 fi
 
-# Add TCP/UDP listener on internal tproxy port
-cat >> "${CONFIG_FILE}" <<EOF
+# Add TCP listener only if TCP ports are configured
+if [[ "${HAS_TCP}" == "true" ]]; then
+    cat >> "${CONFIG_FILE}" <<EOF
 
 tcp:
   port: ${TPROXY_PORT}
   address: '::'
+EOF
+fi
+
+# Add UDP listener only if UDP ports are configured
+if [[ "${HAS_UDP}" == "true" ]]; then
+    cat >> "${CONFIG_FILE}" <<EOF
 
 udp:
   port: ${TPROXY_PORT}
   address: '::'
 EOF
+fi
 
 # Add DNS configuration if enabled
 if [[ "${DNS_ENABLED}" == "true" ]]; then
@@ -97,26 +125,27 @@ ip route add local 0.0.0.0/0 dev lo table 100 2>/dev/null || true
 ip -6 rule add fwmark 1 lookup 100 2>/dev/null || true
 ip -6 route add local ::/0 dev lo table 100 2>/dev/null || true
 
-# Setup iptables TPROXY rules for each listen port
-for PORT in ${LISTEN_PORTS}; do
-    bashio::log.info "Redirecting port ${PORT} to tproxy..."
-    
-    # TCP
+# Setup iptables TPROXY rules for TCP listen ports
+for PORT in ${LISTEN_TCP_PORTS}; do
+    bashio::log.info "Redirecting TCP port ${PORT} to tproxy..."
+
     iptables -t mangle -A PREROUTING -p tcp --dport "${PORT}" -j TPROXY \
         --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || \
         bashio::log.warning "Failed to add iptables TCP rule for port ${PORT}"
-    
-    # UDP  
-    iptables -t mangle -A PREROUTING -p udp --dport "${PORT}" -j TPROXY \
-        --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || \
-        bashio::log.warning "Failed to add iptables UDP rule for port ${PORT}"
-    
-    # IPv6 TCP
+
     ip6tables -t mangle -A PREROUTING -p tcp --dport "${PORT}" -j TPROXY \
         --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || \
         bashio::log.warning "Failed to add ip6tables TCP rule for port ${PORT}"
-    
-    # IPv6 UDP
+done
+
+# Setup iptables TPROXY rules for UDP listen ports
+for PORT in ${LISTEN_UDP_PORTS}; do
+    bashio::log.info "Redirecting UDP port ${PORT} to tproxy..."
+
+    iptables -t mangle -A PREROUTING -p udp --dport "${PORT}" -j TPROXY \
+        --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || \
+        bashio::log.warning "Failed to add iptables UDP rule for port ${PORT}"
+
     ip6tables -t mangle -A PREROUTING -p udp --dport "${PORT}" -j TPROXY \
         --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || \
         bashio::log.warning "Failed to add ip6tables UDP rule for port ${PORT}"
@@ -127,12 +156,14 @@ bashio::log.info "iptables rules configured"
 # Cleanup function
 cleanup() {
     bashio::log.info "Cleaning up iptables rules..."
-    for PORT in ${LISTEN_PORTS}; do
+    for PORT in ${LISTEN_TCP_PORTS}; do
         iptables -t mangle -D PREROUTING -p tcp --dport "${PORT}" -j TPROXY \
             --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || true
-        iptables -t mangle -D PREROUTING -p udp --dport "${PORT}" -j TPROXY \
-            --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || true
         ip6tables -t mangle -D PREROUTING -p tcp --dport "${PORT}" -j TPROXY \
+            --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || true
+    done
+    for PORT in ${LISTEN_UDP_PORTS}; do
+        iptables -t mangle -D PREROUTING -p udp --dport "${PORT}" -j TPROXY \
             --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || true
         ip6tables -t mangle -D PREROUTING -p udp --dport "${PORT}" -j TPROXY \
             --tproxy-mark 0x1/0x1 --on-port "${TPROXY_PORT}" 2>/dev/null || true

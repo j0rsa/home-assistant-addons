@@ -1,6 +1,6 @@
 ---
 name: "HevSocks5 TProxy"
-version: "1.0.0"
+version: "2.0.0"
 slug: "hev-socks5-tproxy"
 description: |
   Transparent SOCKS5 proxy client for Linux.
@@ -17,9 +17,10 @@ options:
   socks5_password: ""
   socks5_udp_mode: "udp"
   # --- Local Listener ---
-  listen_ports:
+  listen_tcp_ports:
     - 80
     - 443
+  listen_udp_ports: []
   # --- DNS Proxy (optional) ---
   dns_enabled: false
   dns_listen_port: 1053
@@ -33,7 +34,9 @@ schema:
   socks5_password: password?
   socks5_udp_mode: list(udp|tcp)
   # --- Local Listener ---
-  listen_ports:
+  listen_tcp_ports:
+    - port
+  listen_udp_ports:
     - port
   # --- DNS Proxy (optional) ---
   dns_enabled: bool

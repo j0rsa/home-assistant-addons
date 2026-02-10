@@ -3,7 +3,7 @@ name: hev-socks5-tproxy
 title: HevSocks5 TProxy
 description: Transparent SOCKS5 proxy client for routing traffic through a remote SOCKS5 server
 category: Networking & Proxy
-version: 1.0.0
+version: 2.0.0
 architectures:
   - amd64
   - aarch64
@@ -40,7 +40,7 @@ Browser [no config] → Network → [iptables intercepts] → TProxy → SOCKS5 
 
 ## Features
 
-- **Multi-port support**: Intercept traffic on multiple ports (e.g., 80, 443)
+- **Independent TCP/UDP interception**: Configure separate port lists for each protocol
 - **IPv4/IPv6 dual stack**: Supports both IP versions
 - **UDP support**: Fullcone NAT for UDP traffic
 - **Optional DNS proxy**: Prevent DNS leaks by routing DNS through SOCKS5
@@ -71,7 +71,7 @@ socks5_port: 1080
 # Username for authentication (optional, leave empty for no auth)
 socks5_username: ""
 
-# Password for authentication (optional, leave empty for no auth)  
+# Password for authentication (optional, leave empty for no auth)
 socks5_password: ""
 
 # UDP relay mode: "udp" (UDP-in-UDP) or "tcp" (UDP-in-TCP)
@@ -81,18 +81,45 @@ socks5_udp_mode: "udp"
 
 ### Local Listener
 
-Configure which ports to intercept and proxy.
+Configure which ports to intercept per protocol. At least one list must be non-empty.
 
 ```yaml
-# List of ports to intercept (TCP and UDP)
-listen_ports:
+# TCP ports to intercept
+listen_tcp_ports:
   - 80    # HTTP
   - 443   # HTTPS
+
+# UDP ports to intercept
+listen_udp_ports:
+  - 443   # QUIC
 ```
 
-### DNS Proxy (Optional)
+You can configure them independently:
+- **TCP-only**: Set `listen_tcp_ports` with ports, leave `listen_udp_ports` empty
+- **UDP-only**: Set `listen_udp_ports` with ports, leave `listen_tcp_ports` empty
+- **Both**: Populate both lists (ports can differ between them)
 
-Enable DNS proxying to prevent DNS leaks when using the transparent proxy.
+### DNS Leak Prevention
+
+There are two ways to prevent DNS leaks. In most cases, **transparent interception is simpler** and requires no client reconfiguration.
+
+#### Option A: Transparent interception (recommended)
+
+Add port `53` to `listen_udp_ports`. All outgoing DNS queries are transparently intercepted and routed through SOCKS5, preserving the original destination DNS server:
+
+```
+Client → 8.8.8.8:53 → [iptables intercepts] → tproxy → SOCKS5 → 8.8.8.8:53
+```
+
+No client changes needed — whatever DNS server the system is already using will be reached through the SOCKS5 tunnel.
+
+#### Option B: Explicit DNS proxy
+
+Enable the built-in DNS proxy to listen on a local port and forward all queries through SOCKS5 to a **specific** upstream DNS server. This is useful when you want to override the DNS server regardless of what clients are configured to use, but requires reconfiguring clients to send DNS to `localhost:<dns_listen_port>`.
+
+```
+Client → localhost:1053 → tproxy → SOCKS5 → 8.8.8.8:53
+```
 
 ```yaml
 # Enable/disable DNS proxying
@@ -110,35 +137,34 @@ dns_upstream_port: 53
 
 ## Example Configurations
 
-### Basic HTTP/HTTPS Proxying
+### Basic HTTP/HTTPS TCP Proxying
 
 Route web traffic through a local SOCKS5 server:
 
 ```yaml
 socks5_address: "192.168.1.100"
 socks5_port: 1080
-socks5_username: ""
-socks5_password: ""
 socks5_udp_mode: "udp"
-listen_ports:
+listen_tcp_ports:
   - 80
   - 443
+listen_udp_ports: []
 dns_enabled: false
 dns_listen_port: 1053
 dns_upstream_address: ""
 dns_upstream_port: 53
 ```
 
-### With SOCKS5 Authentication
+### TCP + UDP with Different Ports
 
 ```yaml
-socks5_address: "proxy.vpnprovider.com"
+socks5_address: "192.168.1.100"
 socks5_port: 1080
-socks5_username: "vpnuser"
-socks5_password: "vpnpassword"
-socks5_udp_mode: "tcp"
-listen_ports:
+socks5_udp_mode: "udp"
+listen_tcp_ports:
   - 80
+  - 443
+listen_udp_ports:
   - 443
 dns_enabled: false
 dns_listen_port: 1053
@@ -151,11 +177,11 @@ dns_upstream_port: 53
 ```yaml
 socks5_address: "192.168.1.100"
 socks5_port: 1080
-socks5_username: ""
-socks5_password: ""
 socks5_udp_mode: "udp"
-listen_ports:
+listen_tcp_ports:
   - 80
+  - 443
+listen_udp_ports:
   - 443
 dns_enabled: true
 dns_listen_port: 1053
@@ -165,7 +191,7 @@ dns_upstream_port: 53
 
 ## How It Works — Connection Flow
 
-When you configure `listen_ports: [80, 443]` and make a request to `https://example.com:443`:
+When you configure `listen_tcp_ports: [80, 443]` and make a request to `https://example.com:443`:
 
 ```
 Your App                    hev-socks5-tproxy              SOCKS5 Server           Destination
@@ -174,7 +200,7 @@ Your App                    hev-socks5-tproxy              SOCKS5 Server        
     │  example.com:443             │                              │                      │
     │─────────────────────►        │                              │                      │
     │                      iptables intercepts                    │                      │
-    │                      packet to port 443                     │                      │
+    │                      TCP packet to port 443                 │                      │
     │                      redirects to internal                  │                      │
     │                      port 12345                             │                      │
     │                              │                              │                      │
@@ -191,7 +217,8 @@ Your App                    hev-socks5-tproxy              SOCKS5 Server        
 
 ### Key Points
 
-- **listen_ports** — Ports to intercept (e.g., 80, 443). Traffic TO these ports gets proxied.
+- **listen_tcp_ports / listen_udp_ports** — Ports to intercept per protocol. Only matching traffic gets proxied.
+- **Single daemon instance** — One process handles both TCP and UDP.
 - **Internal port 12345** — Where the tproxy daemon listens. Automatic, not user-configurable.
 - **Destination port preserved** — The final destination keeps the original port (443 → 443).
 - **Transparent** — Apps don't know they're being proxied; no app configuration needed.
@@ -212,7 +239,7 @@ This creates a transparent proxy that routes traffic through your local SOCKS5 s
 
 - This app requires **privileged access** to configure network rules
 - **Host network mode** is required — the app can see all network traffic
-- Only intercept ports you specifically need (don't use `listen_ports: [1-65535]`)
+- Only intercept ports you specifically need (don't use broad ranges)
 - Consider enabling DNS proxying to prevent DNS leaks
 
 ## Hardware Requirements
@@ -227,6 +254,9 @@ This creates a transparent proxy that routes traffic through your local SOCKS5 s
 
 ## Troubleshooting
 
+### "At least one of listen_tcp_ports or listen_udp_ports must contain ports" error
+Both port lists are empty. Add at least one port to either `listen_tcp_ports` or `listen_udp_ports`.
+
 ### "socks5_address is required" error
 The `socks5_address` option must be set to a valid IP or hostname.
 
@@ -234,6 +264,7 @@ The `socks5_address` option must be set to a valid IP or hostname.
 - Verify the upstream SOCKS5 server is running
 - Check app logs for iptables errors
 - Ensure the configured ports match the traffic you're trying to proxy
+- Make sure you're intercepting the right protocol (TCP ports won't catch UDP traffic)
 
 ### UDP not working
 - Try changing `socks5_udp_mode` from `udp` to `tcp`
