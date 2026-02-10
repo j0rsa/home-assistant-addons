@@ -153,4 +153,4 @@ Set `debug_mode: true` for additional tools and logging.
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/netmaker)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/netmaker)

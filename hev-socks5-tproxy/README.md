@@ -197,7 +197,7 @@ This setup allows transparent proxying of traffic through a local SOCKS5 server.
 
 ## Support
 
-- [GitHub Issues](https://github.com/j0rsa/home-assistant-addons/issues)
+- [GitHub Issues](https://github.com/j0rsa/home-assistant-apps/issues)
 - [Upstream hev-socks5-tproxy](https://github.com/heiher/hev-socks5-tproxy)
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg

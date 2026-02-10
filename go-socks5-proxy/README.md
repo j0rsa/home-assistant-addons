@@ -98,7 +98,7 @@ curl --socks5 myuser:mysecurepassword@homeassistant-ip:1080 https://ipinfo.io
 
 ## Support
 
-For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-addons).
+For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-apps).
 
 For socks5-server documentation, see the [upstream repository](https://github.com/serjs/socks5-server).
 

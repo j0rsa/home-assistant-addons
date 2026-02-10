@@ -25,14 +25,14 @@ Complete control for the IKEA Bilresa scroll wheel with 3 layers × 3 buttons.
 
 **Import:**
 
-[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
+[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
 
 **Manual Import URL:**
 ```
-https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/ikea_bilresa_unified.yaml
+https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/ikea_bilresa_unified.yaml
 ```
 
-[View Blueprint YAML](https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/ikea_bilresa_unified.yaml)
+[View Blueprint YAML](https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/ikea_bilresa_unified.yaml)
 
 ---
 
@@ -59,14 +59,14 @@ Automatically compile and update selected ESPHome devices when new versions are 
 
 **Import:**
 
-[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
+[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
 
 **Manual Import URL:**
 ```
-https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/esphome_auto_updater.yaml
+https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/esphome_auto_updater.yaml
 ```
 
-[View Blueprint YAML](https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/esphome_auto_updater.yaml)
+[View Blueprint YAML](https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/esphome_auto_updater.yaml)
 
 ---
 
@@ -104,4 +104,4 @@ After importing:
 
 ---
 
-[← Back to Home](/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/blueprints)
+[← Back to Home](/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/blueprints)

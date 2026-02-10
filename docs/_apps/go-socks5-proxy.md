@@ -184,4 +184,4 @@ This proxy can be used with other apps that support SOCKS5, such as:
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/go-socks5-proxy)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/go-socks5-proxy)

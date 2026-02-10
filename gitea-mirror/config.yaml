@@ -6,7 +6,7 @@ description: |
   Gitea Mirror
   
   Mirror GitHub repositories, organizations, and metadata into your self-hosted Gitea instance with a web-based scheduler.
-url: https://github.com/j0rsa/home-assistant-addons
+url: https://github.com/j0rsa/home-assistant-apps
 codenotary: "red.avtovo@gmail.com"
 arch:
   - aarch64

@@ -133,4 +133,4 @@ Encryption: AES-256
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/duplicati)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/duplicati)

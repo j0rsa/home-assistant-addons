@@ -16,11 +16,11 @@ Complete control for IKEA Bilresa (RODRET E2201) scroll wheel with full 3 layers
 
 ### Quick Import
 
-[![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
+[![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
 
 **Manual import URL:**
 ```
-https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/ikea_bilresa_unified.yaml
+https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/ikea_bilresa_unified.yaml
 ```
 
 ---
@@ -38,9 +38,9 @@ Automatically update ESPHome devices when new firmware versions are available.
 
 ### Quick Import
 
-[![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
+[![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
 
 **Manual import URL:**
 ```
-https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/esphome_auto_updater.yaml
+https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/esphome_auto_updater.yaml
 ```

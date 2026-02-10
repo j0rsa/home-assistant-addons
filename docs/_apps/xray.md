@@ -184,4 +184,4 @@ This app works well with:
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/xray)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/xray)

@@ -77,7 +77,7 @@ Transparent SOCKS5 proxy client that intercepts TCP/UDP traffic and forwards it 
 
 **Version:** 1.0.0 | **Architectures:** `amd64`, `aarch64`
 
-### [SNI Socket Proxy](https://github.com/j0rsa/home-assistant-addons/tree/main/sni-socket)
+### [SNI Socket Proxy](https://github.com/j0rsa/home-assistant-apps/tree/main/sni-socket)
 SNI proxy with SOCKS5 proxy support. Routes HTTP and HTTPS traffic through a SOCKS5 proxy based on hostname matching.
 
 **Version:** 1.0.0 | **Architectures:** `amd64`, `aarch64`
@@ -115,7 +115,7 @@ Mirror GitHub users and organizations into your self-hosted Gitea instance with 
 ## 🔄 Recent Updates
 
 Stay informed about the latest updates:
-- Check the [GitHub repository](https://github.com/j0rsa/home-assistant-addons) for recent commits
+- Check the [GitHub repository](https://github.com/j0rsa/home-assistant-apps) for recent commits
 - Enable notifications for new releases
 - Join discussions in the Issues section
 

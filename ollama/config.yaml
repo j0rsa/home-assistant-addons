@@ -15,7 +15,7 @@ boot: auto
 codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/haddon-ollama-{arch}"
 udev: false
-url: https://github.com/j0rsa/home-assistant-addons
+url: https://github.com/j0rsa/home-assistant-apps
 ports:
   11434/tcp: 11434
 ports_description:

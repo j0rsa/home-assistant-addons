@@ -136,7 +136,7 @@ All vector data and collections are stored in the `/config/storage` directory, w
 
 ## Support
 
-For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-addons).
+For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-apps).
 
 For Qdrant-specific documentation, see the [official Qdrant docs](https://qdrant.tech/documentation/).
 

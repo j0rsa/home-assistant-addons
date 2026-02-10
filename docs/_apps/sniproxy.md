@@ -100,4 +100,4 @@ Configure routing rules to direct traffic to appropriate backends based on hostn
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/sniproxy)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/sniproxy)

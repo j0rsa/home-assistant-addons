@@ -38,7 +38,7 @@ boot: auto
 codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/haddon-qdrant-{arch}"
 udev: false
-url: https://github.com/j0rsa/home-assistant-addons
+url: https://github.com/j0rsa/home-assistant-apps
 ports:
   6333/tcp: 6333
   6334/tcp: 6334

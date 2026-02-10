@@ -140,7 +140,7 @@ The app requires:
 
 ## Support
 
-For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-addons).
+For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-apps).
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

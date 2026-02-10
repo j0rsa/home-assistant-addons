@@ -10,9 +10,9 @@ The primary goal of this project is to provide you (as a Home Assistant user) wi
 
 ## Installation
 
-[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps)
 
-If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: https://github.com/j0rsa/home-assistant-addons
+If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: https://github.com/j0rsa/home-assistant-apps
 
 # Apps provided by this repository
 
@@ -45,15 +45,15 @@ Ready-to-use Home Assistant automation blueprints:
 
 - **IKEA Bilresa Unified Controller** - Complete control for IKEA Bilresa scroll wheel with 3 layers × 3 buttons. Supports brightness adjustment, multi-press actions, hold actions, scenes, and covers.
   
-  [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
+  [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps%2Fblob%2Fmain%2Fblueprints%2Fikea_bilresa_unified.yaml)
   
-  [View YAML](https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/ikea_bilresa_unified.yaml)
+  [View YAML](https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/ikea_bilresa_unified.yaml)
 
 - **ESPHome Auto-Updater** - Automatically update ESPHome devices when new versions are available. Supports update windows, notifications, and selective device updates.
   
-  [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
+  [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps%2Fblob%2Fmain%2Fblueprints%2Fesphome_auto_updater.yaml)
   
-  [View YAML](https://github.com/j0rsa/home-assistant-addons/blob/main/blueprints/esphome_auto_updater.yaml)
+  [View YAML](https://github.com/j0rsa/home-assistant-apps/blob/main/blueprints/esphome_auto_updater.yaml)
 
 [aarch64-shield]:
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

@@ -49,7 +49,7 @@ boot: auto
 codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/haddon-hev-socks5-tproxy-{arch}"
 udev: false
-url: https://github.com/j0rsa/home-assistant-addons
+url: https://github.com/j0rsa/home-assistant-apps
 panel_icon: mdi:network-outline
 full_access: true
 host_network: true

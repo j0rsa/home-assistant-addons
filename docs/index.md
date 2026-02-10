@@ -9,13 +9,13 @@ description: "Custom Home Assistant apps for backup, AI, local LLM, networking, 
 
 Welcome to the J0rsa Home Assistant Apps repository! We provide high-quality, reliable apps to enhance your Home Assistant experience.
 
-[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps)
 
 ## 🚀 Quick Installation
 
 Click the button above or add this repository URL to your Home Assistant:
 ```
-https://github.com/j0rsa/home-assistant-addons
+https://github.com/j0rsa/home-assistant-apps
 ```
 
 ## 📦 Available Apps
@@ -161,7 +161,7 @@ Contributions are welcome! Feel free to:
 
 ## 📚 Resources
 
-- [GitHub Repository](https://github.com/j0rsa/home-assistant-addons)
+- [GitHub Repository](https://github.com/j0rsa/home-assistant-apps)
 - [Home Assistant Documentation](https://www.home-assistant.io/addons/)
 - [Community Forum](https://community.home-assistant.io/)
 

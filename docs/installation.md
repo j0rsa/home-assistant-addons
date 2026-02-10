@@ -21,7 +21,7 @@ Before installing any apps from this repository, ensure you have:
 
 The easiest way to add our repository is by clicking the button below:
 
-[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-addons)
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fj0rsa%2Fhome-assistant-apps)
 
 This will:
 1. Open your Home Assistant instance
@@ -44,7 +44,7 @@ If the button doesn't work for your setup, you can add the repository manually:
    - Select "Repositories"
    - Add the following URL:
    ```
-   https://github.com/j0rsa/home-assistant-addons
+   https://github.com/j0rsa/home-assistant-apps
    ```
    - Click "Add"
 
@@ -97,7 +97,7 @@ Once the repository is added:
 
 If the repository doesn't appear after adding:
 
-1. **Check the URL**: Ensure you entered exactly: `https://github.com/j0rsa/home-assistant-addons`
+1. **Check the URL**: Ensure you entered exactly: `https://github.com/j0rsa/home-assistant-apps`
 2. **Reload Supervisor**: Settings → System → Hardware → ⋮ → Reload Supervisor
 3. **Check Logs**: Settings → System → Logs → Select "Supervisor"
 4. **Network Issues**: Ensure your Home Assistant can access GitHub

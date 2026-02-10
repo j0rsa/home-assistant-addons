@@ -90,4 +90,4 @@ The app comes pre-configured and ready to use. Downloads are stored in the share
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/airang)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/airang)

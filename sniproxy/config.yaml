@@ -13,7 +13,7 @@ arch:
 codenotary: "red.avtovo@gmail.com"
 image: "ghcr.io/j0rsa/haddon-sni-proxy-{arch}"
 udev: false
-url: https://github.com/j0rsa/home-assistant-addons
+url: https://github.com/j0rsa/home-assistant-apps
 ports:
   80/tcp: 80
   443/tcp: 443
