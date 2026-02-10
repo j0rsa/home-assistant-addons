@@ -23,7 +23,7 @@ webui: "http://[HOST]:[PORT:8099]/"
 ports:
   8099/tcp: 8099
 ports_description:
-  8099/tcp: Web UI port
+  8099/tcp: Web UI port (don't change)
 ingress: true
 ingress_port: 8099
 panel_icon: mdi:web-box
