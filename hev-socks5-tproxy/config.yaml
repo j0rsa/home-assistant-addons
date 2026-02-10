@@ -35,9 +35,9 @@ schema:
   socks5_udp_mode: list(udp|tcp)
   # --- Local Listener ---
   listen_tcp_ports:
-    - port
+    - int(1,65535)
   listen_udp_ports:
-    - port
+    - int(1,65535)
   # --- DNS Proxy (optional) ---
   dns_enabled: bool
   dns_listen_port: port
