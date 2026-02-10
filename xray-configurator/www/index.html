@@ -64,8 +64,34 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="resolve-section">
+                        <h3>Server Address</h3>
+                        <div class="resolve-group">
+                            <div class="option-header">
+                                <input type="checkbox" id="resolveAddress">
+                                <label for="resolveAddress" class="checkbox-label">Resolve hostname to IP address</label>
+                            </div>
+                            <p class="resolve-hint">When enabled, the server hostname will be resolved to an IP address using DNS-over-HTTPS and used in the configuration instead of the original hostname.</p>
+                        </div>
+                    </div>
+
+                    <div class="dns-section">
+                        <h3>DNS Configuration</h3>
+                        <div class="dns-group">
+                            <div class="option-header">
+                                <input type="checkbox" id="enableDns" checked>
+                                <label for="enableDns" class="checkbox-label">Add DNS servers</label>
+                            </div>
+                            <div id="dnsServersWrapper" class="dns-servers-wrapper">
+                                <label for="dnsServers">DNS Servers (one per line):</label>
+                                <textarea id="dnsServers" rows="3" placeholder="1.1.1.1&#10;8.8.8.8">1.1.1.1
+8.8.8.8</textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
+
                 <div class="conversion-status">
                     <span id="conversionStatus" class="status-text">Enter a URL to see the configuration</span>
                 </div>
@@ -94,7 +120,7 @@
 
         <footer>
             <p>Supports VLESS and Shadowsocks protocol conversion • 
-               <a href="https://github.com/j0rsa/home-assistant-addons" target="_blank">GitHub</a>
+               <a href="https://github.com/j0rsa/home-assistant-apps" target="_blank">GitHub</a>
             </p>
         </footer>
     </div>

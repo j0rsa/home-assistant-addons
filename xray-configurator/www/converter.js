@@ -147,6 +147,41 @@ class XrayConverter {
         };
     }
 
+    async resolveHostname(hostname) {
+        // Skip if already an IP address
+        if (/^(\d{1,3}\.){3}\d{1,3}$/.test(hostname) || hostname.includes(':')) {
+            return hostname;
+        }
+
+        // Try Cloudflare DNS-over-HTTPS
+        try {
+            const response = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(hostname)}&type=A`, {
+                headers: { 'Accept': 'application/dns-json' }
+            });
+            const data = await response.json();
+            if (data.Answer && data.Answer.length > 0) {
+                const aRecord = data.Answer.find(r => r.type === 1);
+                if (aRecord) return aRecord.data;
+            }
+        } catch (e) {
+            // Fall through to Google DNS
+        }
+
+        // Fallback to Google DNS-over-HTTPS
+        try {
+            const response = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(hostname)}&type=A`);
+            const data = await response.json();
+            if (data.Answer && data.Answer.length > 0) {
+                const aRecord = data.Answer.find(r => r.type === 1);
+                if (aRecord) return aRecord.data;
+            }
+        } catch (e) {
+            // Resolution failed
+        }
+
+        throw new Error(`Failed to resolve hostname: ${hostname}`);
+    }
+
     parseQueryString(queryString) {
         const params = {};
         const pairs = queryString.split('&');
@@ -159,7 +194,7 @@ class XrayConverter {
         return params;
     }
 
-    createXrayConfigVless(vlessConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = []) {
+    createXrayConfigVless(vlessConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = [], dnsServers = []) {
         // Build stream settings
         const streamSettings = {
             network: vlessConfig.type || 'tcp'
@@ -260,7 +295,26 @@ class XrayConverter {
             inbounds.push(socksInbound);
         }
 
-        return {
+        // Build routing rules with only existing inbound tags
+        const inboundTags = [];
+        if (enableSocks) inboundTags.push('socks-in');
+        if (enableHttp) inboundTags.push('http-in');
+
+        const routingRules = [];
+        if (inboundTags.length > 0) {
+            routingRules.push({
+                type: 'field',
+                inboundTag: inboundTags,
+                outboundTag: 'vless-out'
+            });
+        }
+        routingRules.push({
+            type: 'field',
+            ip: ['geoip:private'],
+            outboundTag: 'direct'
+        });
+
+        const config = {
             log: {
                 loglevel: 'warning'
             },
@@ -290,23 +344,21 @@ class XrayConverter {
                 }
             ],
             routing: {
-                rules: [
-                    {
-                        "type": "field",
-                        "inboundTag": ["socks-in", "http-in"],
-                        "outboundTag": "vless-out"
-                    },
-                    {
-                        type: 'field',
-                        ip: ['geoip:private'],
-                        outboundTag: 'direct'
-                    }
-                ]
+                rules: routingRules
             }
         };
+
+        // Add DNS configuration if servers are provided
+        if (dnsServers.length > 0) {
+            config.dns = {
+                servers: dnsServers
+            };
+        }
+
+        return config;
     }
 
-    createXrayConfigShadowsocks(ssConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = []) {
+    createXrayConfigShadowsocks(ssConfig, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = [], dnsServers = []) {
         // Build inbounds array based on enabled options
         const inbounds = [];
         
@@ -346,7 +398,26 @@ class XrayConverter {
             inbounds.push(socksInbound);
         }
 
-        return {
+        // Build routing rules with only existing inbound tags
+        const inboundTags = [];
+        if (enableSocks) inboundTags.push('socks-in');
+        if (enableHttp) inboundTags.push('http-in');
+
+        const routingRules = [];
+        if (inboundTags.length > 0) {
+            routingRules.push({
+                type: 'field',
+                inboundTag: inboundTags,
+                outboundTag: 'ss-out'
+            });
+        }
+        routingRules.push({
+            type: 'field',
+            ip: ['geoip:private'],
+            outboundTag: 'direct'
+        });
+
+        const config = {
             log: {
                 loglevel: 'warning'
             },
@@ -376,27 +447,36 @@ class XrayConverter {
                 }
             ],
             routing: {
-                rules: [
-                    {
-                        type: 'field',
-                        ip: ['geoip:private'],
-                        outboundTag: 'direct'
-                    }
-                ]
+                rules: routingRules
             }
         };
+
+        // Add DNS configuration if servers are provided
+        if (dnsServers.length > 0) {
+            config.dns = {
+                servers: dnsServers
+            };
+        }
+
+        return config;
     }
 
-    convertLink(url, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = []) {
+    async convertLink(url, proxyPort = 8080, socksPort = 1080, enableHttp = true, enableSocks = true, enableSocksAuth = false, authUsers = [], dnsServers = [], resolveAddress = false) {
         try {
             let xrayConfig;
-            
+
             if (url.startsWith('vless://')) {
                 const vlessConfig = this.parseVlessLink(url);
-                xrayConfig = this.createXrayConfigVless(vlessConfig, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers);
+                if (resolveAddress) {
+                    vlessConfig.server = await this.resolveHostname(vlessConfig.server);
+                }
+                xrayConfig = this.createXrayConfigVless(vlessConfig, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers, dnsServers);
             } else if (url.startsWith('ss://')) {
                 const ssConfig = this.parseShadowsocksLink(url);
-                xrayConfig = this.createXrayConfigShadowsocks(ssConfig, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers);
+                if (resolveAddress) {
+                    ssConfig.server = await this.resolveHostname(ssConfig.server);
+                }
+                xrayConfig = this.createXrayConfigShadowsocks(ssConfig, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers, dnsServers);
             } else {
                 throw new Error('Unsupported URL format. Only VLESS and Shadowsocks URLs are supported.');
             }

@@ -476,6 +476,119 @@ main {
     color: var(--text-muted);
 }
 
+/* Resolve section styling */
+.resolve-section {
+    margin-top: 15px;
+}
+
+.resolve-section h3 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.resolve-group {
+    padding: 12px;
+    background: var(--bg-primary);
+    border-radius: 6px;
+    border: 1px solid var(--border-secondary);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.resolve-group:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 2px 8px var(--accent-hover);
+}
+
+.resolve-hint {
+    margin: 8px 0 0 24px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+#resolveAddress {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+}
+
+/* DNS section styling */
+.dns-section {
+    margin-top: 15px;
+}
+
+.dns-section h3 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.dns-group {
+    padding: 12px;
+    background: var(--bg-primary);
+    border-radius: 6px;
+    border: 1px solid var(--border-secondary);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.dns-group:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 2px 8px var(--accent-hover);
+}
+
+.dns-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.dns-servers-wrapper {
+    margin-top: 8px;
+    margin-left: 24px;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.dns-servers-wrapper.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+}
+
+#enableDns {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+}
+
+#dnsServers {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-primary);
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    resize: vertical;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+#dnsServers:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-focus);
+}
+
 /* Conversion status styles */
 .conversion-status {
     text-align: center;
@@ -755,6 +868,10 @@ footer a:hover {
         align-self: flex-end;
     }
     
+    .dns-group {
+        padding: 10px;
+    }
+
     .copy-btn {
         padding: 3px 6px;
         font-size: 0.7rem;

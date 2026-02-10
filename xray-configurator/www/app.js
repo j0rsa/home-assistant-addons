@@ -74,6 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const enableHttpCheckbox = document.getElementById('enableHttp');
     const enableSocksCheckbox = document.getElementById('enableSocks');
     const enableSocksAuthCheckbox = document.getElementById('enableSocksAuth');
+    const enableDnsCheckbox = document.getElementById('enableDns');
+    const dnsServersInput = document.getElementById('dnsServers');
+    const dnsServersWrapper = document.getElementById('dnsServersWrapper');
+    const resolveAddressCheckbox = document.getElementById('resolveAddress');
     const addUserBtn = document.getElementById('addUserBtn');
     const authUsersList = document.getElementById('authUsersList');
     const jsonOutput = document.getElementById('jsonOutput');
@@ -101,6 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const enableHttp = enableHttpCheckbox.checked;
         const enableSocks = enableSocksCheckbox.checked;
         const enableSocksAuth = enableSocksAuthCheckbox.checked;
+        const resolveAddress = resolveAddressCheckbox.checked;
+        const enableDns = enableDnsCheckbox.checked;
+        const dnsServers = enableDns
+            ? dnsServersInput.value
+                .split('\n')
+                .map(s => s.trim())
+                .filter(s => s.length > 0)
+            : [];
 
         // Clear previous timeout
         if (conversionTimeout) {
@@ -136,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetJsonEditState();
                 return;
             }
-            
+
             // Validate that all users have both username and password
             const invalidUsers = authUsers.filter(user => !user.username.trim() || !user.password.trim());
             if (invalidUsers.length > 0) {
@@ -150,21 +162,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Show converting status
-        updateStatus('Converting...', 'converting');
+        updateStatus(resolveAddress ? 'Resolving & converting...' : 'Converting...', 'converting');
 
         // Debounce conversion to avoid excessive calls
-        conversionTimeout = setTimeout(() => {
-            const result = converter.convertLink(url, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers);
+        conversionTimeout = setTimeout(async () => {
+            const result = await converter.convertLink(url, proxyPort, socksPort, enableHttp, enableSocks, enableSocksAuth, authUsers, dnsServers, resolveAddress);
 
             if (result.success) {
                 // Store the original JSON from converter
                 originalJsonFromConverter = result.json;
-                
+
                 // Only update JSON if it hasn't been manually edited
                 if (!isJsonEdited) {
                     jsonOutput.value = result.json;
                 }
-                
+
                 base64Output.value = result.base64;
                 updateBase64Header(false);
                 enableCopyButtons();
@@ -174,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearOutputs();
                 disableCopyButtons();
                 showError(result.error);
-                updateStatus('Invalid URL format', 'error');
+                updateStatus(result.error.includes('resolve') ? 'DNS resolution failed' : 'Invalid URL format', 'error');
                 resetJsonEditState();
             }
         }, 500); // 500ms debounce
@@ -187,6 +199,9 @@ document.addEventListener('DOMContentLoaded', function() {
     enableHttpCheckbox.addEventListener('change', handleCheckboxChange);
     enableSocksCheckbox.addEventListener('change', handleCheckboxChange);
     enableSocksAuthCheckbox.addEventListener('change', handleAuthCheckboxChange);
+    enableDnsCheckbox.addEventListener('change', handleDnsCheckboxChange);
+    dnsServersInput.addEventListener('input', performConversion);
+    resolveAddressCheckbox.addEventListener('change', performConversion);
     addUserBtn.addEventListener('click', addAuthUser);
     
     // Theme toggle button
@@ -204,6 +219,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle authentication checkbox changes
     function handleAuthCheckboxChange() {
         updateAuthUIState();
+        performConversion();
+    }
+
+    // Handle DNS checkbox changes
+    function handleDnsCheckboxChange() {
+        if (enableDnsCheckbox.checked) {
+            dnsServersWrapper.classList.remove('collapsed');
+            dnsServersInput.disabled = false;
+        } else {
+            dnsServersWrapper.classList.add('collapsed');
+            dnsServersInput.disabled = true;
+        }
         performConversion();
     }
 

@@ -26,7 +26,10 @@ Xray Configurator provides a clean web UI for generating properly formatted Xray
 - 📋 **Dual Output**: JSON and Base64 formats
 - 📱 **Mobile Friendly**: Responsive design
 - 🔒 **Local Processing**: All conversion happens in browser
-- ⚡ **Real-time**: Instant conversion
+- ⚡ **Real-time**: Instant conversion as you type
+- 🌍 **DNS Configuration**: Customizable DNS servers for Xray config
+- 🔎 **Hostname Resolution**: Optionally resolve server hostnames to IP via DNS-over-HTTPS
+- 🔑 **SOCKS Authentication**: Optional username/password auth with multiple users
 
 ## Supported Protocols
 
@@ -63,9 +66,9 @@ After starting the app:
 ### Converting a Link
 
 1. Open the web interface
-2. Paste your VLESS or Shadowsocks URL
-3. Optionally adjust the HTTP proxy port
-4. Click "Convert Configuration"
+2. Paste your VLESS or Shadowsocks URL (conversion happens automatically)
+3. Optionally adjust HTTP/SOCKS proxy ports and settings
+4. Optionally configure DNS servers or enable hostname resolution
 5. Copy the JSON or Base64 output
 
 ### URL Format Examples
@@ -100,8 +103,9 @@ Encoded configuration string for use with the Xray app's `xray_config_base64` op
 
 ## Generated Configuration Includes
 
-- **HTTP Proxy**: Configurable port (default: 8080)
-- **SOCKS5 Proxy**: Port 1080
+- **HTTP Proxy**: Configurable port (default: 8080), can be disabled
+- **SOCKS5 Proxy**: Configurable port (default: 1080), optional authentication, can be disabled
+- **DNS Servers**: Optional, customizable (defaults to 1.1.1.1 and 8.8.8.8)
 - **Direct Routing**: Private IP ranges bypass proxy
 - **Blocked Traffic**: Blackhole for unwanted connections
 
@@ -131,9 +135,10 @@ Encoded configuration string for use with the Xray app's `xray_config_base64` op
 
 ## Security
 
-- **Local Processing**: No data sent to external servers
+- **Local Processing**: All conversion happens in the browser
 - **No Storage**: Configurations are not saved
 - **Ingress**: Secure access through Home Assistant auth
+- **DNS Resolution**: When "Resolve hostname to IP" is enabled, a DNS-over-HTTPS request is made to Cloudflare/Google to resolve the server address
 
 ## Troubleshooting
 
@@ -158,4 +163,4 @@ Encoded configuration string for use with the Xray app's `xray_config_base64` op
 
 ---
 
-[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-addons/tree/main/xray-configurator)
+[← Back to Apps](/apps/) | [View on GitHub](https://github.com/j0rsa/home-assistant-apps/tree/main/xray-configurator)

@@ -25,7 +25,7 @@ Xray Configurator is a Home Assistant app that provides a web-based interface fo
 
 1. Add this repository to your Home Assistant supervisor:
    ```
-   https://github.com/j0rsa/home-assistant-addons
+   https://github.com/j0rsa/home-assistant-apps
    ```
 
 2. Install the "Xray Configurator" app
@@ -126,7 +126,7 @@ This app is released under the MIT License.
 
 ## Support
 
-For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-addons/issues).
+For issues and feature requests, please visit the [GitHub repository](https://github.com/j0rsa/home-assistant-apps/issues).
 
 ---
 
