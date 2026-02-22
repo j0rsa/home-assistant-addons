@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 3.10"
+gem "jekyll", "~> 4.0"
 gem "kramdown-parser-gfm"
 gem "jekyll-theme-architect"
 gem "jekyll-seo-tag"
