@@ -7,7 +7,7 @@ description: |
 
   High-performance SOCKS5 proxy written in Go. Supports authentication, IP allowlisting, and destination filtering.
 
-  Configuration: Set username/password for authentication, or run in open mode.
+  Configuration: Set username/password for authentication, or run in open mode. Use allowed IPs to restrict access and allowed destination FQDN to control where clients can connect.
 environment:
   PUID: "0"
   PGID: "0"
