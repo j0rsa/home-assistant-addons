@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-ubuntu:20.04
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-ubuntu:24.04
 
 FROM ${BUILD_FROM}
 

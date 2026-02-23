@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-ubuntu:20.04
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-ubuntu:24.04
 
 # Use multi-stage build to get the binary from official image
 FROM serjs/go-socks5-proxy:v0.0.4 AS socks5-source
