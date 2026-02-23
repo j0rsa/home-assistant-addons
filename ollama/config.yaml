@@ -1,7 +1,7 @@
 ---
-name: "Ollama"
-version: "0.15.2"
-slug: "ollama"
+name: Ollama
+version: 0.16.3
+slug: ollama
 description: |
   Ollama 
   
