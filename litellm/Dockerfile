@@ -1,7 +1,24 @@
-ARG UPSTREAM_IMAGE=docker.litellm.ai/berriai/litellm:main-stable
+ARG UPSTREAM_IMAGE=docker.litellm.ai/berriai/litellm:v1.81.12-stable
 ARG BUILD_FROM=ghcr.io/hassio-addons/ubuntu-base/amd64:11.0.0
 
 FROM ${UPSTREAM_IMAGE} AS upstream
+
+# Bundle all runtime artifacts; resolves the versioned Python lib path dynamically
+# to avoid hardcoding the Python version (Wolfi installs packages to /usr/lib/python3.x/)
+RUN PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')") && \
+    tar -cf /upstream-payload.tar \
+        /usr/local \
+        /usr/bin/python3 \
+        /usr/bin/python${PY_VER} \
+        /usr/bin/litellm \
+        /usr/lib/python${PY_VER} \
+        /usr/lib/libpython${PY_VER}.so.1.0 \
+        /usr/lib/libcrypto.so.3 \
+        /usr/lib/libssl.so.3 \
+        /usr/lib/libgcc_s.so.1 \
+        /usr/bin/node \
+        /usr/lib/node_modules \
+        /app
 
 FROM ${BUILD_FROM}
 
@@ -10,18 +27,26 @@ ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_REF
 
-# Copy Python environment and litellm from upstream image
-COPY --from=upstream /usr/local /usr/local
-
-# Install system runtime dependencies and jq
+# Install system runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         jq \
         libssl3 \
         libffi8 \
+        libsndfile1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Extract Python, Node.js, and litellm from upstream image.
+# Override Ubuntu's OpenSSL 3.0 with the upstream's OpenSSL 3.6 that Python was compiled against.
+COPY --from=upstream /upstream-payload.tar /tmp/
+RUN tar xf /tmp/upstream-payload.tar -C / && \
+    cp -f /usr/lib/libcrypto.so.3 /usr/lib/x86_64-linux-gnu/libcrypto.so.3 && \
+    cp -f /usr/lib/libssl.so.3 /usr/lib/x86_64-linux-gnu/libssl.so.3 && \
+    cp -f /usr/lib/libgcc_s.so.1 /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 && \
+    ldconfig && \
+    rm /tmp/upstream-payload.tar
 
 COPY run.sh /
 RUN chmod a+x /run.sh
