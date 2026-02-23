@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": ["**/Dockerfile"],
+      "bumpVersions": [
+        {
+          "name": "Updating App version",
+          "filePatterns": ["{{packageFileDir}}/config.{yaml,yml}"],
+          // Capture the semantic version after "version:"
+          "matchStrings": ["version:\\s(?<version>[^\\s]+)"],
+          // Example: patch for patch updates, minor otherwise
+          "bumpType": "{{#if isPatch}}patch{{else}}minor{{/if}}"
+        }
+      ]
+    }
+  ]
+}
