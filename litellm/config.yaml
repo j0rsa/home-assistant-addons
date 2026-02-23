@@ -1,0 +1,41 @@
+---
+name: LiteLLM
+version: 1.0.0
+slug: litellm
+description: |
+  LiteLLM Proxy Server
+
+  Unified LLM API gateway supporting 100+ providers including OpenAI, Anthropic, and Ollama.
+  Route requests through a single OpenAI-compatible endpoint with cost tracking, API key
+  management, and a web UI.
+init: false
+startup: services
+arch:
+  - aarch64
+  - amd64
+map:
+  - addon_config:rw
+boot: auto
+codenotary: red.avtovo@gmail.com
+image: "ghcr.io/j0rsa/haddon-litellm-{arch}"
+udev: false
+url: https://github.com/j0rsa/home-assistant-apps
+webui: http://[HOST]:[PORT:4000]/ui
+watchdog: http://[HOST]:[PORT:4000]/health/liveliness
+ports:
+  4000/tcp: 4000
+ports_description:
+  4000/tcp: LiteLLM proxy API and web UI
+panel_icon: mdi:brain
+options:
+  master_key: sk-change-this-master-key
+  salt_key: change-this-random-salt
+  ui_username: admin
+  ui_password: ""
+  database_url: postgresql://user:pass@host:5432/litellm
+schema:
+  master_key: str
+  salt_key: str
+  ui_username: str
+  ui_password: password
+  database_url: str
