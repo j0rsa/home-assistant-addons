@@ -9,10 +9,7 @@ ARG BUILD_DATE
 ARG BUILD_REF
 
 # Install jq to read Home Assistant options.json
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends jq && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache jq
 
 COPY run.sh /
 RUN chmod a+x /run.sh
