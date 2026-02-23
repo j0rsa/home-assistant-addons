@@ -41,10 +41,11 @@ RUN apt-get update && \
 # Extract Python, Node.js, and litellm from upstream image.
 # Override Ubuntu's OpenSSL 3.0 with the upstream's OpenSSL 3.6 that Python was compiled against.
 COPY --from=upstream /upstream-payload.tar /tmp/
-RUN tar xf /tmp/upstream-payload.tar -C / && \
-    cp -f /usr/lib/libcrypto.so.3 /usr/lib/x86_64-linux-gnu/libcrypto.so.3 && \
-    cp -f /usr/lib/libssl.so.3 /usr/lib/x86_64-linux-gnu/libssl.so.3 && \
-    cp -f /usr/lib/libgcc_s.so.1 /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 && \
+RUN ARCH_LIB=/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH) && \
+    tar xf /tmp/upstream-payload.tar -C / && \
+    cp -f /usr/lib/libcrypto.so.3 "${ARCH_LIB}/libcrypto.so.3" && \
+    cp -f /usr/lib/libssl.so.3 "${ARCH_LIB}/libssl.so.3" && \
+    cp -f /usr/lib/libgcc_s.so.1 "${ARCH_LIB}/libgcc_s.so.1" && \
     ldconfig && \
     rm /tmp/upstream-payload.tar
 
