@@ -7,7 +7,6 @@ version: latest
 architectures:
   - amd64
   - aarch64
-  - armv7
 ports:
   - 80
   - 443
