@@ -1,7 +1,7 @@
 ---
-name: "Duplicati"
-version: "2.0.8.1"
-slug: "duplicati"
+name: Duplicati
+version: 2.0.8.1
+slug: duplicati
 description: |
   Duplicati 
   
@@ -22,7 +22,7 @@ map:
   - backup:rw
   - media:rw
 boot: auto
-codenotary: "red.avtovo@gmail.com"
+codenotary: red.avtovo@gmail.com
 image: "ghcr.io/j0rsa/haddon-duplicati-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-apps

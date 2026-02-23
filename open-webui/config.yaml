@@ -1,7 +1,7 @@
 ---
 name: "Open WebUI"
-version: "0.1.4"
-slug: "open_webui"
+version: 0.1.4
+slug: open_webui
 description: |
   Open WebUI (Formerly Ollama WebUI)
   
@@ -14,10 +14,10 @@ boot: auto
 map: 
   - share:rw
 options:
-  ollama_api_url: "http://ollama:11434"
+  ollama_api_url: http://ollama:11434
 schema:
   ollama_api_url: url
-codenotary: "red.avtovo@gmail.com"
+codenotary: red.avtovo@gmail.com
 image: "ghcr.io/j0rsa/haddon-open-webui-{arch}"
 ports:
   8080/tcp: 5000

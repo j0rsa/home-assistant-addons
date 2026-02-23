@@ -1,7 +1,7 @@
 ---
-name: "Xray"
-version: "1.2.0"
-slug: "xray"
+name: Xray
+version: 1.2.0
+slug: xray
 description: |
   Xray Client
   
@@ -14,7 +14,7 @@ environment:
   TZ: Etc/UTC
 options:
   xray_config_base64: ""
-  log_level: "warning"
+  log_level: warning
   debug_mode: false
 schema:
   xray_config_base64: str
@@ -29,7 +29,7 @@ arch:
 map: 
   - addon_config:rw
 boot: auto
-codenotary: "red.avtovo@gmail.com"
+codenotary: red.avtovo@gmail.com
 image: "ghcr.io/j0rsa/haddon-xray-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-apps

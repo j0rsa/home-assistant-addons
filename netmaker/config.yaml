@@ -1,7 +1,7 @@
 ---
-name: "Netmaker Client"
-version: "1.0.12"
-slug: "netmaker"
+name: Netmaker Client
+version: 1.0.12
+slug: netmaker
 description: |
   Netmaker WireGuard Client
   
@@ -14,12 +14,12 @@ environment:
   PGID: "0"
   TZ: Etc/UTC
 options:
-  host_name: "homeassistant-netmaker"
+  host_name: homeassistant-netmaker
   netclient_token: ""
-  wg_interface: "wg0"
-  socks_proxy: "homeassistant:1080"
+  wg_interface: wg0
+  socks_proxy: homeassistant:1080
   wg_2_socks_proxy: true
-  log_level: "info"
+  log_level: info
   debug_mode: false
   auto_restart: true
 schema:
@@ -44,7 +44,7 @@ arch:
 map: 
   - addon_config:rw
 boot: auto
-codenotary: "red.avtovo@gmail.com"
+codenotary: red.avtovo@gmail.com
 image: "ghcr.io/j0rsa/haddon-netmaker-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-apps

@@ -1,7 +1,7 @@
 ---
-name: "HevSocks5 TProxy"
-version: "2.0.0"
-slug: "hev-socks5-tproxy"
+name: HevSocks5 TProxy
+version: 2.0.0
+slug: hev-socks5-tproxy
 description: |
   Transparent SOCKS5 proxy client for Linux.
 
@@ -15,7 +15,7 @@ options:
   socks5_port: 1080
   socks5_username: ""
   socks5_password: ""
-  socks5_udp_mode: "udp"
+  socks5_udp_mode: udp
   # --- Local Listener ---
   listen_tcp_ports:
     - 80
@@ -49,7 +49,7 @@ arch:
   - aarch64
   - amd64
 boot: auto
-codenotary: "red.avtovo@gmail.com"
+codenotary: red.avtovo@gmail.com
 image: "ghcr.io/j0rsa/haddon-hev-socks5-tproxy-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-apps

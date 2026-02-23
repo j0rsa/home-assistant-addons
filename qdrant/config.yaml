@@ -1,7 +1,7 @@
 ---
-name: "Qdrant"
-version: "1.16.3"
-slug: "qdrant"
+name: Qdrant
+version: 1.16.3
+slug: qdrant
 description: |
   Qdrant Vector Database
 
@@ -17,7 +17,7 @@ options:
   api_key: ""
   read_only_api_key: ""
   read_only: false
-  log_level: "INFO"
+  log_level: INFO
   max_request_size_mb: 32
 schema:
   web_ui_enabled: bool
@@ -35,7 +35,7 @@ map:
   - addon_config:rw
   - data:rw
 boot: auto
-codenotary: "red.avtovo@gmail.com"
+codenotary: red.avtovo@gmail.com
 image: "ghcr.io/j0rsa/haddon-qdrant-{arch}"
 udev: false
 url: https://github.com/j0rsa/home-assistant-apps
