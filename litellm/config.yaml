@@ -34,8 +34,8 @@ options:
   ui_password: ""
   database_url: postgresql://user:pass@host:5432/litellm
 schema:
-  master_key: str
-  salt_key: str
+  master_key: spasswordr
+  salt_key: password
   ui_username: str
   ui_password: password
-  database_url: str
+  database_url: password
