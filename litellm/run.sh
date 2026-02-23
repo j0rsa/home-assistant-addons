@@ -10,6 +10,7 @@ SALT_KEY=$(jq -r '.salt_key' "${OPTIONS_FILE}")
 UI_USERNAME=$(jq -r '.ui_username' "${OPTIONS_FILE}")
 UI_PASSWORD=$(jq -r '.ui_password' "${OPTIONS_FILE}")
 DATABASE_URL=$(jq -r '.database_url' "${OPTIONS_FILE}")
+STORE_MODEL_IN_DB=$(jq -r 'if .store_model_in_db then "True" else "False" end' "${OPTIONS_FILE}")
 
 # Export as environment variables consumed by LiteLLM
 export LITELLM_MASTER_KEY="${MASTER_KEY}"
@@ -17,6 +18,7 @@ export LITELLM_SALT_KEY="${SALT_KEY}"
 export UI_USERNAME="${UI_USERNAME}"
 export UI_PASSWORD="${UI_PASSWORD}"
 export DATABASE_URL="${DATABASE_URL}"
+export STORE_MODEL_IN_DB="${STORE_MODEL_IN_DB}"
 export PROXY_ADMIN_ID="${UI_USERNAME}"
 
 # Create a default model config if none exists yet

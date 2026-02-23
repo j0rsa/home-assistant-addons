@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.81.12-1
+
+- Add `store_model_in_db` boolean option to persist model definitions in the database
+
 ## 1.0.0
 
 - Initial release with LiteLLM proxy server

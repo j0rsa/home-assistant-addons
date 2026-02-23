@@ -45,6 +45,7 @@ salt_key: change-this-random-salt
 ui_username: admin
 ui_password: your-ui-password
 database_url: postgresql://user:pass@host:5432/litellm
+store_model_in_db: true
 ```
 
 | Option | Description | Required |
@@ -54,6 +55,7 @@ database_url: postgresql://user:pass@host:5432/litellm
 | `ui_username` | Web UI login username | Yes |
 | `ui_password` | Web UI login password | Yes |
 | `database_url` | PostgreSQL connection string | Yes |
+| `store_model_in_db` | Store model definitions in PostgreSQL (enables UI-based model management) | No |
 
 ## Model Configuration
 
