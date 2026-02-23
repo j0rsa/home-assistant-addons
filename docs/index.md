@@ -66,6 +66,15 @@ Feature-rich web interface for Ollama. ChatGPT-like experience with your local m
 
 **Architectures:** `aarch64` `amd64`
 
+#### [LiteLLM](/apps/litellm/)
+Unified LLM API gateway supporting 100+ providers through a single OpenAI-compatible endpoint.
+- Route requests to OpenAI, Anthropic, Ollama, and more
+- Virtual API keys with per-key rate limits and budget caps
+- Cost tracking and usage dashboards
+- Web UI for model and key management
+
+**Architectures:** `aarch64` `amd64`
+
 #### [Qdrant](/apps/qdrant/)
 High-performance vector database for AI applications. Essential for semantic search and RAG systems.
 - REST and gRPC APIs

@@ -1,0 +1,17 @@
+services:
+  litellm:
+    image: docker.litellm.ai/berriai/litellm:main-stable
+    ports: ["4000:4000"]
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/litellm
+      - LITELLM_MASTER_KEY=sk-1234
+      - LITELLM_SALT_KEY=your_random_salt
+      - UI_USERNAME=admin
+      - UI_PASSWORD=sk-1234
+      - PROXY_ADMIN_ID=admin
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: litellm
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
