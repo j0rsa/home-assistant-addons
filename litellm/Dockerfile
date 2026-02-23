@@ -18,7 +18,9 @@ RUN PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.versi
         /usr/lib/libgcc_s.so.1 \
         /usr/bin/node \
         /usr/lib/node_modules \
-        /app
+        /app \
+        /root/.cache/prisma-python \
+        /root/.cache/prisma
 
 FROM ${BUILD_FROM}
 
