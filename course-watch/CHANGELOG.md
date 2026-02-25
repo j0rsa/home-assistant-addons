@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Fix share volume mapping to read-only
+- Fix port conflict by removing host port binding — ingress-only access
+
 ## 1.0.0
 
 - Add initial release

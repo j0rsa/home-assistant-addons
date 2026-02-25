@@ -7,8 +7,6 @@ version: latest
 architectures:
   - amd64
   - aarch64
-ports:
-  - 8099
 ---
 
 # Course Watch
