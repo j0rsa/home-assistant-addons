@@ -504,12 +504,13 @@
   function proxyUrl(url) {
     if (!url) return url;
     try {
-      // new URL(url) without a base throws for relative paths —
-      // route those through /proxy/ so the server prepends MEDIA_URL and adds auth
+      // Resolve proxy/ relative to the current page so HA ingress prefixes
+      // (e.g. /d4005b6b_course-watch/) are preserved automatically.
       const p = new URL(url);
-      return p.origin !== window.location.origin ? '/proxy/' + url : url;
+      if (p.origin === window.location.origin) return url;
+      return new URL('proxy/' + url, window.location.href).href;
     } catch (_) {
-      return '/proxy/' + url;
+      return new URL('proxy/' + url, window.location.href).href;
     }
   }
 
@@ -537,6 +538,15 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
+  }
+
+  function humanise(s) {
+    return s.replace(/[_.\-]+/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .split(' ')
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(' ');
   }
 
   function highlight(text, query) {
@@ -586,7 +596,7 @@
         html += `
           <div class="search-result${fi === currentFlat ? ' active' : ''}" data-flat="${fi}">
             <div class="search-result-title">${highlight(f.video.title, q)}</div>
-            <div class="search-result-crumb">${esc(f.course.name)} / ${esc(f.section.name)}</div>
+            <div class="search-result-crumb">${esc(humanise(f.course.name))} / ${esc(humanise(f.section.name))}</div>
           </div>`;
       });
       nav.innerHTML = html;
@@ -597,14 +607,14 @@
     let html = '';
     courses.forEach((course, ci) => {
       html += `<div class="course">`;
-      html += `<div class="course-name">${esc(course.name)}</div>`;
+      html += `<div class="course-name">${esc(humanise(course.name))}</div>`;
 
       course.sections.forEach((section, si) => {
         const id = `sec-${ci}-${si}`;
         html += `
           <div class="section" id="${id}">
             <div class="section-header" data-toggle="${id}">
-              <span class="section-label">${esc(section.name)}</span>
+              <span class="section-label">${esc(humanise(section.name))}</span>
               <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
@@ -649,7 +659,7 @@
     document.title = video.title;
     document.getElementById('meta-title').textContent = video.title;
     document.getElementById('meta-crumb').innerHTML =
-      `${esc(course.name)}<span class="sep">/</span>${esc(section.name)}`;
+      `${esc(humanise(course.name))}<span class="sep">/</span>${esc(humanise(section.name))}`;
 
     // Nav buttons
     document.getElementById('btn-prev').disabled = fi === 0;

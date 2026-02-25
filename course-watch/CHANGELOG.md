@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Fix proxy URL resolution behind HA ingress (use page-relative path)
+- Humanise course and section names in the UI (replace _ - . with spaces, title-case)
+
 ## 1.0.1
 
 - Fix share volume mapping to read-only
