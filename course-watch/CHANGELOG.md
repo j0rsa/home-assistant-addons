@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- Add loading spinner overlay when switching to a new video
+- Fix player pausing current video immediately on selection
+- Improve course title readability: remove italic, larger size, primary text colour
+- Add Expand all / Collapse all buttons to sidebar
+- Hide Expand/Collapse controls while search is active
+
 ## 1.0.2
 
 - Fix proxy URL resolution behind HA ingress (use page-relative path)

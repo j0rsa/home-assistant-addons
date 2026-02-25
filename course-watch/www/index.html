@@ -122,6 +122,25 @@
       pointer-events: none;
     }
 
+    .fold-controls {
+      display: flex;
+      gap: 10px;
+      padding: 8px 14px 0;
+    }
+
+    .fold-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.12s;
+    }
+    .fold-btn:hover { color: var(--text-secondary); }
+
     .sidebar-nav {
       flex: 1;
       overflow-y: auto;
@@ -142,12 +161,12 @@
     }
 
     .course-name {
-      padding: 10px 14px 5px;
+      padding: 10px 14px 6px;
       font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 13px;
-      color: var(--text-secondary);
-      letter-spacing: 0.01em;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.02em;
       user-select: none;
     }
 
@@ -327,6 +346,32 @@
       transform: translate(-50%, -50%) scale(1);
     }
 
+    /* ── Player loading ──────────────────────────────────── */
+
+    .player-loading {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .player-loading.show { opacity: 1; }
+
+    .loading-spinner {
+      width: 38px;
+      height: 38px;
+      border: 3px solid rgba(184, 148, 74, 0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     /* ── Video meta ──────────────────────────────────────── */
 
     .video-meta {
@@ -453,6 +498,10 @@
           spellcheck="false"
         >
       </div>
+      <div class="fold-controls" id="fold-controls">
+        <button class="fold-btn" id="btn-expand-all">Expand all</button>
+        <button class="fold-btn" id="btn-collapse-all">Collapse all</button>
+      </div>
     </div>
     <nav class="sidebar-nav" id="sidebar-nav"></nav>
   </aside>
@@ -461,6 +510,7 @@
   <main class="player-area">
     <div class="player-container">
       <video id="player" playsinline controls></video>
+      <div id="player-loading" class="player-loading"><div class="loading-spinner"></div></div>
       <div id="toast" class="toast"></div>
     </div>
 
@@ -652,6 +702,12 @@
 
   async function loadVideo(fi) {
     if (fi < 0 || fi >= flatVideos.length) return;
+
+    // Stop current playback and show loading state
+    player.pause();
+    const loadingEl = document.getElementById('player-loading');
+    loadingEl.classList.add('show');
+
     currentFlat = fi;
     const { course, section, video } = flatVideos[fi];
 
@@ -683,6 +739,15 @@
         return null;
       });
     }
+
+    // Hide the spinner once the new source is ready (or on error)
+    const hideLoading = () => {
+      loadingEl.classList.remove('show');
+      player.off('canplay', hideLoading);
+      player.off('error',   hideLoading);
+    };
+    player.on('canplay', hideLoading);
+    player.on('error',   hideLoading);
 
     player.source = {
       type: 'video',
@@ -742,6 +807,16 @@
 
   document.getElementById('search').addEventListener('input', e => {
     renderSidebar(e.target.value);
+    document.getElementById('fold-controls').style.display =
+      e.target.value.trim() ? 'none' : '';
+  });
+
+  document.getElementById('btn-expand-all').addEventListener('click', () => {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+  });
+
+  document.getElementById('btn-collapse-all').addEventListener('click', () => {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
   });
 
   // ── Init ─────────────────────────────────────────────────────────────────
