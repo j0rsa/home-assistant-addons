@@ -1,7 +1,7 @@
 ---
 name: "Course Watch"
-version: "1.1.0"
-slug: "course-watch"
+version: 1.1.0
+slug: course-watch
 description: |
   Video course player with WebDAV support.
 
