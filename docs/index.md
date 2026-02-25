@@ -46,6 +46,19 @@ Modern web frontend for the powerful aria2 download utility. Manage all your dow
 
 ---
 
+### 🎬 Media
+
+#### [Course Watch](/apps/course-watch/)
+Self-hosted video course player with WebDAV support. Browse and watch your locally stored video courses directly from Home Assistant.
+- Hierarchical course, section, and video browser
+- Real-time search across all content
+- WebDAV proxy with Basic Auth for private storage
+- Automatic SRT subtitle conversion
+
+**Architectures:** `aarch64` `amd64`
+
+---
+
 ### 🤖 AI & Machine Learning
 
 #### [Ollama](/apps/ollama/)

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <style>
+    :root {
+      --plyr-color-main: #b8944a;
+      --plyr-font-family: 'DM Sans', sans-serif;
+
+      --bg:            #0a0a0a;
+      --sidebar-bg:    #0d0d0d;
+      --surface:       #151515;
+      --surface-hover: #1b1b1b;
+      --border:        #1e1e1e;
+      --border-light:  #272727;
+
+      --accent:        #b8944a;
+      --accent-subtle: rgba(184, 148, 74, 0.07);
+      --accent-border: rgba(184, 148, 74, 0.22);
+
+      --text:          #ddd8ce;
+      --text-secondary:#7a756e;
+      --text-muted:    #3d3b38;
+
+      --sidebar-width: 284px;
+      --r:             5px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ─────────────────────────────────────────── */
+
+    .app {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────── */
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar-top {
+      flex-shrink: 0;
+      padding: 18px 14px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .brand-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.03em;
+    }
+
+    .search-wrap { position: relative; }
+
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--r);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      padding: 7px 10px 7px 32px;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus {
+      border-color: var(--accent-border);
+      background: #181818;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 0 16px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-light) transparent;
+    }
+    .sidebar-nav::-webkit-scrollbar { width: 3px; }
+    .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+
+    /* ── Course / Section / Video ────────────────────────── */
+
+    .course + .course {
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+      padding-top: 4px;
+    }
+
+    .course-name {
+      padding: 10px 14px 5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+      user-select: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px 5px 18px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-header:hover .section-label { color: var(--text-secondary); }
+
+    .section-label {
+      flex: 1;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.15s;
+    }
+
+    .section-chevron {
+      width: 11px;
+      height: 11px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.18s ease;
+    }
+    .section.collapsed .section-chevron { transform: rotate(-90deg); }
+    .section.collapsed .section-videos  { display: none; }
+
+    .section-videos { padding-bottom: 2px; }
+
+    .video-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px 6px 24px;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: background 0.1s, border-color 0.1s;
+    }
+    .video-item:hover { background: var(--surface-hover); }
+    .video-item.active {
+      background: var(--accent-subtle);
+      border-left-color: var(--accent);
+    }
+
+    .video-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      flex-shrink: 0;
+      transition: background 0.1s;
+    }
+    .video-item:hover  .video-dot,
+    .video-item.active .video-dot { background: var(--accent); }
+
+    .video-item-title {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.1s;
+    }
+    .video-item:hover  .video-item-title,
+    .video-item.active .video-item-title { color: var(--text); }
+
+    /* ── Search results ──────────────────────────────────── */
+
+    .search-count {
+      padding: 8px 14px 3px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .search-result {
+      display: flex;
+      flex-direction: column;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: background 0.1s, border-color 0.1s;
+    }
+    .search-result:hover { background: var(--surface-hover); }
+    .search-result.active {
+      background: var(--accent-subtle);
+      border-left-color: var(--accent);
+    }
+
+    .search-result-title {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      transition: color 0.1s;
+    }
+    .search-result:hover  .search-result-title,
+    .search-result.active .search-result-title { color: var(--text); }
+
+    .search-result-crumb {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    mark {
+      background: none;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .empty-state {
+      padding: 28px 14px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* ── Player area ─────────────────────────────────────── */
+
+    .player-area {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--bg);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-light) transparent;
+    }
+    .player-area::-webkit-scrollbar { width: 3px; }
+    .player-area::-webkit-scrollbar-track { background: transparent; }
+    .player-area::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+
+    .player-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      flex-shrink: 0;
+    }
+    .player-container video { width: 100%; display: block; }
+
+    /* ── Toast ───────────────────────────────────────────── */
+
+    .toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 600;
+      padding: 0.35em 0.8em;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s ease, transform 0.12s ease;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* ── Video meta ──────────────────────────────────────── */
+
+    .video-meta {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .meta-crumb {
+      font-size: 10.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    .meta-crumb .sep { color: var(--text-muted); margin: 0 5px; }
+
+    .meta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    /* ── Prev / Next ─────────────────────────────────────── */
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--r);
+      color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      padding: 5px 11px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .nav-btn svg { width: 13px; height: 13px; }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+    .nav-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+
+    .nav-spacer { flex: 1; }
+
+    .nav-position {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── Keyboard shortcuts ──────────────────────────────── */
+
+    .shortcuts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 14px;
+      padding: 10px 22px 14px;
+      flex-shrink: 0;
+    }
+
+    .shortcut {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 9.5px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-secondary);
+      min-width: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="brand-name">Archive</span>
+      </div>
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="search"
+          id="search"
+          class="search-input"
+          placeholder="Search videos…"
+          autocomplete="off"
+          spellcheck="false"
+        >
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <!-- ── Player ─────────────────────────────────────────── -->
+  <main class="player-area">
+    <div class="player-container">
+      <video id="player" playsinline controls></video>
+      <div id="toast" class="toast"></div>
+    </div>
+
+    <div class="video-meta">
+      <p class="meta-crumb" id="meta-crumb">&nbsp;</p>
+      <h1 class="meta-title" id="meta-title">Loading…</h1>
+    </div>
+
+    <div class="nav-controls">
+      <button class="nav-btn" id="btn-prev" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Previous
+      </button>
+      <span class="nav-spacer"></span>
+      <span class="nav-position" id="nav-position"></span>
+      <span class="nav-spacer"></span>
+      <button class="nav-btn" id="btn-next" disabled>
+        Next
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="shortcuts">
+      <span class="shortcut">Speed: <kbd>&lt;</kbd><kbd>&gt;</kbd></span>
+      <span class="shortcut">Seek: <kbd>←</kbd><kbd>→</kbd></span>
+      <span class="shortcut">Play: <kbd>Space</kbd></span>
+      <span class="shortcut">Captions: <kbd>C</kbd></span>
+      <span class="shortcut">Fullscreen: <kbd>F</kbd></span>
+      <span class="shortcut">Mute: <kbd>M</kbd></span>
+    </div>
+  </main>
+
+</div>
+
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script>
+  const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+
+  // ── Utilities ────────────────────────────────────────────────────────────
+
+  function proxyUrl(url) {
+    if (!url) return url;
+    try {
+      // new URL(url) without a base throws for relative paths —
+      // route those through /proxy/ so the server prepends MEDIA_URL and adds auth
+      const p = new URL(url);
+      return p.origin !== window.location.origin ? '/proxy/' + url : url;
+    } catch (_) {
+      return '/proxy/' + url;
+    }
+  }
+
+  function srtToVtt(text) {
+    return 'WEBVTT\n\n' +
+      text.trim()
+          .replace(/\r\n/g, '\n')
+          .replace(/\r/g, '\n')
+          .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2');
+  }
+
+  async function fetchSubtitles(url) {
+    const res = await fetch(proxyUrl(url));
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const buf = await res.arrayBuffer();
+    // Silently skip binary formats (VobSub etc.)
+    const head = new Uint8Array(buf, 0, Math.min(512, buf.byteLength));
+    if (head.some(b => b === 0)) return null;
+    const vtt = srtToVtt(new TextDecoder().decode(buf));
+    return URL.createObjectURL(new Blob([vtt], { type: 'text/vtt' }));
+  }
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function highlight(text, query) {
+    if (!query) return esc(text);
+    const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return esc(text).replace(re, '<mark>$1</mark>');
+  }
+
+  // ── State ────────────────────────────────────────────────────────────────
+
+  let courses    = [];
+  let flatVideos = [];   // [{ ci, si, vi, course, section, video }]
+  let currentFlat = -1;
+
+  function buildFlat() {
+    flatVideos = [];
+    courses.forEach((course, ci) =>
+      course.sections.forEach((section, si) =>
+        section.videos.forEach((video, vi) =>
+          flatVideos.push({ ci, si, vi, course, section, video })
+        )
+      )
+    );
+  }
+
+  // ── Sidebar ──────────────────────────────────────────────────────────────
+
+  function renderSidebar(query = '') {
+    const nav = document.getElementById('sidebar-nav');
+    const q   = query.toLowerCase().trim();
+
+    if (q) {
+      const matches = flatVideos.filter(f =>
+        f.video.title.toLowerCase().includes(q) ||
+        f.section.name.toLowerCase().includes(q) ||
+        f.course.name.toLowerCase().includes(q)
+      );
+
+      if (!matches.length) {
+        nav.innerHTML = `<p class="empty-state">No results for &ldquo;${esc(query)}&rdquo;</p>`;
+        return;
+      }
+
+      let html = `<p class="search-count">${matches.length} result${matches.length !== 1 ? 's' : ''}</p>`;
+      matches.forEach(f => {
+        const fi = flatVideos.indexOf(f);
+        html += `
+          <div class="search-result${fi === currentFlat ? ' active' : ''}" data-flat="${fi}">
+            <div class="search-result-title">${highlight(f.video.title, q)}</div>
+            <div class="search-result-crumb">${esc(f.course.name)} / ${esc(f.section.name)}</div>
+          </div>`;
+      });
+      nav.innerHTML = html;
+      return;
+    }
+
+    // Full tree view
+    let html = '';
+    courses.forEach((course, ci) => {
+      html += `<div class="course">`;
+      html += `<div class="course-name">${esc(course.name)}</div>`;
+
+      course.sections.forEach((section, si) => {
+        const id = `sec-${ci}-${si}`;
+        html += `
+          <div class="section" id="${id}">
+            <div class="section-header" data-toggle="${id}">
+              <span class="section-label">${esc(section.name)}</span>
+              <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+            <div class="section-videos">`;
+
+        section.videos.forEach((video, vi) => {
+          const fi = flatVideos.findIndex(f => f.ci === ci && f.si === si && f.vi === vi);
+          html += `
+              <div class="video-item${fi === currentFlat ? ' active' : ''}" data-flat="${fi}">
+                <span class="video-dot"></span>
+                <span class="video-item-title">${esc(video.title)}</span>
+              </div>`;
+        });
+
+        html += `</div></div>`;
+      });
+      html += `</div>`;
+    });
+    nav.innerHTML = html;
+  }
+
+  // ── Player ───────────────────────────────────────────────────────────────
+
+  const player = new Plyr('#player', {
+    captions:  { active: true, language: 'auto', update: true },
+    speed:     { selected: 1, options: SPEED_OPTIONS },
+    keyboard:  { focused: true, global: true },
+    tooltips:  { controls: true, seek: true },
+    controls:  ['play-large','play','rewind','fast-forward','progress',
+                'current-time','duration','mute','volume','captions',
+                'settings','pip','fullscreen'],
+    settings:  ['captions','quality','speed'],
+  });
+
+  async function loadVideo(fi) {
+    if (fi < 0 || fi >= flatVideos.length) return;
+    currentFlat = fi;
+    const { course, section, video } = flatVideos[fi];
+
+    // Meta
+    document.title = video.title;
+    document.getElementById('meta-title').textContent = video.title;
+    document.getElementById('meta-crumb').innerHTML =
+      `${esc(course.name)}<span class="sep">/</span>${esc(section.name)}`;
+
+    // Nav buttons
+    document.getElementById('btn-prev').disabled = fi === 0;
+    document.getElementById('btn-next').disabled = fi === flatVideos.length - 1;
+    document.getElementById('nav-position').textContent = `${fi + 1} / ${flatVideos.length}`;
+
+    // Re-render sidebar with active state
+    renderSidebar(document.getElementById('search').value);
+
+    // Scroll active item into view
+    requestAnimationFrame(() => {
+      document.querySelector('[data-flat].active, .search-result.active')
+        ?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+
+    // Subtitles
+    let vttUrl = null;
+    if (video.sub) {
+      vttUrl = await fetchSubtitles(video.sub).catch(err => {
+        console.warn('Subtitles failed:', err);
+        return null;
+      });
+    }
+
+    player.source = {
+      type: 'video',
+      sources: [{ src: proxyUrl(video.video), type: 'video/mp4' }],
+      tracks: vttUrl
+        ? [{ kind: 'subtitles', label: 'English', srclang: 'en', src: vttUrl, default: true }]
+        : [],
+    };
+  }
+
+  // ── Toast ────────────────────────────────────────────────────────────────
+
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1200);
+  }
+
+  // ── Keyboard ─────────────────────────────────────────────────────────────
+
+  document.addEventListener('keydown', e => {
+    if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+    const seekTime = player.config?.seekTime ?? 10;
+    if      (e.key === 'ArrowLeft')  showToast(`−${seekTime}s`);
+    else if (e.key === 'ArrowRight') showToast(`+${seekTime}s`);
+    else {
+      const idx = SPEED_OPTIONS.findIndex(s => Math.abs(s - player.speed) < 0.01);
+      if (e.key === '<' && idx > 0) {
+        player.speed = SPEED_OPTIONS[idx - 1];
+        showToast(`${SPEED_OPTIONS[idx - 1]}×`);
+        e.preventDefault();
+      } else if (e.key === '>' && idx < SPEED_OPTIONS.length - 1) {
+        player.speed = SPEED_OPTIONS[idx + 1];
+        showToast(`${SPEED_OPTIONS[idx + 1]}×`);
+        e.preventDefault();
+      }
+    }
+  });
+
+  // ── Events ───────────────────────────────────────────────────────────────
+
+  document.getElementById('sidebar-nav').addEventListener('click', e => {
+    const item = e.target.closest('[data-flat]');
+    if (item) { loadVideo(Number(item.dataset.flat)); return; }
+
+    const toggle = e.target.closest('[data-toggle]');
+    if (toggle) {
+      document.getElementById(toggle.dataset.toggle)?.classList.toggle('collapsed');
+    }
+  });
+
+  document.getElementById('btn-prev').addEventListener('click', () => loadVideo(currentFlat - 1));
+  document.getElementById('btn-next').addEventListener('click', () => loadVideo(currentFlat + 1));
+
+  document.getElementById('search').addEventListener('input', e => {
+    renderSidebar(e.target.value);
+  });
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+
+  fetch('courses.json')
+    .then(r => r.json())
+    .then(data => {
+      courses = data.courses;
+      buildFlat();
+      renderSidebar();
+      if (flatVideos.length) loadVideo(0);
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('meta-title').textContent = 'Failed to load courses';
+      document.getElementById('meta-title').style.color = '#f87171';
+    });
+</script>
+</body>
+</html>
