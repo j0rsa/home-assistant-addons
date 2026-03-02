@@ -3,7 +3,7 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base-python:18.0.0
 FROM ${BUILD_FROM}
 
 # https://github.com/open-webui/open-webui/pkgs/container/open-webui/versions?filters%5Bversion_type%5D=tagged
-FROM ghcr.io/open-webui/open-webui:v0.8.5
+FROM ghcr.io/open-webui/open-webui:v0.8.7
 
 COPY run.sh /
 RUN chmod a+x /run.sh
